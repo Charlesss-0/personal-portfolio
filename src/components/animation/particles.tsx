@@ -27,9 +27,9 @@ export default function ParticlesCanvas() {
 				cover: {
 					color: {
 						value: {
-							r: 0,
-							g: 0,
-							b: 0,
+							r: 1,
+							g: 24,
+							b: 37,
 						},
 					},
 					opacity: 1,
@@ -169,11 +169,7 @@ export default function ParticlesCanvas() {
 	)
 
 	if (init) {
-		return (
-			<div className="h-screen">
-				<Particles id="tsparticles" options={options} className="h-full" />
-			</div>
-		)
+		return <Particles id="tsparticles" options={options} className="h-full" />
 	}
 
 	return <></>

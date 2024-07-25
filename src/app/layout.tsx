@@ -2,7 +2,7 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
-import StyledComponentsRegistry from '../hoc/Registry'
+import StyledComponentsRegistry from '@/src/hoc/Registry'
 
 const montserrat = Montserrat({
 	weight: '500',

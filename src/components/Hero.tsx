@@ -15,7 +15,7 @@ const chakraPetch = Chakra_Petch({
 
 export default function Hero() {
 	return (
-		<div className="text-base-100 select-none">
+		<div id="hero" className="h-screen text-base-100 select-none">
 			<ParticlesCanvas />
 
 			<div className="absolute bottom-32 left-0 px-5">

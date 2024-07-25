@@ -7,8 +7,17 @@
 	--core-select: #98abee55;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	color: var(--core-text-hex);
+	background-color: #011825;
+	background-image: radial-gradient(#2f2f2f 1px, transparent 0);
+	background-size: 30px 30px;
+	background-position: -5px -5px;
+	background-attachment: fixed;
 }
 
 ::selection {
