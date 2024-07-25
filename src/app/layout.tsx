@@ -2,6 +2,7 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
+import StyledComponentsRegistry from '../hoc/Registry'
 
 const montserrat = Montserrat({
 	weight: '500',
@@ -15,8 +16,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
-			<body className={montserrat.className}>{children}</body>
-		</html>
+		<StyledComponentsRegistry>
+			<html lang="en" data-theme="appTheme">
+				<body className={montserrat.className}>
+					<main>{children}</main>
+				</body>
+			</html>
+		</StyledComponentsRegistry>
 	)
 }

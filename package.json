@@ -12,9 +12,12 @@
     "@tsparticles/engine": "^3.5.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.5.0",
+    "daisyui": "^4.12.10",
+    "framer-motion": "^11.3.17",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@types/node": "^20",
