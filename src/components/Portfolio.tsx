@@ -1,6 +1,5 @@
 import Card from './ui/3dCard'
 import { Chakra_Petch } from 'next/font/google'
-// import Card from '../ui/3dCard'
 import React from 'react'
 import { portfolio } from '@/src/data'
 import styled from 'styled-components'
@@ -46,10 +45,10 @@ const LinkToProjectsBtn = styled.button`
 	}
 `
 
-export default function Portfolio(): React.ReactNode {
+export default function Portfolio() {
 	return (
-		<div id="portfolio" className="text-base-100 py-20">
-			<h1 className={`text-6xl text-center mb-16 ${chakraPetch.className}`}>Portfolio</h1>
+		<section id="portfolio" className={`text-base-100 py-20 ${chakraPetch.className}`}>
+			<h1 className="text-6xl text-center mb-16">Portfolio</h1>
 
 			<ul className="flex flex-col gap-80 p-10 px-16">
 				{portfolio.map((project, index) => (
@@ -58,8 +57,8 @@ export default function Portfolio(): React.ReactNode {
 							<Card img={project.img} alt={project.name} />
 						</div>
 
-						<div className="w-full text-center flex flex-col gap-10 justify-center items-center">
-							<h1 className={`text-6xl ${chakraPetch.className}`}>{project.name}</h1>
+						<div className="w-full text-center flex flex-col justify-around items-center">
+							<h1 className="text-6xl">{project.name}</h1>
 
 							<p className="w-[50%] text-xl text-neutral-content">{project.description}</p>
 
@@ -72,6 +71,6 @@ export default function Portfolio(): React.ReactNode {
 					</li>
 				))}
 			</ul>
-		</div>
+		</section>
 	)
 }

@@ -1,7 +1,8 @@
 import { navLinks } from '@/src/data'
 import styled from 'styled-components'
+import { useActiveSection } from '../hooks'
 
-const NavbarContainer = styled.div`
+const NavbarContainer = styled.nav`
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -12,22 +13,22 @@ const NavbarContainer = styled.div`
 	transform-origin: top right;
 `
 
-const NavLink = styled.li`
+const NavLink = styled.li<{ $active: boolean }>`
 	position: relative;
-	width: 6rem;
 	display: flex;
 	justify-content: center;
+	padding: 0 0.5rem;
 
 	&::after {
 		content: '';
 		position: absolute;
 		width: 100%;
-		transform: scaleX(0);
+		transform: ${props => (props.$active ? 'scaleX(1)' : 'scaleX(0)')};
 		height: 2px;
 		bottom: 0;
 		left: 0;
 		background-color: #fff;
-		transform-origin: bottom right;
+		transform-origin: ${props => (props.$active ? 'bottom left' : 'bottom right')};
 		transition: transform 0.25s linear;
 	}
 
@@ -38,15 +39,17 @@ const NavLink = styled.li`
 `
 
 export default function Navbar() {
+	const { activeSection } = useActiveSection()
+
 	return (
 		<NavbarContainer>
 			<ul className="flex justify-around font-bold text-xl [&>li>a]:cursor-pointer">
 				{navLinks.map(link => (
-					<NavLink key={link.id}>
-						<a key={link.id} href={link.id}>
+					<a key={link.id} href={`#${link.id}`}>
+						<NavLink key={link.id} $active={activeSection === link.id}>
 							{link.name}
-						</a>
-					</NavLink>
+						</NavLink>
+					</a>
 				))}
 			</ul>
 		</NavbarContainer>

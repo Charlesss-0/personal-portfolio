@@ -1,4 +1,5 @@
 import { Chakra_Petch, Montserrat } from 'next/font/google'
+import React, { forwardRef } from 'react'
 
 import ParticlesCanvas from './animation/particles'
 import Typewriter from './animation/typewriter'
@@ -15,7 +16,7 @@ const chakraPetch = Chakra_Petch({
 
 export default function Hero() {
 	return (
-		<div id="hero" className="h-screen text-base-100 select-none">
+		<section id="hero" className="h-screen text-base-100 select-none">
 			<ParticlesCanvas />
 
 			<div className="absolute bottom-32 left-0 px-5">
@@ -32,6 +33,6 @@ export default function Hero() {
 					className={`text-5xl text-right font-semibold md:text-3xl ${montserrat.className}`}
 				/>
 			</div>
-		</div>
+		</section>
 	)
 }
