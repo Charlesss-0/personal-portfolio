@@ -1,3 +1,4 @@
 import useActiveSection from './useActiveSection'
+import useContactAction from './useContactAction'
 
-export { useActiveSection }
+export { useActiveSection, useContactAction }

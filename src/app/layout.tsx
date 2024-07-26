@@ -1,11 +1,11 @@
 import './globals.css'
 
+import { Chakra_Petch } from 'next/font/google'
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
 import StyledComponentsRegistry from '@/src/hoc/Registry'
 
-const montserrat = Montserrat({
-	weight: '500',
+const chakraPetch = Chakra_Petch({
+	weight: '600',
 	subsets: ['latin'],
 })
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<StyledComponentsRegistry>
 			<html lang="en" data-theme="appTheme">
-				<body className={montserrat.className}>
+				<body className={chakraPetch.className}>
 					<main>{children}</main>
 				</body>
 			</html>
