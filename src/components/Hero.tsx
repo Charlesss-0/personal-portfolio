@@ -1,5 +1,4 @@
 import { Chakra_Petch, Montserrat } from 'next/font/google'
-import React, { forwardRef } from 'react'
 
 import ParticlesCanvas from './animation/particles'
 import Typewriter from './animation/typewriter'

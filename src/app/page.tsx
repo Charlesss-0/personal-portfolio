@@ -1,6 +1,6 @@
 'use client'
 
-import { Contact, Hero, Navbar, Portfolio } from '@/src/components'
+import { Contact, Footer, Hero, Navbar, Portfolio } from '@/src/components'
 
 export default function Home() {
 	return (
@@ -9,6 +9,7 @@ export default function Home() {
 			<Hero />
 			<Portfolio />
 			<Contact />
+			<Footer />
 		</>
 	)
 }

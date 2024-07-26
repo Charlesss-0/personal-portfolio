@@ -1,6 +1,6 @@
 import Card from './ui/3dCard'
 import { Chakra_Petch } from 'next/font/google'
-import React from 'react'
+import { motion } from 'framer-motion'
 import { portfolio } from '@/src/data'
 import styled from 'styled-components'
 
@@ -45,19 +45,32 @@ const LinkToProjectsBtn = styled.button`
 	}
 `
 
+const motionProps = (index: number, offsetOne: string, offsetTwo: string) => ({
+	initial: { opacity: 0, x: `${index % 2 === 0 ? offsetOne : offsetTwo}` },
+	whileInView: { opacity: 1, x: 0 },
+	transition: { type: 'tween' },
+	viewport: { once: true, margin: '0px 0px -200px 0px' },
+})
+
 export default function Portfolio() {
 	return (
-		<section id="portfolio" className={`text-base-100 py-20 ${chakraPetch.className}`}>
+		<section
+			id="portfolio"
+			className={`text-base-100 py-20 overflow-hidden ${chakraPetch.className}`}
+		>
 			<h1 className="text-6xl text-center mb-16">Portfolio</h1>
 
 			<ul className="flex flex-col gap-80 p-10 px-16">
 				{portfolio.map((project, index) => (
 					<li key={index} className={`flex p-4 ${index % 2 === 0 ? 'flex' : 'flex-row-reverse'}`}>
-						<div className="w-full">
+						<motion.div className="w-full" {...motionProps(index, '-100%', '100%')}>
 							<Card img={project.img} alt={project.name} />
-						</div>
+						</motion.div>
 
-						<div className="w-full text-center flex flex-col justify-around items-center">
+						<motion.div
+							className="w-full text-center flex flex-col justify-around items-center"
+							{...motionProps(index, '100%', '-100%')}
+						>
 							<h1 className="text-6xl">{project.name}</h1>
 
 							<p className="w-[50%] text-xl text-neutral-content">{project.description}</p>
@@ -67,7 +80,7 @@ export default function Portfolio() {
 									<span>View Project</span>
 								</LinkToProjectsBtn>
 							</a>
-						</div>
+						</motion.div>
 					</li>
 				))}
 			</ul>
