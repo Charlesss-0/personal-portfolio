@@ -3,26 +3,23 @@ import { useEffect, useRef } from 'react'
 import VanillaTilt from 'vanilla-tilt'
 import styled from 'styled-components'
 
-const AnimatedCard = styled.div`
+interface CardProps {
+	img: string
+	alt: string
+}
+
+const Card = styled.div`
 	position: relative;
 	transform-style: preserve-3d;
 	overflow: hidden;
 	border-radius: 1rem;
 
 	&:hover {
-		box-shadow:
-			0 0 50px #fff3,
-			0 0 50px #fff3,
-			0 0 50px #fff3;
+		box-shadow: 0 0 50px #fff3, 0 0 50px #fff3, 0 0 50px #fff3;
 	}
 `
 
-interface CardProps {
-	img: string
-	alt: string
-}
-
-export default function Card({ img, alt }: CardProps) {
+export default function ProjectCard({ img, alt }: CardProps) {
 	const divRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
@@ -37,10 +34,10 @@ export default function Card({ img, alt }: CardProps) {
 	}, [])
 
 	return (
-		<AnimatedCard ref={divRef}>
-			<div className="bg-[#fff3] mx-[-0.5rem]">
+		<Card ref={divRef}>
+			<div className="bg-neutral mx-[-0.5rem]">
 				<img src={img} alt={alt} draggable={false} className="object-cover select-none" />
 			</div>
-		</AnimatedCard>
+		</Card>
 	)
 }

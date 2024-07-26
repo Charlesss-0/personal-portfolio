@@ -1,8 +1,11 @@
+import { MotionProps, motion } from 'framer-motion'
+
 import Loader from './animation/loader'
-import { formInputElements } from '../data'
+import { SectionTitle } from './ui'
+import { formInputElements } from '@/src/data'
 import styled from 'styled-components'
 import { theme } from '@/src/constants'
-import { useContactAction } from '../hooks'
+import { useContactAction } from '@/src/hooks'
 import { useRef } from 'react'
 
 const ContactSection = styled.section`
@@ -13,6 +16,7 @@ const ContactSection = styled.section`
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	overflow: hidden;
 `
 
 const Fieldset = styled.fieldset`
@@ -73,6 +77,13 @@ const Submit = styled.button`
 	}
 `
 
+const motionProps: MotionProps = {
+	initial: { opacity: 0, y: '100%' },
+	whileInView: { opacity: 1, y: 0 },
+	transition: { type: 'tween' },
+	viewport: { once: true },
+}
+
 export default function Contact() {
 	const formRef = useRef<HTMLFormElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -83,18 +94,17 @@ export default function Contact() {
 
 	return (
 		<ContactSection id="contact">
-			<h2 className="text-6xl">Contact</h2>
-
+			<SectionTitle title="Contact" />
 			{success ? (
 				<h1 className="text-2xl">Thanks for reaching out!</h1>
 			) : (
 				<>
-					<div className="p-5 w-2/4">
+					<motion.div className="p-5 w-2/4" {...motionProps}>
 						<div className="border-b-2 pb-5 mb-20">
 							<h1 className="text-2xl">Say Hello</h1>
 						</div>
 
-						<form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-16">
+						<motion.form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-16">
 							{formInputElements.map((input, i) => (
 								<Fieldset key={i}>
 									{input.element === 'input' ? (
@@ -129,8 +139,8 @@ export default function Contact() {
 							</Submit>
 
 							{isSending && <Loader />}
-						</form>
-					</div>
+						</motion.form>
+					</motion.div>
 				</>
 			)}
 		</ContactSection>

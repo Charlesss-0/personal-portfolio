@@ -1,4 +1,5 @@
-import Card from './ui/3dCard'
+import { ProjectCard, SectionTitle } from './ui'
+
 import { Chakra_Petch } from 'next/font/google'
 import { motion } from 'framer-motion'
 import { portfolio } from '@/src/data'
@@ -54,17 +55,14 @@ const motionProps = (index: number, offsetOne: string, offsetTwo: string) => ({
 
 export default function Portfolio() {
 	return (
-		<section
-			id="portfolio"
-			className={`text-base-100 py-20 overflow-hidden ${chakraPetch.className}`}
-		>
-			<h1 className="text-6xl text-center mb-16">Portfolio</h1>
+		<section id="portfolio" className={`text-base-100 ${chakraPetch.className}`}>
+			<SectionTitle title="Portfolio" />
 
-			<ul className="flex flex-col gap-80 p-10 px-16">
+			<ul className="flex flex-col gap-80 p-10 px-16 overflow-hidden">
 				{portfolio.map((project, index) => (
 					<li key={index} className={`flex p-4 ${index % 2 === 0 ? 'flex' : 'flex-row-reverse'}`}>
 						<motion.div className="w-full" {...motionProps(index, '-100%', '100%')}>
-							<Card img={project.img} alt={project.name} />
+							<ProjectCard img={project.img} alt={project.name} />
 						</motion.div>
 
 						<motion.div

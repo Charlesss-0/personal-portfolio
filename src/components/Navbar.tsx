@@ -1,6 +1,6 @@
 import { navLinks } from '@/src/data'
 import styled from 'styled-components'
-import { useActiveSection } from '../hooks'
+import { useActiveSection } from '@/src/hooks'
 
 const NavbarContainer = styled.nav`
 	position: fixed;
