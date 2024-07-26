@@ -34,13 +34,6 @@ const portfolio = [
 		img: '/assets/images/weather-app.webp',
 		url: 'https://weather505.netlify.app',
 	},
-	{
-		name: 'GC (e-commerce website)',
-		description:
-			'Developed an e-commerce platform featuring user authentication, allowing users to add items to the cart or save their favorites products for future reference',
-		img: '/assets/images/gc-site.webp',
-		url: 'https://gc-site.netlify.app',
-	},
 ]
 
 export { navLinks, portfolio }
