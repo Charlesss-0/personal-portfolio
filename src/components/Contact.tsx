@@ -66,6 +66,11 @@ const Submit = styled.button`
 	&:active {
 		transform: scale(0.95);
 	}
+
+	&:disabled {
+		background-color: #afafaf;
+		transform: scale(1);
+	}
 `
 
 export default function Contact() {
@@ -81,7 +86,7 @@ export default function Contact() {
 			<h2 className="text-6xl">Contact</h2>
 
 			{success ? (
-				<h1 className="text-2xl">Your message has been sent!</h1>
+				<h1 className="text-2xl">Thanks for reaching out!</h1>
 			) : (
 				<>
 					<div className="p-5 w-2/4">
@@ -119,7 +124,9 @@ export default function Contact() {
 								</Fieldset>
 							))}
 
-							<Submit type="submit">Send message</Submit>
+							<Submit type="submit" disabled={isSending}>
+								{isSending ? 'Sending...' : 'Send Message'}
+							</Submit>
 
 							{isSending && <Loader />}
 						</form>

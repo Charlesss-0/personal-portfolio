@@ -13,21 +13,29 @@ export default function useContactAction(
 
 		if (formRef.current) {
 			const data = new FormData(formRef.current)
-			const action = process.env.NEXT_PUBLIC_FORM_ACTION_URL!
+			const action = process.env.NEXT_PUBLIC_FORM_ACTION_URL as string
+
+			if (!action) {
+				console.error('Environmental variable value is not defined')
+				return
+			}
 
 			try {
-				setIsSending(!isSending)
+				setIsSending(true)
 
 				const response = await fetch(action, {
 					method: 'POST',
 					body: data,
 				})
 
-				if (response.ok) {
-					setSuccess(true)
+				if (!response.ok) {
+					console.error('Unable to send message:', response)
 				}
+
+				setSuccess(true)
 			} catch (e) {
 				console.error('Unable to send message:', e)
+				setIsSending(false)
 			}
 		}
 	}
