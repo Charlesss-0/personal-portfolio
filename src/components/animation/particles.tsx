@@ -47,8 +47,7 @@ export default function ParticlesCanvas() {
 				detectsOn: 'window',
 				events: {
 					onClick: {
-						enable: true,
-						mode: 'push',
+						enable: false,
 					},
 					onHover: {
 						enable: true,
