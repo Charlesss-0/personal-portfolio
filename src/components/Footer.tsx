@@ -24,7 +24,7 @@ const Link = styled.a`
 
 export default function Footer() {
 	return (
-		<section className="p-10 text-base-100">
+		<section className="p-10 text-base-100 md:p-2 md:text-[0.7rem]">
 			<h2 className="flex gap-1 justify-center">
 				<span>&copy; 2024 Carlos Aragon.</span>
 				<Link href="https://github.com/Charlesss-0" target="_blank">

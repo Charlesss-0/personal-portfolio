@@ -18,8 +18,8 @@ export default function Hero() {
 		<section id="hero" className="h-screen text-base-100 select-none">
 			<ParticlesCanvas />
 
-			<div className="absolute bottom-32 left-0 px-5">
-				<h1 className={`text-9xl text-neutral md:text-8xl ${chakraPetch.className}`}>
+			<div className="absolute bottom-32 md:bottom-16 left-0 px-5">
+				<h1 className={`text-9xl text-neutral lg:text-6xl ${chakraPetch.className}`}>
 					Carlos
 					<br />
 					Aragon
@@ -29,7 +29,7 @@ export default function Hero() {
 			<div className="absolute bottom-0 right-0 w-full px-5 flex start">
 				<Typewriter
 					text="Front-end Web Developer"
-					className={`text-5xl text-right font-semibold md:text-3xl ${montserrat.className}`}
+					className={`text-5xl text-right font-semibold md:text-xl ${montserrat.className}`}
 				/>
 			</div>
 		</section>

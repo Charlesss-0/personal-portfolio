@@ -1,6 +1,7 @@
 import { ProjectCard, SectionTitle } from './ui'
 
 import { Chakra_Petch } from 'next/font/google'
+import { devices } from '@/src/constants'
 import { motion } from 'framer-motion'
 import { portfolio } from '@/src/data'
 import styled from 'styled-components'
@@ -11,7 +12,7 @@ const chakraPetch = Chakra_Petch({
 })
 
 const LinkToProjectsBtn = styled.button`
-	font-size: 1.5rem;
+	font-size: 1rem;
 	padding: 0.5rem 4rem;
 	transition: all 0.2s ease-in;
 	position: relative;
@@ -44,6 +45,11 @@ const LinkToProjectsBtn = styled.button`
 	&:active {
 		transform: scale(0.95);
 	}
+
+	@media only screen and ${devices.md} {
+		font-size: 1rem;
+		padding: 0.3rem 2rem;
+	}
 `
 
 const motionProps = (index: number, offsetOne: string, offsetTwo: string) => ({
@@ -55,23 +61,30 @@ const motionProps = (index: number, offsetOne: string, offsetTwo: string) => ({
 
 export default function Portfolio() {
 	return (
-		<section id="portfolio" className={`text-base-100 ${chakraPetch.className}`}>
+		<section id="portfolio" className={`text-base-100 xl:mt-16 ${chakraPetch.className}`}>
 			<SectionTitle title="Portfolio" />
 
-			<ul className="flex flex-col gap-80 p-10 px-16 overflow-hidden">
+			<ul className="flex flex-col gap-60 p-10 px-16 overflow-hidden md:px-2 xl:gap-24">
 				{portfolio.map((project, index) => (
-					<li key={index} className={`flex p-4 ${index % 2 === 0 ? 'flex' : 'flex-row-reverse'}`}>
+					<li
+						key={index}
+						className={`flex p-4 xl:flex-col xl:gap-10 ${
+							index % 2 === 0 ? 'flex' : 'flex-row-reverse'
+						}`}
+					>
 						<motion.div className="w-full" {...motionProps(index, '-100%', '100%')}>
 							<ProjectCard img={project.img} alt={project.name} />
 						</motion.div>
 
 						<motion.div
-							className="w-full text-center flex flex-col justify-around items-center"
+							className="w-full text-center flex flex-col justify-evenly items-center xl:gap-5"
 							{...motionProps(index, '100%', '-100%')}
 						>
-							<h1 className="text-6xl">{project.name}</h1>
+							<h1 className="text-4xl md:text-2xl">{project.name}</h1>
 
-							<p className="w-[50%] text-xl text-neutral-content">{project.description}</p>
+							<p className="w-[50%] text-md text-neutral-content md:w-full md:text-sm">
+								{project.description}
+							</p>
 
 							<a href={project.url} target="_blank">
 								<LinkToProjectsBtn>

@@ -1,20 +1,20 @@
 import { MotionProps, motion } from 'framer-motion'
+import { devices, theme } from '@/src/constants'
 
 import Loader from './animation/loader'
 import { SectionTitle } from './ui'
 import { formInputElements } from '@/src/data'
 import styled from 'styled-components'
-import { theme } from '@/src/constants'
 import { useContactAction } from '@/src/hooks'
 import { useRef } from 'react'
 
 const ContactSection = styled.section`
 	color: ${theme['base-100']};
 	height: 100vh;
-	padding: 2rem;
+	padding: 1rem;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 	overflow: hidden;
 `
@@ -49,14 +49,27 @@ const Fieldset = styled.fieldset`
 		transform: translateY(-100%);
 		font-size: 0.8rem;
 	}
+
+	@media only screen and ${devices.md} {
+		& > label {
+			transform: translateY(100%);
+			left: 0;
+		}
+
+		input:focus + label,
+		textarea:focus + label,
+		input:not(:placeholder-shown) + label,
+		textarea:not(:placeholder-shown) + label {
+			transform: translateY(-80%);
+		}
+	}
 `
 
 const Submit = styled.button`
 	position: relative;
 	background: #fff;
 	color: #000;
-	width: 15rem;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 2rem;
 	align-self: end;
 	font-weight: bold;
 	transition: all 0.3s ease-in-out;
@@ -74,6 +87,11 @@ const Submit = styled.button`
 	&:disabled {
 		background-color: #afafaf;
 		transform: scale(1);
+	}
+
+	@media only screen and ${devices.md} {
+		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
 	}
 `
 
@@ -99,12 +117,12 @@ export default function Contact() {
 				<h1 className="text-2xl">Thanks for reaching out!</h1>
 			) : (
 				<>
-					<motion.div className="p-5 w-2/4" {...motionProps}>
-						<div className="border-b-2 pb-5 mb-20">
-							<h1 className="text-2xl">Say Hello</h1>
+					<motion.div className="p-2 w-2/4 md:w-full" {...motionProps}>
+						<div className="border-b-2 pb-5 mb-20 md:mb-16">
+							<h1 className="text-2xl md:text-xl">Say Hello</h1>
 						</div>
 
-						<motion.form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-16">
+						<form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-16 md:gap-10">
 							{formInputElements.map((input, i) => (
 								<Fieldset key={i}>
 									{input.element === 'input' ? (
@@ -130,7 +148,9 @@ export default function Contact() {
 											required
 										></textarea>
 									)}
-									<label htmlFor={input.id}>{input.label}</label>
+									<label htmlFor={input.id} className="md:text-[0.8rem]">
+										{input.label}
+									</label>
 								</Fieldset>
 							))}
 
@@ -139,7 +159,7 @@ export default function Contact() {
 							</Submit>
 
 							{isSending && <Loader />}
-						</motion.form>
+						</form>
 					</motion.div>
 				</>
 			)}
