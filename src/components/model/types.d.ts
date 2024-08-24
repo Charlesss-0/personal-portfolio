@@ -1,0 +1,3 @@
+interface ModelProps {
+	modelPath: string
+}

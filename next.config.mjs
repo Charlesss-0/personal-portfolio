@@ -5,6 +5,7 @@ const nextConfig = {
 		styledComponents: true,
 		removeConsole: process.env.NODE_ENV !== 'development',
 	},
+	transpilePackages: ['three'],
 }
 
 export default nextConfig

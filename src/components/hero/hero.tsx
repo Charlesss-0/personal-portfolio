@@ -1,7 +1,8 @@
 import { Chakra_Petch, Montserrat } from 'next/font/google'
 
-import ParticlesCanvas from './animation/particles'
-import Typewriter from './animation/typewriter'
+import ParticlesCanvas from '../particles/particles'
+import Typewriter from '../typewriter/typewriter'
+import config from '@/data/config.json'
 
 const montserrat = Montserrat({
 	weight: '600',
@@ -28,7 +29,7 @@ export default function Hero() {
 
 			<div className="absolute bottom-0 right-0 w-full px-5 flex start">
 				<Typewriter
-					text="Front-end Web Developer"
+					text={config.role}
 					className={`text-5xl text-right font-semibold md:text-xl ${montserrat.className}`}
 				/>
 			</div>

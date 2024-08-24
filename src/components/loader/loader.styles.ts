@@ -22,7 +22,7 @@ const leap = keyframes`
     }
 `
 
-const Container = styled.div`
+const LoaderBox = styled.div`
 	--uib-size: 40px;
 	--uib-speed: 2s;
 	--uib-color: #efefef;
@@ -61,23 +61,13 @@ const Container = styled.div`
 
 	& > div:nth-child(2) {
 		transform: translateX(calc(var(--uib-size) * 0.4));
-		animation: ${leap} var(--uib-speed) ease calc(var(--uib-speed) / -1.5)
-			infinite;
+		animation: ${leap} var(--uib-speed) ease calc(var(--uib-speed) / -1.5) infinite;
 	}
 
 	& > div:nth-child(3) {
 		transform: translateX(calc(var(--uib-size) * 0.8)) rotate(0deg);
-		animation: ${leap} var(--uib-speed) ease calc(var(--uib-speed) / -3)
-			infinite;
+		animation: ${leap} var(--uib-speed) ease calc(var(--uib-speed) / -3) infinite;
 	}
 `
 
-export default function Loader() {
-	return (
-		<Container>
-			<div></div>
-			<div></div>
-			<div></div>
-		</Container>
-	)
-}
+export { LoaderBox }

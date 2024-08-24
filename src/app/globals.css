@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 :root {
-	--core-text-hex: #2f2f2f;
+	--core-text-color: #2f2f2f;
 	--core-select: #98abee55;
 }
 
@@ -12,7 +12,7 @@ html {
 }
 
 body {
-	color: var(--core-text-hex);
+	color: var(--core-text-color);
 	background-color: #011825;
 	background-image: radial-gradient(#4f4f4f 1px, transparent 0);
 	background-size: 40px 40px;

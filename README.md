@@ -2,7 +2,7 @@
 
 <h1 align="center">Personal Portfolio<h1>
 
-[![Site preview](/public/assets/images/site-preview.png)](https://carlosaragondev.vercel.app)
+[![Site preview](/public/site-preview.png)](https://carlosaragondev.vercel.app)
 
 #### My design portfolio to showcase a few projects. Built with [React.js](https://react.dev/), [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [tsParticles](https://particles.js.org/), [vanilla-tilt.js](https://micku7zu.github.io/vanilla-tilt.js/) and [Framer Motion](https://www.framer.com/motion/).
 
@@ -40,4 +40,4 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:4000](http://localhost:4000) in your browser to see the application.
+Open [http://localhost:4000](http://localhost:3000) in your browser to see the application.

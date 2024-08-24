@@ -3,6 +3,12 @@
 	"rules": {
 		"react-hooks/exhaustive-deps": "off",
 		"@next/next/no-img-element": "off",
-		"react/no-unescaped-entities": "off"
+		"react/no-unescaped-entities": "off",
+		"eqeqeq": ["warn", "always"],
+		"consistent-return": "warn",
+		"react/jsx-key": "warn",
+		"react/jsx-no-duplicate-props": "warn",
+		"react/jsx-no-undef": "warn",
+		"import/newline-after-import": "warn"
 	}
 }

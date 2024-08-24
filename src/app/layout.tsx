@@ -2,7 +2,8 @@ import './globals.css'
 
 import { Chakra_Petch } from 'next/font/google'
 import type { Metadata } from 'next'
-import StyledComponentsRegistry from '@/src/hoc/Registry'
+import StyledComponentsRegistry from '@/hoc/Registry'
+import config from '@/data/config.json'
 
 const chakraPetch = Chakra_Petch({
 	weight: '600',
@@ -10,7 +11,7 @@ const chakraPetch = Chakra_Petch({
 })
 
 export const metadata: Metadata = {
-	title: 'Carlos Aragon',
+	title: config.name,
 	description: 'Personal portfolio',
 }
 

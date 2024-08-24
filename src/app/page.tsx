@@ -1,6 +1,10 @@
 'use client'
 
-import { Contact, Footer, Hero, Navbar, Portfolio } from '@/src/components'
+import { Contact } from '@/components/contact'
+import { Footer } from '@/components/footer'
+import { Hero } from '@/components/hero'
+import { Navbar } from '@/components/navbar'
+import { Portfolio } from '@/components/portfolio'
 
 export default function Home() {
 	return (

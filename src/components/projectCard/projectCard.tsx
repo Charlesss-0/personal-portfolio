@@ -1,23 +1,12 @@
 import { useEffect, useRef } from 'react'
 
+import { Card } from './projectCard.styles'
 import VanillaTilt from 'vanilla-tilt'
-import styled from 'styled-components'
 
 interface CardProps {
 	img: string
 	alt: string
 }
-
-const Card = styled.div`
-	position: relative;
-	transform-style: preserve-3d;
-	overflow: hidden;
-	border-radius: 1rem;
-
-	&:hover {
-		box-shadow: 0 0 50px #fff3, 0 0 50px #fff3, 0 0 50px #fff3;
-	}
-`
 
 export default function ProjectCard({ img, alt }: CardProps) {
 	const divRef = useRef<HTMLDivElement>(null)

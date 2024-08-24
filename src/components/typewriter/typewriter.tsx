@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+
+import { Cursor } from './typewriter.styles'
 
 interface TypewriterProps extends React.HTMLAttributes<HTMLSpanElement> {
 	text: string
 }
-
-const blink = keyframes`
-	25% {
-		opacity: 0;
-	}
-
-	75% {
-		opacity: 1;
-	}
-`
-
-const Cursor = styled.div`
-	width: 3.5px;
-	height: 50%;
-	background: #efefef;
-	border-radius: 50rem;
-	animation: ${blink} 1.3s infinite;
-`
 
 export default function Typewriter({ text, ...props }: TypewriterProps): React.ReactNode {
 	const [currentText, setCurrentText] = useState<string>('')
@@ -56,7 +39,7 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 	}, [text, index, direction])
 
 	return (
-		<div className="flex gap-[0.5rem] items-center w-[max-content] h-[7.7rem] md:h-[3.3rem]">
+		<div className="flex gap-2 items-center w-max h-32 md:h-12">
 			<span {...props}>{currentText}</span>
 			<Cursor />
 		</div>

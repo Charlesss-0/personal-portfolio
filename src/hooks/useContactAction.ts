@@ -8,7 +8,7 @@ export default function useContactAction(
 	const [success, setSuccess] = useState<boolean>(false)
 	const [textareaValue, setTextareaValue] = useState<string>('')
 
-	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 
 		if (formRef.current) {
@@ -30,6 +30,7 @@ export default function useContactAction(
 
 				if (!response.ok) {
 					console.error('Unable to send message:', response)
+					return
 				}
 
 				setSuccess(true)
