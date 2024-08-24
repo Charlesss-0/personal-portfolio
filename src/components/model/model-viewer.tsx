@@ -6,18 +6,16 @@ import { Suspense } from 'react'
 
 export default function ModelViewer() {
 	return (
-		<Canvas camera={{ position: [0, 2, 5], fov: 50 }} style={{ height: '100vh', width: '100%' }}>
-			<pointLight position={[10, 10, 10]} intensity={1.5} />
+		<Canvas>
+			<Suspense fallback={null}>
+				<Environment preset="city" />
+			</Suspense>
+
+			{/* <pointLight position={[10, 10, 10]} intensity={1.5} />
 
 			<ambientLight intensity={1} />
 
-			<directionalLight position={[-10, 10, 5]} intensity={1} color="#efefef" />
-
-			<Suspense fallback={null}>
-				<Model />
-
-				<Environment preset="city" />
-			</Suspense>
+			<directionalLight position={[-10, 10, 5]} intensity={1} color="#efefef" /> */}
 
 			<ContactShadows position={[0, -4.5, 0]} scale={20} blur={2} far={4.5} />
 
