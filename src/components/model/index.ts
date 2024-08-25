@@ -1,3 +1,3 @@
-import ModelViewer from './model-viewer'
+import { Model } from './model'
 
-export { ModelViewer }
+export { Model }

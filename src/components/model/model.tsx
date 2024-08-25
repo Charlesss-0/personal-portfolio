@@ -5,30 +5,35 @@ import { useEffect, useRef } from 'react'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-export function Model() {
-	const containerRef = useRef<HTMLDivElement>(null)
+interface ModelProps {
+	modelPath: string
+	modelTexture: string
+	scale?: number
+}
+
+// 3D model renderer
+export function Model(props: ModelProps) {
+	const container = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		if (!containerRef.current) return
+		if (!container.current) return
 
-		const { clientWidth, clientHeight } = containerRef.current
-		let camera, scene, renderer
+		const { clientWidth, clientHeight } = container.current
+
+		let scene: THREE.Scene
+		let camera: THREE.PerspectiveCamera
+		let renderer: THREE.WebGLRenderer
 		let model: THREE.Object3D<THREE.Object3DEventMap>
+
+		let lights = []
 		let isMouseInWindow = false
-		let mouseX = 0,
-			mouseY = 0
+		let mouseX = 0
+		let mouseY = 0
 
 		// scene set up
 		scene = new THREE.Scene()
-		scene.background = new THREE.Color(0x0f0f0f)
-		// scene.fog = new THREE.Fog(0x5f5f5f, 10, 15)
-
-		// grid helper
-		// const grid = new THREE.GridHelper(20, 40, 0xffffff, 0xffffff)
-		// grid.material.opacity = 0.2
-		// grid.material.depthWrite = false
-		// grid.material.transparent = true
-		// scene.add(grid)
+		scene.background = null
+		scene.fog = new THREE.Fog(0xffffff, 15, 15)
 
 		// camera set up
 		camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
@@ -43,7 +48,7 @@ export function Model() {
 		})
 		renderer.setPixelRatio(window.devicePixelRatio)
 		renderer.setSize(clientWidth, clientHeight)
-		containerRef.current?.appendChild(renderer.domElement)
+		container.current?.appendChild(renderer.domElement)
 
 		// renderer tone mapping
 		renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -51,15 +56,13 @@ export function Model() {
 
 		// lighting
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1)
-		scene.add(ambientLight)
-
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
-		directionalLight.position.set(4, 8, 5)
-		scene.add(directionalLight)
-
 		const pointLight = new THREE.PointLight(0xffffff, 10, 50)
-		pointLight.position.set(5, 5, 5)
-		scene.add(pointLight)
+
+		directionalLight.position.set(4, 8, 5)
+		pointLight.position.set(5, 8, 5)
+		lights = [ambientLight, directionalLight, pointLight]
+		lights.forEach(light => scene.add(light))
 
 		// loader set up
 		const loader = new GLTFLoader()
@@ -69,16 +72,21 @@ export function Model() {
 
 		// model loader
 		loader.load(
-			'/models/macbook-pro.glb',
+			props.modelPath,
 			gltf => {
 				model = gltf.scene
-
 				model.position.set(0, 0.8, 0)
+				if (props.scale) {
+					model.scale.set(props.scale, props.scale, props.scale)
+				}
 
-				const texture = new THREE.TextureLoader().load('/readify.webp')
+				const texture = new THREE.TextureLoader().load(props.modelTexture)
 				texture.colorSpace = THREE.SRGBColorSpace
 				texture.flipY = false
+				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 				texture.generateMipmaps = true
+
+				renderer.initTexture(texture)
 
 				model.traverse(child => {
 					if (child instanceof THREE.Mesh) {
@@ -119,20 +127,18 @@ export function Model() {
 		// mouse leave
 		const handleMouseLeave = () => {
 			isMouseInWindow = false
-			console.log('Mouse left the window')
 		}
-		containerRef.current.addEventListener('mouseleave', handleMouseLeave)
+		container.current.addEventListener('mouseleave', handleMouseLeave)
 
 		// window resize
 		const handleWindowResize = () => {
-			if (!containerRef.current) return
+			if (!container.current) return
 
-			const { clientWidth, clientHeight } = containerRef.current
-
-			camera.aspect = clientWidth / clientHeight
-			camera.updateProjectionMatrix()
+			const { clientWidth, clientHeight } = container.current
 
 			renderer.setSize(clientWidth, clientHeight)
+			camera.aspect = clientWidth / clientHeight
+			camera.updateProjectionMatrix()
 		}
 		window.addEventListener('resize', handleWindowResize)
 
@@ -156,10 +162,10 @@ export function Model() {
 		return () => {
 			window.removeEventListener('resize', handleWindowResize)
 			window.removeEventListener('mousemove', handleMouseMove)
-			containerRef.current?.removeEventListener('mouseleave', handleMouseLeave)
-			containerRef.current?.removeChild(renderer.domElement)
+			container.current?.removeEventListener('mouseleave', handleMouseLeave)
+			container.current?.removeChild(renderer.domElement)
 		}
-	}, [])
+	}, [props.modelPath, props.modelTexture])
 
-	return <div ref={containerRef} style={{ height: '100vh', width: '100%' }}></div>
+	return <div ref={container} style={{ height: '100%', width: '100%' }}></div>
 }
