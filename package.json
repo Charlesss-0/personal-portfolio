@@ -11,17 +11,21 @@
 	},
 	"dependencies": {
 		"@react-spring/three": "^9.7.4",
+		"@react-three/drei": "^9.111.3",
+		"@studio-freight/react-lenis": "^0.0.47",
 		"@tsparticles/engine": "^3.5.0",
 		"@tsparticles/react": "^3.0.0",
 		"@tsparticles/slim": "^3.5.0",
 		"daisyui": "^4.12.10",
 		"framer-motion": "^11.3.17",
 		"fs-extra": "^11.2.0",
+		"gsap": "^3.12.5",
 		"next": "14.2.5",
 		"react": "^18",
 		"react-dom": "^18",
 		"styled-components": "^6.1.12",
 		"three": "^0.167.1",
+		"three-stdlib": "^2.32.2",
 		"vanilla-tilt": "^1.8.1"
 	},
 	"devDependencies": {

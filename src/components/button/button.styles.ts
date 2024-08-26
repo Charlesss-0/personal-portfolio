@@ -1,7 +1,7 @@
 import { devices } from '@/constants'
 import styled from 'styled-components'
 
-const LinkToProjectsBtn = styled.button`
+const StyledButton = styled.button`
 	font-size: 1rem;
 	padding: 0.5rem 4rem;
 	transition: all 0.2s ease-in;
@@ -11,7 +11,7 @@ const LinkToProjectsBtn = styled.button`
 	outline: 1px solid #fff;
 
 	&:hover {
-		color: black;
+		color: #2f2f2f;
 		outline: none;
 	}
 
@@ -42,4 +42,4 @@ const LinkToProjectsBtn = styled.button`
 	}
 `
 
-export { LinkToProjectsBtn }
+export { StyledButton }

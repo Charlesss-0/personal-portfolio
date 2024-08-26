@@ -16,10 +16,10 @@ const chakraPetch = Chakra_Petch({
 
 export default function Hero() {
 	return (
-		<section id="hero" className="h-screen text-base-100 select-none">
+		<section id="hero" className="h-screen select-none text-base-100">
 			<ParticlesCanvas />
 
-			<div className="absolute bottom-32 md:bottom-16 left-0 px-5">
+			<div className="absolute left-0 px-5 bottom-32 md:bottom-16">
 				<h1 className={`text-9xl text-neutral lg:text-6xl ${chakraPetch.className}`}>
 					Carlos
 					<br />
@@ -27,7 +27,7 @@ export default function Hero() {
 				</h1>
 			</div>
 
-			<div className="absolute bottom-0 right-0 w-full px-5 flex start">
+			<div className="absolute bottom-0 right-0 flex w-full px-5 start">
 				<Typewriter
 					text={config.role}
 					className={`text-5xl text-right font-semibold md:text-xl ${montserrat.className}`}

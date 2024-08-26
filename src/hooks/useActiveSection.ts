@@ -5,7 +5,7 @@ export default function useActiveSection() {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const sections = document.querySelectorAll('section[id]')
+			const sections = document.querySelectorAll('div[id]')
 			let currentSection = ''
 
 			sections.forEach(section => {

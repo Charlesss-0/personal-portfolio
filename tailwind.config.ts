@@ -14,15 +14,24 @@ const config: Config = {
 				md: { max: '600px' },
 				sm: { max: '400px' },
 			},
-			scrollbar: {
-				DEFAULT: {
-					track: 'bg-transparent',
-					thumb: 'bg-gray-600 border-gray-200 border-4 rounded-full',
-				},
-			},
 		},
 	},
-	plugins: [require('daisyui')],
+	plugins: [
+		require('daisyui'),
+		({ addUtilities }: { addUtilities: any }) => {
+			const newUtilities = {
+				'.no-scrollbar::-webkit-scrollbar': {
+					display: 'none',
+				},
+				'.no-scrollbar': {
+					'-ms-overflow-style': 'none',
+					'scrollbar-width': 'none',
+				},
+			}
+
+			addUtilities(newUtilities)
+		},
+	],
 	daisyui: {
 		themes: [
 			{
