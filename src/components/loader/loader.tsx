@@ -1,6 +1,6 @@
 import { LoaderBox } from './loader.styles'
 
-export default function Loader() {
+const Loader = () => {
 	return (
 		<LoaderBox>
 			<div></div>
@@ -9,3 +9,5 @@ export default function Loader() {
 		</LoaderBox>
 	)
 }
+
+export default Loader

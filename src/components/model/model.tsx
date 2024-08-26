@@ -1,97 +1,168 @@
 import * as THREE from 'three'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import { GLTF } from 'three-stdlib'
-import { useGLTF } from '@react-three/drei'
-import { useSpring } from '@react-spring/three'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-type GLTFAction = THREE.AnimationClip
-
-interface GLTFResult extends GLTF {
-	nodes: {
-		Keyboard: THREE.Mesh
-		Body: THREE.Mesh
-		Touchbar: THREE.Mesh
-		Frame: THREE.Mesh
-		Logo: THREE.Mesh
-		Screen: THREE.Mesh
-	}
-	materials: {
-		Frame: THREE.MeshStandardMaterial
-		Logo: THREE.MeshStandardMaterial
-		Screen: THREE.MeshStandardMaterial
-	}
-	animations: GLTFAction[]
+interface ModelProps {
+	modelPath: string
+	modelTexture: string
 }
 
-const readify = '/images/readify.webp'
-
-const Model: React.FC<JSX.IntrinsicElements['group']> = props => {
-	const { nodes, materials } = useGLTF('/models/macbook-pro.glb') as GLTFResult
-	const meshRef = useRef<THREE.Mesh | null>(null)
-	const [mouse, setMouse] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+const Model: React.FC<ModelProps> = props => {
+	const container = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		const screenTexture = new THREE.TextureLoader().load(readify)
-		screenTexture.colorSpace = THREE.SRGBColorSpace
-		screenTexture.flipY = false
-		screenTexture.generateMipmaps = true
+		if (!container.current) return
 
-		if (materials.Screen) materials.Screen.map = screenTexture
-		if (materials.Frame) materials.Frame.color.set('#2f2f2f')
-	}, [materials])
+		const { clientWidth, clientHeight } = container.current
 
-	const handleMouseMove = (event: MouseEvent) => {
-		const { clientX: x, clientY: y } = event
-		setMouse({ x, y })
-	}
+		let scene: THREE.Scene
+		let camera: THREE.PerspectiveCamera
+		let renderer: THREE.WebGLRenderer
+		let model: THREE.Object3D<THREE.Object3DEventMap>
 
-	useEffect(() => {
+		let lights = []
+		let isMouseInWindow = false
+		let mouseX = 0
+		let mouseY = 0
+
+		// scene set up
+		scene = new THREE.Scene()
+		scene.background = null
+		scene.fog = new THREE.Fog(0xffffff, 15, 15)
+
+		// camera set up
+		camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
+		camera.position.set(0, 1, 8)
+
+		// renderer set up
+		renderer = new THREE.WebGLRenderer({
+			alpha: true,
+			antialias: true,
+			powerPreference: 'high-performance',
+			failIfMajorPerformanceCaveat: true,
+		})
+		renderer.setPixelRatio(window.devicePixelRatio)
+		renderer.setSize(clientWidth, clientHeight)
+		container.current?.appendChild(renderer.domElement)
+
+		// renderer tone mapping
+		renderer.toneMapping = THREE.ACESFilmicToneMapping
+		renderer.toneMappingExposure = 1.0
+
+		// lighting
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
+		const pointLight = new THREE.PointLight(0xffffff, 10, 50)
+
+		directionalLight.position.set(4, 8, 5)
+		pointLight.position.set(5, 8, 5)
+		lights = [ambientLight, directionalLight, pointLight]
+		lights.forEach(light => scene.add(light))
+
+		// loader set up
+		const loader = new GLTFLoader()
+		const dracoLoader = new DRACOLoader()
+		dracoLoader.setDecoderPath('/draco/')
+		loader.setDRACOLoader(dracoLoader)
+
+		// model loader
+		loader.load(
+			props.modelPath,
+			gltf => {
+				model = gltf.scene
+				model.position.set(0, 0.8, 0)
+
+				const texture = new THREE.TextureLoader().load(props.modelTexture)
+				texture.colorSpace = THREE.SRGBColorSpace
+				texture.flipY = false
+				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+				texture.generateMipmaps = true
+
+				renderer.initTexture(texture)
+
+				model.traverse(child => {
+					if (child instanceof THREE.Mesh) {
+						if (child.name.toLocaleLowerCase().includes('screen')) {
+							child.material.map = texture
+						}
+						if (child.name.toLocaleLowerCase().includes('frame')) {
+							child.material.color.set('#1f1f1f')
+						}
+					}
+				})
+
+				scene.add(model)
+			},
+			undefined,
+			error => {
+				console.error('Error loading model:', error)
+			}
+		)
+
+		// mouse move
+		const handleMouseMove = (event: MouseEvent) => {
+			const { innerWidth, innerHeight } = window
+			const { clientX, clientY } = event
+
+			mouseX = (clientX - innerWidth / 2) / innerWidth
+			mouseY = (clientY - innerHeight / 2) / innerHeight
+
+			if (model) {
+				model.rotation.y = mouseX * 0.1
+				model.rotation.x = mouseY * 0.1
+			}
+
+			isMouseInWindow = true
+		}
 		window.addEventListener('mousemove', handleMouseMove)
 
-		return () => {
-			window.removeEventListener('mousemove', handleMouseMove)
+		// mouse leave
+		const handleMouseLeave = () => {
+			isMouseInWindow = false
 		}
-	}, [])
+		container.current.addEventListener('mouseleave', handleMouseLeave)
 
-	const { rotation } = useSpring({
-		rotation: [
-			(mouse.y / window.innerHeight / 2) * Math.PI * 0.2,
-			(mouse.x / window.innerWidth / 2) * Math.PI * 0.2,
-			0,
-		],
-		config: { mass: 1, tension: 120, friction: 50 },
-	})
+		// window resize
+		const handleWindowResize = () => {
+			if (!container.current) return
 
-	return (
-		<group {...props} dispose={null}>
-			<mesh
-				ref={meshRef}
-				geometry={nodes.Frame.geometry}
-				material={materials.Frame}
-				position={[0, -0.62, 0.047]}
-			>
-				<mesh
-					geometry={nodes.Logo.geometry}
-					material={materials.Logo}
-					position={[0, 1.2, -0.106]}
-				/>
-				<mesh
-					geometry={nodes.Screen.geometry}
-					material={materials.Screen}
-					position={[0, 1.2, -0.106]}
-				/>
-			</mesh>
+			const { clientWidth, clientHeight } = container.current
 
-			<mesh geometry={nodes.Keyboard.geometry} material={materials.Frame}>
-				<mesh geometry={nodes.Body.geometry} material={materials.Frame} />
-				<mesh geometry={nodes.Touchbar.geometry} material={materials.Frame} />
-			</mesh>
-		</group>
-	)
+			renderer.setSize(clientWidth, clientHeight)
+			camera.aspect = clientWidth / clientHeight
+			camera.updateProjectionMatrix()
+		}
+		window.addEventListener('resize', handleWindowResize)
+
+		// request animation
+		const renderScene = () => {
+			requestAnimationFrame(renderScene)
+
+			if (model) {
+				const targetRotationX = isMouseInWindow ? mouseY * 0.1 : 0
+				const targetRotationY = isMouseInWindow ? mouseX * 0.1 : 0
+
+				model.rotation.x = THREE.MathUtils.lerp(model.rotation.x, targetRotationX, 0.1)
+				model.rotation.y = THREE.MathUtils.lerp(model.rotation.y, targetRotationY, 0.1)
+			}
+
+			renderer.render(scene, camera)
+		}
+		renderScene()
+
+		// cleanup
+		return () => {
+			window.removeEventListener('resize', handleWindowResize)
+			window.removeEventListener('mousemove', handleMouseMove)
+			container.current?.removeEventListener('mouseleave', handleMouseLeave)
+			container.current?.removeChild(renderer.domElement)
+		}
+	}, [props.modelPath, props.modelTexture])
+
+	return <div ref={container} style={{ height: '100%', width: '100%' }}></div>
 }
-
-useGLTF.preload('/models/macbook-pro.glb')
 
 export default Model

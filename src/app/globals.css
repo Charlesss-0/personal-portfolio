@@ -14,10 +14,6 @@ html {
 body {
 	color: var(--core-text-color);
 	background-color: #011825;
-	background-image: radial-gradient(#4f4f4f 1px, transparent 0);
-	background-size: 40px 40px;
-	background-position: -5px -5px;
-	background-attachment: fixed;
 }
 
 ::selection {

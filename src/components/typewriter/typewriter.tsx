@@ -6,7 +6,7 @@ interface TypewriterProps extends React.HTMLAttributes<HTMLSpanElement> {
 	text: string
 }
 
-export default function Typewriter({ text, ...props }: TypewriterProps): React.ReactNode {
+const Typewriter: React.FC<TypewriterProps> = ({ text, ...props }): React.ReactNode => {
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
@@ -39,9 +39,11 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 	}, [text, index, direction])
 
 	return (
-		<div className="flex gap-2 items-center w-max h-32 md:h-12">
+		<div className="flex items-center h-32 gap-2 w-max md:h-12">
 			<span {...props}>{currentText}</span>
 			<Cursor />
 		</div>
 	)
 }
+
+export default Typewriter

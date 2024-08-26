@@ -2,7 +2,6 @@ import { ContactSection, Fieldset, Submit } from './contact.styles'
 import { MotionProps, motion } from 'framer-motion'
 
 import { Loader } from '../loader'
-import { SectionTitle } from '../sectionTitle'
 import { formInputElements } from './contact-data'
 import { useContactAction } from '@/hooks'
 import { useRef } from 'react'
@@ -14,7 +13,7 @@ const motionProps: MotionProps = {
 	viewport: { once: true },
 }
 
-export default function Contact() {
+const Contact = () => {
 	const formRef = useRef<HTMLFormElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	const { isSending, success, textareaValue, setTextareaValue, handleSubmit } = useContactAction(
@@ -24,7 +23,6 @@ export default function Contact() {
 
 	return (
 		<ContactSection id="contact">
-			<SectionTitle title="Contact" />
 			{success ? (
 				<h1 className="text-2xl">Thanks for reaching out!</h1>
 			) : (
@@ -78,3 +76,5 @@ export default function Contact() {
 		</ContactSection>
 	)
 }
+
+export default Contact

@@ -1,6 +1,5 @@
 import { Chakra_Petch, Montserrat } from 'next/font/google'
 
-import ParticlesCanvas from '../particles/particles'
 import Typewriter from '../typewriter/typewriter'
 import config from '@/data/config.json'
 
@@ -14,11 +13,9 @@ const chakraPetch = Chakra_Petch({
 	subsets: ['latin'],
 })
 
-export default function Hero() {
+const Hero = () => {
 	return (
 		<section id="hero" className="h-screen select-none text-base-100">
-			<ParticlesCanvas />
-
 			<div className="absolute left-0 px-5 bottom-32 md:bottom-16">
 				<h1 className={`text-9xl text-neutral lg:text-6xl ${chakraPetch.className}`}>
 					Carlos
@@ -36,3 +33,5 @@ export default function Hero() {
 		</section>
 	)
 }
+
+export default Hero

@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyledButton } from './button.styles'
 
-export default function Button({ children }: { children: React.ReactNode }) {
+const Button: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<StyledButton>
 			<span>{children}</span>
 		</StyledButton>
 	)
 }
+
+export default Button
