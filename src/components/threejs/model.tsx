@@ -18,27 +18,23 @@ const Model: React.FC<ModelProps> = props => {
 
 		const { clientWidth, clientHeight } = container.current
 
-		let scene: THREE.Scene
-		let camera: THREE.PerspectiveCamera
-		let renderer: THREE.WebGLRenderer
 		let model: THREE.Object3D<THREE.Object3DEventMap>
-
 		let lights = []
 		let isMouseInWindow = false
 		let mouseX = 0
 		let mouseY = 0
 
 		// scene set up
-		scene = new THREE.Scene()
+		const scene = new THREE.Scene()
 		scene.background = null
 		scene.fog = new THREE.Fog(0xffffff, 15, 15)
 
 		// camera set up
-		camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
+		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
 		camera.position.set(0, 1, 8)
 
 		// renderer set up
-		renderer = new THREE.WebGLRenderer({
+		const renderer = new THREE.WebGLRenderer({
 			alpha: true,
 			antialias: true,
 			powerPreference: 'high-performance',
@@ -57,7 +53,7 @@ const Model: React.FC<ModelProps> = props => {
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
 		const pointLight = new THREE.PointLight(0xffffff, 10, 50)
 
-		directionalLight.position.set(4, 8, 5)
+		directionalLight.position.set(5, 5, 5)
 		pointLight.position.set(5, 8, 5)
 		lights = [ambientLight, directionalLight, pointLight]
 		lights.forEach(light => scene.add(light))

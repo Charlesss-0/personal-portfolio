@@ -51,7 +51,7 @@ const Fieldset = styled.fieldset`
 const Submit = styled.button`
 	position: relative;
 	background: #fff;
-	color: #011825;
+	color: #000;
 	padding: 0.5rem 2rem;
 	align-self: end;
 	font-weight: bold;

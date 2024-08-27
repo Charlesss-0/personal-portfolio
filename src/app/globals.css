@@ -13,7 +13,7 @@ html {
 
 body {
 	color: var(--core-text-color);
-	background-color: #011825;
+	background-color: #000;
 }
 
 ::selection {

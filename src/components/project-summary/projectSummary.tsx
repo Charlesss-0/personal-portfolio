@@ -2,7 +2,7 @@ import { MotionProps, motion, useScroll, useTransform } from 'framer-motion'
 import React, { Suspense, useRef } from 'react'
 
 import { Button } from '../button'
-import { Model } from '../model'
+import { Model } from '../threejs'
 
 type ProjectSummaryProps = React.HTMLProps<HTMLDivElement> &
 	MotionProps & {
