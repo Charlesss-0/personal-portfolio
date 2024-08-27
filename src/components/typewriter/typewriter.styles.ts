@@ -11,10 +11,9 @@ const blink = keyframes`
 `
 
 const Cursor = styled.div`
-	width: 3.5px;
-	height: 50%;
+	width: 15px;
+	height: 40%;
 	background: #efefef;
-	border-radius: 50rem;
 	animation: ${blink} 1.3s infinite;
 `
 

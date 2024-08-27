@@ -1,53 +1,12 @@
-import React, { Suspense, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { ParticlesBackground } from '../particles-background'
+import React from 'react'
+import { motion } from 'framer-motion'
 
-import { Button } from '../button'
-import { Model } from '../model'
-import { ParticlesBackground } from '../background'
-
-interface SectionProps {
-	name: string
-	description: string
-	img: string
-	url: string
-	className: string
-	index?: number
-	onNavigate?: (index: number) => void
-}
-
-const Section: React.FC<SectionProps> = ({ name, description, img, url, className }) => {
-	const container = useRef<HTMLDivElement | null>(null)
-	const { scrollYProgress } = useScroll({
-		target: container,
-		offset: ['start end', 'start start'],
-	})
-
-	const scale = useTransform(scrollYProgress, [0, 1], [0, 1])
-	const y = useTransform(scrollYProgress, [0, 1], [100, 0])
-
+const Section: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children, className }) => {
 	return (
-		<motion.div ref={container} className={`sticky top-0 flex h-screen text-base-100 ${className}`}>
+		<motion.div className={`sticky top-0 flex h-screen text-base-100 ${className}`}>
 			<ParticlesBackground />
-
-			<motion.div style={{ scale }} className={`flex w-full z-10 ${className}`}>
-				<div className="flex flex-col items-center justify-center flex-1 gap-10 text-center">
-					<h1 className="text-5xl md:text-2xl">{name}</h1>
-
-					<p className="w-[50%] text-md md:w-full md:text-sm">{description}</p>
-
-					<a href={url} target="_blank">
-						<Button>View Project</Button>
-					</a>
-				</div>
-
-				<div className="flex-1">
-					<Suspense fallback={null}>
-						<div className="w-full h-full">
-							<Model modelPath="/models/macbook-pro.glb" modelTexture={img} />
-						</div>
-					</Suspense>
-				</div>
-			</motion.div>
+			{children}
 		</motion.div>
 	)
 }

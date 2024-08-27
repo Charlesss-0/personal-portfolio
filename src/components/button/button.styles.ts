@@ -11,7 +11,7 @@ const StyledButton = styled.button`
 	outline: 1px solid #fff;
 
 	&:hover {
-		color: #2f2f2f;
+		color: #011825;
 		outline: none;
 	}
 

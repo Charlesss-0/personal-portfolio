@@ -2,17 +2,6 @@ import { devices, theme } from '@/constants'
 
 import styled from 'styled-components'
 
-const ContactSection = styled.section`
-	color: ${theme['base-100']};
-	height: 100vh;
-	padding: 1rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-	overflow: hidden;
-`
-
 const Fieldset = styled.fieldset`
 	display: flex;
 	position: relative;
@@ -62,7 +51,7 @@ const Fieldset = styled.fieldset`
 const Submit = styled.button`
 	position: relative;
 	background: #fff;
-	color: #000;
+	color: #011825;
 	padding: 0.5rem 2rem;
 	align-self: end;
 	font-weight: bold;
@@ -89,4 +78,4 @@ const Submit = styled.button`
 	}
 `
 
-export { ContactSection, Fieldset, Submit }
+export { Fieldset, Submit }

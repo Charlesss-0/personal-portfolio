@@ -11,26 +11,21 @@ const ParticlesBackground: React.FC = () => {
 		let { clientWidth, clientHeight } = container
 
 		const scene = new THREE.Scene()
-		const camera = new THREE.PerspectiveCamera(65, clientWidth / clientHeight, 0.1, 1000)
+		const camera = new THREE.PerspectiveCamera(75, clientWidth / clientHeight, 0.1, 1000)
 		const renderer = new THREE.WebGLRenderer({
 			antialias: true,
 			powerPreference: 'high-performance',
 		})
 
+		const color = new THREE.Color('#011825')
+		scene.background = color
+
+		camera.position.z = 5
+
 		// renderer set up
 		renderer.setPixelRatio(window.devicePixelRatio)
 		renderer.setSize(clientWidth, clientHeight)
 		container.appendChild(renderer.domElement)
-
-		// renderer tone mapping
-		renderer.toneMapping = THREE.ACESFilmicToneMapping
-		renderer.toneMappingExposure = 1.0
-
-		// lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1)
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
-		directionalLight.position.set(4, 8, 5)
-		scene.add(ambientLight, directionalLight)
 
 		// particles set up
 		const generateParticles = () => {
@@ -51,7 +46,6 @@ const ParticlesBackground: React.FC = () => {
 				sizeAttenuation: true,
 				color: new THREE.Color('#ffffff'),
 				transparent: true,
-				opacity: 0.7,
 			})
 
 			// Rounded shape using built-in `circle` texture
@@ -60,18 +54,13 @@ const ParticlesBackground: React.FC = () => {
 			)
 			particlesMaterial.map.minFilter = THREE.LinearFilter
 			particlesMaterial.map.magFilter = THREE.LinearFilter
-			particlesMaterial.depthWrite = false // Prevent depth issues
+			particlesMaterial.depthWrite = false
 
 			const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 			return { particles }
 		}
 		const { particles } = generateParticles()
 		scene.add(particles)
-
-		const color = new THREE.Color('#011825')
-		scene.background = color
-
-		camera.position.z = 5
 
 		// window resize
 		const handleWindowResize = () => {
@@ -81,14 +70,12 @@ const ParticlesBackground: React.FC = () => {
 		}
 		window.addEventListener('resize', handleWindowResize)
 
-		const clock = new THREE.Clock()
-
 		// request animation
 		const renderScene = () => {
 			const positions = particles.geometry.attributes.position.array
 
 			for (let i = 0; i < positions.length; i += 3) {
-				positions[i + 1] -= 0.02 // Move particles down
+				positions[i + 1] -= 0.01 // Move particles down
 
 				if (positions[i + 1] < -5) {
 					// Reset position if out of screen
