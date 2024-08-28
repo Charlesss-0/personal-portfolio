@@ -1,5 +1,4 @@
 import { Chakra_Petch, Montserrat } from 'next/font/google'
-import { ParticlesBackground, Sphere } from '../threejs'
 
 import { FaGithub } from 'react-icons/fa6'
 import Typewriter from '../typewriter/typewriter'
@@ -18,8 +17,7 @@ const chakraPetch = Chakra_Petch({
 const Hero = () => {
 	return (
 		<>
-			<Sphere />
-			<div className="relative flex flex-col justify-end w-full h-full select-none text-base-100">
+			<div className="relative flex flex-col justify-end w-full h-screen select-none text-base-100">
 				<div className="left-0 px-5">
 					<h1 className={`text-9xl text-neutral lg:text-6xl ${chakraPetch.className}`}>
 						Carlos

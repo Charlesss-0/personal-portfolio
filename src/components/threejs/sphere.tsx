@@ -2,8 +2,11 @@ import * as THREE from 'three'
 
 import React, { useEffect, useRef } from 'react'
 
+import { useScroll } from 'framer-motion'
+
 const Sphere: React.FC = () => {
 	const containerRef = useRef<HTMLDivElement | null>(null)
+	const { scrollY } = useScroll()
 
 	useEffect(() => {
 		const container = containerRef.current!
@@ -15,9 +18,7 @@ const Sphere: React.FC = () => {
 
 		// camera
 		const camera = new THREE.PerspectiveCamera(10, clientWidth / clientHeight, 0.1, 1000)
-		camera.position.y = -0.5
-		camera.position.x = -1
-		camera.position.z = 5
+		camera.position.set(-1, -0.5, 5)
 
 		// renderer
 		const renderer = new THREE.WebGLRenderer({
@@ -30,8 +31,8 @@ const Sphere: React.FC = () => {
 		container.appendChild(renderer.domElement)
 
 		// lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 0.1)
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
 		directionalLight.position.set(-5, -5, -5)
 		scene.add(ambientLight, directionalLight)
 
@@ -41,7 +42,7 @@ const Sphere: React.FC = () => {
 
 		// texture loader
 		const textureLoader = new THREE.TextureLoader()
-		const texture = textureLoader.load('/images/asteroid.jpg', texture => {
+		const texture = textureLoader.load('/images/moon-texture.jpg', texture => {
 			texture.wrapS = THREE.RepeatWrapping
 			texture.wrapT = THREE.RepeatWrapping
 			texture.minFilter = THREE.LinearFilter
@@ -49,7 +50,7 @@ const Sphere: React.FC = () => {
 		})
 
 		// geometry, materials, and mesh set up
-		const sphereGeometry = new THREE.SphereGeometry(1, 64, 64, 3)
+		const sphereGeometry = new THREE.SphereGeometry(1, 64, 32, 3)
 		const sphereMaterial = new THREE.MeshStandardMaterial({
 			map: texture,
 			color: 0xefefef,
@@ -69,6 +70,12 @@ const Sphere: React.FC = () => {
 		const renderScene = () => {
 			requestAnimationFrame(renderScene)
 
+			const scrollAmount = scrollY.get()
+
+			// position boundaries
+			const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.4))
+			sphere.position.set(-positionLimit, -positionLimit, 0)
+
 			sphere.rotation.x += 0.01
 
 			renderer.render(scene, camera)
@@ -79,12 +86,18 @@ const Sphere: React.FC = () => {
 			window.removeEventListener('resize', handleWindowResize)
 			container.removeChild(renderer.domElement)
 		}
-	}, [])
+	}, [scrollY])
 
 	return (
 		<div
 			ref={containerRef}
-			style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%' }}
+			style={{
+				position: 'fixed',
+				top: 0,
+				left: 0,
+				width: '100%',
+				height: '100%',
+			}}
 		></div>
 	)
 }

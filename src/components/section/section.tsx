@@ -1,11 +1,18 @@
-import { ParticlesBackground } from '../threejs'
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
-const Section: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children, className }) => {
+const Section: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children }) => {
+	const container = useRef<HTMLDivElement | null>(null)
+
+	const { scrollYProgress } = useScroll({
+		target: container,
+		offset: ['start end', 'start start'],
+	})
+
+	const scale = useTransform(scrollYProgress, [0, 1], [0.5, 1])
+
 	return (
-		<motion.div className={`sticky top-0 flex h-screen text-base-100 bg-black ${className}`}>
-			<ParticlesBackground />
+		<motion.div ref={container} className="z-10 w-full h-screen text-base-100" style={{ scale }}>
 			{children}
 		</motion.div>
 	)

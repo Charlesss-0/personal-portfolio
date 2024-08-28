@@ -22,7 +22,7 @@ const Contact = () => {
 	}
 
 	return (
-		<div className="z-10 flex items-center justify-center w-full h-full">
+		<div className="flex items-center justify-center w-full h-full">
 			<div className="w-2/4">
 				<div className="pb-5 mb-10 border-b-2">
 					<h1 className="text-3xl">Say Hello</h1>
