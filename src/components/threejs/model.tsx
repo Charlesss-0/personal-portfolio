@@ -76,6 +76,8 @@ const Model: React.FC<ModelProps> = props => {
 				texture.flipY = false
 				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 				texture.generateMipmaps = true
+				texture.minFilter = THREE.LinearMipMapLinearFilter
+				texture.magFilter = THREE.LinearFilter
 
 				renderer.initTexture(texture)
 

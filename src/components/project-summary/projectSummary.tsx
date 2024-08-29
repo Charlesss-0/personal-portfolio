@@ -10,6 +10,8 @@ type ProjectSummaryProps = React.HTMLProps<HTMLDivElement> &
 		description: string
 		img: string
 		url: string
+		model: string
+		btnText: string
 	}
 
 const ProjectSummary: React.FC<ProjectSummaryProps> = ({
@@ -17,6 +19,8 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({
 	description,
 	img,
 	url,
+	model,
+	btnText,
 	className,
 }) => {
 	return (
@@ -26,15 +30,15 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({
 
 				<p className="w-[50%] text-md md:w-full md:text-sm">{description}</p>
 
-				<a href={url} target="_blank">
-					<Button>View Project</Button>
+				<a href={url}>
+					<Button>{btnText}</Button>
 				</a>
 			</div>
 
 			<div className="z-10 flex-1">
 				<Suspense fallback={null}>
 					<div className="w-full h-full">
-						<Model modelPath="/models/macbook-pro.glb" modelTexture={img} />
+						<Model modelPath={model} modelTexture={img} />
 					</div>
 				</Suspense>
 			</div>

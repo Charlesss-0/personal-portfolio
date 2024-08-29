@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<StyledComponentsRegistry>
-			<html lang="en" data-theme="appTheme" className="no-scrollbar">
+			<html lang="en" className="no-scrollbar">
 				<body className={poppins.className}>
 					<SmoothScroll>
 						<main>{children}</main>
