@@ -14,6 +14,12 @@ const poppins = Poppins({
 export const metadata: Metadata = {
 	title: config.name,
 	description: 'Personal portfolio',
+	generator: 'Next.js',
+	manifest: '/site.webmanifest',
+	icons: {
+		icon: '/favicon.ico',
+		apple: '/apple-touch-icon.png',
+	},
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
