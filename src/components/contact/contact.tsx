@@ -16,7 +16,7 @@ const Contact = () => {
 	if (success) {
 		return (
 			<div className="z-10 flex items-center justify-center w-full h-full">
-				<h1 className="text-2xl">Thanks for reaching out!</h1>
+				<h1 className="z-10 text-2xl">Thanks for reaching out!</h1>
 			</div>
 		)
 	}
