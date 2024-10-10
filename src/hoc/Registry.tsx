@@ -5,7 +5,11 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 import { useServerInsertedHTML } from 'next/navigation'
 
-export default function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
+export default function StyledComponentsRegistry({
+	children,
+}: {
+	children: React.ReactNode
+}): React.ReactNode {
 	const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
 
 	useServerInsertedHTML(() => {

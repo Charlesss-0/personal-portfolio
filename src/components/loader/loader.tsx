@@ -1,11 +1,11 @@
 import { LoaderBox } from './loader.styles'
 
-const Loader = () => {
+const Loader = (): React.ReactNode => {
 	return (
 		<LoaderBox>
-			<div></div>
-			<div></div>
-			<div></div>
+			<div />
+			<div />
+			<div />
 		</LoaderBox>
 	)
 }

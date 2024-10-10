@@ -8,7 +8,7 @@ import { ProjectSummary } from '@/components/project-summary'
 import { Section } from '@/components/section'
 import { portfolio } from '@/data/portfolio-data'
 
-export default function Home() {
+export default function Home(): React.ReactNode {
 	return (
 		<div>
 			<ParticlesBackground />

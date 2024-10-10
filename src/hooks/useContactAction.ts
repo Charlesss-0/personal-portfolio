@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function useContactAction(
 	formRef: React.RefObject<HTMLFormElement>,
 	textareaRef: React.RefObject<HTMLTextAreaElement>
-) {
+): {
+	isSending: boolean
+	success: boolean
+	textareaValue: string
+	setTextareaValue: (value: string) => void
+	handleSubmit: (e: React.ChangeEvent<HTMLFormElement>) => Promise<void>
+} {
 	const [isSending, setIsSending] = useState<boolean>(false)
 	const [success, setSuccess] = useState<boolean>(false)
 	const [textareaValue, setTextareaValue] = useState<string>('')
@@ -16,7 +22,7 @@ export default function useContactAction(
 			const action = process.env.NEXT_PUBLIC_FORM_ACTION_URL as string
 
 			if (!action) {
-				console.error('Environmental variable value is not defined')
+				throw new Error('Form action URL is not defined')
 				return
 			}
 
@@ -29,13 +35,13 @@ export default function useContactAction(
 				})
 
 				if (!response.ok) {
-					console.error('Unable to send message:', response)
+					throw new Error('Unable to send message')
 					return
 				}
 
 				setSuccess(true)
-			} catch (e) {
-				console.error('Unable to send message:', e)
+			} catch (error) {
+				throw new Error(`Unable to send message ${error}`)
 				setIsSending(false)
 			}
 		}
@@ -46,7 +52,7 @@ export default function useContactAction(
 			textareaRef.current.style.height = '0'
 			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
 		}
-	}, [textareaValue])
+	}, [textareaValue, textareaRef])
 
 	return { isSending, success, textareaValue, setTextareaValue, handleSubmit }
 }
