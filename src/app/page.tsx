@@ -1,22 +1,20 @@
 'use client'
 
-import { ParticlesBackground, Sphere } from '@/components/threejs'
+import { Contact, Hero, ProjectSummary, Section } from '@/components/layout'
 
-import { Contact } from '@/components/contact'
-import { Hero } from '@/components/hero'
-import { ProjectSummary } from '@/components/project-summary'
-import { Section } from '@/components/section'
-import { portfolio } from '@/data/portfolio-data'
+import { ParticlesBackground } from '@/components/animations'
+import { SphereModel } from '@/components/models'
+import { projects } from '@/data/projects-data'
 
 export default function Home(): React.ReactNode {
 	return (
 		<div>
 			<ParticlesBackground />
-			<Sphere />
+			<SphereModel />
 
 			<Hero />
 
-			{portfolio.map((project, index) => (
+			{projects.map((project, index) => (
 				<Section key={index}>
 					<ProjectSummary
 						{...project}

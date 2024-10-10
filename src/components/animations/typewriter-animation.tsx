@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-
-import { Cursor } from './typewriter.styles'
+import { useEffect, useState } from 'react'
 
 interface TypewriterProps extends React.HTMLAttributes<HTMLSpanElement> {
 	text: string
 }
 
-const Typewriter: React.FC<TypewriterProps> = ({ text, ...props }): React.ReactNode => {
+export default function Typewriter({ text, ...props }: TypewriterProps): React.ReactNode {
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
@@ -41,9 +39,8 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, ...props }): React.ReactN
 	return (
 		<div className="flex items-center h-32 gap-2 w-max md:h-12">
 			<span {...props}>{currentText}</span>
-			<Cursor />
+
+			<div className="w-4 h-2/5 animate-blink bg-gray-50" />
 		</div>
 	)
 }
-
-export default Typewriter

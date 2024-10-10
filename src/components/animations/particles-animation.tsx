@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
-const ParticlesBackground: React.FC = () => {
+export default function ParticlesBackground(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
@@ -115,5 +115,3 @@ const ParticlesBackground: React.FC = () => {
 		/>
 	)
 }
-
-export default ParticlesBackground

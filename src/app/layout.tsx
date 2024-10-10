@@ -1,10 +1,11 @@
 import './globals.css'
 
+import { chakraPetch, montserrat, poppins, telegrafRegular } from './fonts'
+
 import type { Metadata } from 'next'
 import SmoothScroll from './smoothScroll'
-import StyledComponentsRegistry from '@/hoc/Registry'
+import StyledComponentsRegistry from './registry'
 import config from '@/data/config.json'
-import { poppins } from './fonts'
 
 export const metadata: Metadata = {
 	title: config.name,
@@ -20,8 +21,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
 	return (
 		<StyledComponentsRegistry>
-			<html lang="en" className="no-scrollbar">
-				<body className={`${poppins.className} antialiased`}>
+			<html
+				lang="en"
+				className={`${poppins.variable} ${telegrafRegular.variable} ${montserrat.variable} ${chakraPetch.variable} antialiased no-scrollbar`}
+			>
+				<body className="text-gray-50">
 					<SmoothScroll>
 						<main>{children}</main>
 					</SmoothScroll>

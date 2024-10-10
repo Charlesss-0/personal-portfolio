@@ -1,15 +1,13 @@
-import { chakraPetch, montserrat } from '@/app/fonts'
-
 import { FaGithub } from 'react-icons/fa6'
-import Typewriter from '../typewriter/typewriter'
+import { Typewriter } from '@/components/animations'
 import config from '@/data/config.json'
 
-const Hero: React.FC = () => {
+export default function Hero(): React.ReactNode {
 	return (
 		<>
 			<div className="relative flex flex-col justify-end w-full h-screen select-none text-base-100">
 				<div className="left-0 px-5">
-					<h1 className={`text-9xl text-neutral lg:text-6xl ${chakraPetch.className}`}>
+					<h1 className="font-semibold text-gray-600 text-9xl text-neutral lg:text-6xl font-telegraf-regular">
 						Carlos
 						<br />
 						Aragon
@@ -19,7 +17,7 @@ const Hero: React.FC = () => {
 				<div className="flex w-full px-5 start">
 					<Typewriter
 						text={config.role}
-						className={`text-5xl text-right font-semibold md:text-xl ${montserrat.className}`}
+						className="text-5xl font-semibold text-right text-gray-200 md:text-xl font-telegraf-regular"
 					/>
 				</div>
 
@@ -29,11 +27,9 @@ const Hero: React.FC = () => {
 					target="_blank"
 					className="absolute p-2 transition-all duration-300 rounded-full cursor-pointer bottom-10 right-10 hover:bg-neutral"
 				>
-					<FaGithub className="text-4xl" />
+					<FaGithub className="text-4xl fill-gray-50" />
 				</a>
 			</div>
 		</>
 	)
 }
-
-export default Hero

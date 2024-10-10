@@ -1,7 +1,7 @@
 const laptop = '/models/macbook-pro.glb'
 const mobile = '/models/iphone-11.glb'
 
-const portfolio = [
+const projects = [
 	{
 		name: 'Places Finder app',
 		description:
@@ -39,4 +39,4 @@ const portfolio = [
 	},
 ]
 
-export { portfolio }
+export { projects }

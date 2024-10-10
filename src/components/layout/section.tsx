@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
-const Section: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children }) => {
+export default function Section({ children }: { children: React.ReactNode }): React.ReactNode {
 	const container = useRef<HTMLDivElement | null>(null)
 
 	const { scrollYProgress } = useScroll({
@@ -17,5 +17,3 @@ const Section: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children }) => {
 		</motion.div>
 	)
 }
-
-export default Section

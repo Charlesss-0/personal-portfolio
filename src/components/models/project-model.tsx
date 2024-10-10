@@ -10,7 +10,7 @@ interface ModelProps {
 	modelTexture: string
 }
 
-const Model: React.FC<ModelProps> = props => {
+export default function Model({ modelPath, modelTexture }: ModelProps): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
@@ -67,12 +67,12 @@ const Model: React.FC<ModelProps> = props => {
 
 		// model loader
 		loader.load(
-			props.modelPath,
+			modelPath,
 			gltf => {
 				model = gltf.scene
 				model.position.set(0, 0.8, 0)
 
-				const texture = new THREE.TextureLoader().load(props.modelTexture)
+				const texture = new THREE.TextureLoader().load(modelTexture)
 				texture.colorSpace = THREE.SRGBColorSpace
 				texture.flipY = false
 				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
@@ -156,9 +156,7 @@ const Model: React.FC<ModelProps> = props => {
 			container.removeEventListener('mouseleave', handleMouseLeave)
 			container.removeChild(renderer.domElement)
 		}
-	}, [props.modelPath, props.modelTexture])
+	}, [modelPath, modelTexture])
 
 	return <div ref={containerRef} style={{ height: '100%', width: '100%' }} />
 }
-
-export default Model

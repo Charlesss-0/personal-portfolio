@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { useScroll } from 'framer-motion'
 
-const Sphere: React.FC = () => {
+export default function Sphere(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const { scrollY } = useScroll()
 
@@ -103,5 +103,3 @@ const Sphere: React.FC = () => {
 		/>
 	)
 }
-
-export default Sphere

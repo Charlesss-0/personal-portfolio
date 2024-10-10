@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+	darkMode: ['class'],
 	content: [
 		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,44 +10,48 @@ const config: Config = {
 	theme: {
 		extend: {
 			screens: {
-				xl: { max: '1279px' },
-				lg: { max: '900px' },
-				md: { max: '600px' },
-				sm: { max: '400px' },
+				xl: {
+					max: '1279px',
+				},
+				lg: {
+					max: '900px',
+				},
+				md: {
+					max: '600px',
+				},
+				sm: {
+					max: '400px',
+				},
 			},
-			colors: {
-				primary: '#1f1f1f',
-				'primary-content': '#2f2f2f',
-
-				secondary: '#f50057',
-				'secondary-content': '#bbba',
-
-				neutral: '#5f5f5f',
-				'neutral-content': '#afafaf',
-
-				accent: '#2f2f2f3f',
-				'accent-secondary': '#efefef3f',
-
-				'base-100': '#fff4f2',
-				'base-200': '#ded4d2',
-				'base-300': '#bdb5b4',
-				'base-content': '#161414',
-
-				info: '#009ad1',
-				'info-content': '#000910',
-				success: '#008a59',
-				'success-content': '#000703',
-
-				warning: '#d07300',
-				'warning-content': '#100500',
-
-				error: '#fc4d5d',
-				'error-content': '#160203',
+			fontFamily: {
+				'telegraf-regular': ['var(--font-telegraf-regular)', 'sans-serif'],
+				poppins: ['var(--font-poppins)', 'sans-serif'],
+				montserrat: ['var(--font-montserrat)', 'sans-serif'],
+				chakraPetch: ['var(--font-chakra-petch)', 'sans-serif'],
+			},
+			keyframes: {
+				blink: {
+					'25%': {
+						opacity: '0',
+					},
+					'75%': {
+						opacity: '1',
+					},
+				},
+			},
+			animation: {
+				blink: 'blink 1.3s infinite',
+			},
+			borderRadius: {
+				lg: 'var(--radius)',
+				md: 'calc(var(--radius) - 2px)',
+				sm: 'calc(var(--radius) - 4px)',
 			},
 		},
 	},
 	plugins: [
-		({ addUtilities }: { addUtilities: any }) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		({ addUtilities }: { addUtilities: any }): void => {
 			const newUtilities = {
 				'.no-scrollbar::-webkit-scrollbar': {
 					display: 'none',
@@ -59,6 +64,8 @@ const config: Config = {
 
 			addUtilities(newUtilities)
 		},
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		require('tailwindcss-animate'),
 	],
 }
 export default config

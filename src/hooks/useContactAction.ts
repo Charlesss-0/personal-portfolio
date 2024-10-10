@@ -23,7 +23,6 @@ export default function useContactAction(
 
 			if (!action) {
 				throw new Error('Form action URL is not defined')
-				return
 			}
 
 			try {
@@ -36,13 +35,12 @@ export default function useContactAction(
 
 				if (!response.ok) {
 					throw new Error('Unable to send message')
-					return
 				}
 
 				setSuccess(true)
 			} catch (error) {
-				throw new Error(`Unable to send message ${error}`)
 				setIsSending(false)
+				throw new Error(`Unable to send message ${error}`)
 			}
 		}
 	}
