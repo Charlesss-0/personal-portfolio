@@ -1,4 +1,5 @@
-import fs from 'fs-extra'
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const fs = require('fs-extra')
 
 const src = 'node_modules/three/examples/jsm/libs/draco/gltf'
 const output = 'public/draco'
