@@ -11,12 +11,13 @@ interface ModelProps {
 }
 
 const Model: React.FC<ModelProps> = props => {
-	const container = useRef<HTMLDivElement>(null)
+	const containerRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		if (!container.current) return
+		if (!containerRef.current) return (): null => null
 
-		const { clientWidth, clientHeight } = container.current
+		const container = containerRef.current!
+		const { clientWidth, clientHeight } = container
 
 		let model: THREE.Object3D<THREE.Object3DEventMap>
 		let lights = []
@@ -42,7 +43,7 @@ const Model: React.FC<ModelProps> = props => {
 		})
 		renderer.setPixelRatio(window.devicePixelRatio)
 		renderer.setSize(clientWidth, clientHeight)
-		container.current?.appendChild(renderer.domElement)
+		container.appendChild(renderer.domElement)
 
 		// renderer tone mapping
 		renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -96,12 +97,13 @@ const Model: React.FC<ModelProps> = props => {
 			},
 			undefined,
 			error => {
+				// eslint-disable-next-line no-console
 				console.error('Error loading model:', error)
 			}
 		)
 
 		// mouse move
-		const handleMouseMove = (event: MouseEvent) => {
+		const handleMouseMove = (event: MouseEvent): void => {
 			const { innerWidth, innerHeight } = window
 			const { clientX, clientY } = event
 
@@ -118,17 +120,13 @@ const Model: React.FC<ModelProps> = props => {
 		window.addEventListener('mousemove', handleMouseMove)
 
 		// mouse leave
-		const handleMouseLeave = () => {
+		const handleMouseLeave = (): void => {
 			isMouseInWindow = false
 		}
-		container.current.addEventListener('mouseleave', handleMouseLeave)
+		container.addEventListener('mouseleave', handleMouseLeave)
 
 		// window resize
-		const handleWindowResize = () => {
-			if (!container.current) return
-
-			const { clientWidth, clientHeight } = container.current
-
+		const handleWindowResize = (): void => {
 			renderer.setSize(clientWidth, clientHeight)
 			camera.aspect = clientWidth / clientHeight
 			camera.updateProjectionMatrix()
@@ -136,7 +134,7 @@ const Model: React.FC<ModelProps> = props => {
 		window.addEventListener('resize', handleWindowResize)
 
 		// request animation
-		const renderScene = () => {
+		const renderScene = (): void => {
 			requestAnimationFrame(renderScene)
 
 			if (model) {
@@ -152,15 +150,15 @@ const Model: React.FC<ModelProps> = props => {
 		renderScene()
 
 		// cleanup
-		return () => {
+		return (): void => {
 			window.removeEventListener('resize', handleWindowResize)
 			window.removeEventListener('mousemove', handleMouseMove)
-			container.current?.removeEventListener('mouseleave', handleMouseLeave)
-			container.current?.removeChild(renderer.domElement)
+			container.removeEventListener('mouseleave', handleMouseLeave)
+			container.removeChild(renderer.domElement)
 		}
 	}, [props.modelPath, props.modelTexture])
 
-	return <div ref={container} style={{ height: '100%', width: '100%' }}></div>
+	return <div ref={containerRef} style={{ height: '100%', width: '100%' }} />
 }
 
 export default Model

@@ -5,7 +5,7 @@ import { formInputElements } from './contact-data'
 import { useContactAction } from '@/hooks'
 import { useRef } from 'react'
 
-const Contact = () => {
+const Contact: React.FC = () => {
 	const formRef = useRef<HTMLFormElement>(null)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	const { isSending, success, textareaValue, setTextareaValue, handleSubmit } = useContactAction(
@@ -52,7 +52,7 @@ const Contact = () => {
 									maxLength={300}
 									onChange={e => setTextareaValue(e.target.value)}
 									required
-								></textarea>
+								/>
 							)}
 							<label htmlFor={input.id} className="md:text-[0.8rem]">
 								{input.label}

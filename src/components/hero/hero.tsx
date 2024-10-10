@@ -1,20 +1,10 @@
-import { Chakra_Petch, Montserrat } from 'next/font/google'
+import { chakraPetch, montserrat } from '@/app/fonts'
 
 import { FaGithub } from 'react-icons/fa6'
 import Typewriter from '../typewriter/typewriter'
 import config from '@/data/config.json'
 
-const montserrat = Montserrat({
-	weight: '600',
-	subsets: ['latin'],
-})
-
-const chakraPetch = Chakra_Petch({
-	weight: '600',
-	subsets: ['latin'],
-})
-
-const Hero = () => {
+const Hero: React.FC = () => {
 	return (
 		<>
 			<div className="relative flex flex-col justify-end w-full h-screen select-none text-base-100">
@@ -35,6 +25,7 @@ const Hero = () => {
 
 				<a
 					href={config.github}
+					rel="noreferrer"
 					target="_blank"
 					className="absolute p-2 transition-all duration-300 rounded-full cursor-pointer bottom-10 right-10 hover:bg-neutral"
 				>

@@ -3,12 +3,13 @@ import * as THREE from 'three'
 import React, { useEffect, useRef } from 'react'
 
 const ParticlesBackground: React.FC = () => {
-	const containerRef = useRef<HTMLDivElement>(null)
+	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
-		const container = containerRef.current!
+		if (!containerRef.current) return (): null => null
 
-		let { clientWidth, clientHeight } = container
+		const container = containerRef.current
+		const { clientWidth, clientHeight } = container
 
 		// scene
 		const scene = new THREE.Scene()
@@ -31,7 +32,13 @@ const ParticlesBackground: React.FC = () => {
 		container.appendChild(renderer.domElement)
 
 		// particles set up
-		const generateParticles = () => {
+		const generateParticles = (): {
+			particles: THREE.Points<
+				THREE.BufferGeometry<THREE.NormalBufferAttributes>,
+				THREE.PointsMaterial,
+				THREE.Object3DEventMap
+			>
+		} => {
 			const bufferGeometry = new THREE.BufferGeometry()
 			const counts = 3000
 			const positions = new Float32Array(counts * 3)
@@ -67,7 +74,7 @@ const ParticlesBackground: React.FC = () => {
 		scene.add(particles)
 
 		// window resize
-		const handleWindowResize = () => {
+		const handleWindowResize = (): void => {
 			camera.aspect = window.innerWidth / window.innerHeight
 			camera.updateProjectionMatrix()
 			renderer.setSize(window.innerWidth, window.innerHeight)
@@ -75,7 +82,7 @@ const ParticlesBackground: React.FC = () => {
 		window.addEventListener('resize', handleWindowResize)
 
 		// request animation
-		const renderScene = () => {
+		const renderScene = (): void => {
 			requestAnimationFrame(renderScene)
 
 			const positions = particles.geometry.attributes.position.array
@@ -95,7 +102,7 @@ const ParticlesBackground: React.FC = () => {
 		}
 		renderScene()
 
-		return () => {
+		return (): void => {
 			window.removeEventListener('resize', handleWindowResize)
 			container.removeChild(renderer.domElement)
 		}

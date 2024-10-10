@@ -1,13 +1,62 @@
 {
-	"extends": ["next/core-web-vitals"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 2022,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y", "import"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:import/typescript",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"plugin:jsx-a11y/recommended",
+		"plugin:import/errors",
+		"next/core-web-vitals"
+	],
 	"rules": {
-		"react-hooks/exhaustive-deps": "off",
-		"@next/next/no-img-element": "off",
-		"react/no-unescaped-entities": "off",
-		"eqeqeq": ["warn", "always"],
-		"react/jsx-key": "warn",
-		"react/jsx-no-duplicate-props": "warn",
-		"react/jsx-no-undef": "warn",
-		"import/newline-after-import": "warn"
-	}
+		// General ESLint rules
+		"no-console": "warn", // Disallows console
+		"no-debugger": "warn", // Disallows debugger
+		"no-unused-vars": "off", // Disables unused vars
+		"no-var": "error", // Disallows var
+		"prefer-const": "error", // Enforces const when variable is not reassigned
+		"eqeqeq": ["error", "always"], // Enforces === and !==
+
+		// TypeScript-specific rules
+		"@typescript-eslint/explicit-function-return-type": "warn", // Enforces explicit return types on functions
+		"@typescript-eslint/no-empty-function": "warn", // Disallows empty functions
+		"@typescript-eslint/no-unused-expressions": "error", // Disallows unused expressions
+		"@typescript-eslint/no-unused-vars": "error", // Disallows unused variables
+		"@typescript-eslint/no-explicit-any": "warn", // Disallows any type
+		"@typescript-eslint/consistent-type-imports": "error", // Enforces consistent type imports
+		"@typescript-eslint/no-use-before-define": "error", // Disallows use before define
+		"@typescript-eslint/no-inferrable-types": "error", // Disallows inferrable types
+
+		// React-specific rules
+		"react/react-in-jsx-scope": "off", // Disables react in jsx scope
+		"react/prop-types": "off", // Disables prop-types
+		"react/jsx-key": "warn", // Enforces key prop on all JSX elements
+		"react/jsx-no-target-blank": "error", // Disallows target="_blank" on links
+		"react/self-closing-comp": "error", // Forces self-closing tags
+		"react-hooks/rules-of-hooks": "error", // Enforces rules of hooks
+		"react-hooks/exhaustive-deps": "warn", // Warns on missing dependencies in hooks
+
+		// Accessibility rules
+		"jsx-a11y/alt-text": "warn", // Enforces alt text on images
+		"jsx-a11y/anchor-is-valid": [
+			"error",
+			{
+				"components": ["Link"],
+				"specialLink": ["hrefLeft", "hrefRight"],
+				"aspects": ["noHref", "invalidHref", "preferButton"]
+			}
+		], // Enforces valid anchor tags
+		"jsx-a11y/label-has-associated-control": "error" // Enforces label association
+	},
+	"ignorePatterns": ["node_modules", ".next", "out", "build"]
 }

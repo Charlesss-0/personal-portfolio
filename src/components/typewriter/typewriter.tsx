@@ -10,7 +10,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, ...props }): React.ReactN
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
-	const delay: number = 10000
+	const delay = 10000
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -35,7 +35,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, ...props }): React.ReactN
 			}
 		}, 50)
 
-		return () => clearInterval(interval)
+		return (): void => clearInterval(interval)
 	}, [text, index, direction])
 
 	return (

@@ -9,7 +9,9 @@ const Sphere: React.FC = () => {
 	const { scrollY } = useScroll()
 
 	useEffect(() => {
-		const container = containerRef.current!
+		if (!containerRef.current) return (): null => null
+
+		const container = containerRef.current
 		const { clientWidth, clientHeight } = container
 
 		// scene
@@ -59,7 +61,7 @@ const Sphere: React.FC = () => {
 		scene.add(sphere)
 
 		// window resize
-		const handleWindowResize = () => {
+		const handleWindowResize = (): void => {
 			camera.aspect = window.innerWidth / window.innerHeight
 			camera.updateProjectionMatrix()
 			renderer.setSize(window.innerWidth, window.innerHeight)
@@ -67,7 +69,7 @@ const Sphere: React.FC = () => {
 		window.addEventListener('resize', handleWindowResize)
 
 		// request animation loop
-		const renderScene = () => {
+		const renderScene = (): void => {
 			requestAnimationFrame(renderScene)
 
 			const scrollAmount = scrollY.get()
@@ -82,7 +84,7 @@ const Sphere: React.FC = () => {
 		}
 		renderScene()
 
-		return () => {
+		return (): void => {
 			window.removeEventListener('resize', handleWindowResize)
 			container.removeChild(renderer.domElement)
 		}
@@ -98,7 +100,7 @@ const Sphere: React.FC = () => {
 				width: '100%',
 				height: '100%',
 			}}
-		></div>
+		/>
 	)
 }
 
