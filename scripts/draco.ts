@@ -5,9 +5,9 @@ const output = 'public/draco'
 
 // Copy draco decoder from three.js into the public directory
 fs.copy(`${src}/draco_decoder.wasm`, `${output}/draco_decoder.wasm`, err => {
-	if (err) throw new Error(err)
+	if (err) throw new Error(JSON.stringify(err))
 })
 
 fs.copy(`${src}/draco_wasm_wrapper.js`, `${output}/draco_wasm_wrapper.js`, err => {
-	if (err) throw new Error(err)
+	if (err) throw new Error(JSON.stringify(err))
 })
