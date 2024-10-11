@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { Button } from '@/components/ui'
 import { ProjectModel } from '@/components/models'
 import { type MotionProps } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 type ProjectSummaryProps = React.HTMLProps<HTMLDivElement> &
 	MotionProps & {
@@ -24,7 +25,7 @@ export default function ProjectSummary({
 	className,
 }: ProjectSummaryProps): React.ReactNode {
 	return (
-		<div className={`flex z-10 w-full h-full md:flex-col ${className}`}>
+		<div className={cn('flex z-10 w-full h-full md:flex-col', className)}>
 			<div className="z-10 flex flex-col items-center justify-center flex-1 gap-10 text-center">
 				<h1 className="text-5xl md:text-2xl font-semibold">{name}</h1>
 
@@ -36,11 +37,11 @@ export default function ProjectSummary({
 			</div>
 
 			<div className="z-10 flex-1">
-				<Suspense fallback={null}>
-					<div className="w-full h-full">
+				<div className="w-full h-full">
+					<Suspense fallback={null}>
 						<ProjectModel modelPath={model} modelTexture={img} />
-					</div>
-				</Suspense>
+					</Suspense>
+				</div>
 			</div>
 		</div>
 	)

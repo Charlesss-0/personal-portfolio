@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { cn } from '@/lib/utils'
+
 interface TypewriterProps extends React.HTMLAttributes<HTMLSpanElement> {
-	text: string
+	children: string
 }
 
-export default function Typewriter({ text, ...props }: TypewriterProps): React.ReactNode {
+export default function Typewriter({ children, className }: TypewriterProps): React.ReactNode {
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
@@ -13,12 +15,12 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 	useEffect(() => {
 		const interval = setInterval(() => {
 			if (direction === 1) {
-				if (index === text.length) {
+				if (index === children.length) {
 					setTimeout(() => {
 						setDirection(-1) // Change direction to go backward after delay
 					}, delay)
 				} else {
-					setCurrentText(text.slice(0, index + 1))
+					setCurrentText(children.slice(0, index + 1))
 					setIndex(index + 1)
 				}
 			} else {
@@ -27,18 +29,18 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 						setDirection(1) // Change direction to go forward after delay
 					}, delay)
 				} else {
-					setCurrentText(text.slice(0, index - 1))
+					setCurrentText(children.slice(0, index - 1))
 					setIndex(index - 1)
 				}
 			}
 		}, 50)
 
 		return (): void => clearInterval(interval)
-	}, [text, index, direction])
+	}, [children, index, direction])
 
 	return (
 		<div className="flex items-center gap-2 w-max h-24">
-			<span {...props}>{currentText}</span>
+			<p className={cn('font-semibold text-8xl text-neutral-500', className)}>{currentText}</p>
 
 			<div className="w-5 h-[90%] animate-blink bg-neutral-200" />
 		</div>

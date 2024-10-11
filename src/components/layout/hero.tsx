@@ -13,10 +13,7 @@ export default function Hero(): React.ReactNode {
 					</div>
 
 					<div className="flex px-5">
-						<TypewriterAnimation
-							text={config.role}
-							className="font-semibold text-8xl text-neutral-500"
-						/>
+						<TypewriterAnimation>{config.role}</TypewriterAnimation>
 					</div>
 				</div>
 

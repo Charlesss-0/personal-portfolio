@@ -39,6 +39,12 @@ export default function ParticlesAnimation(): React.ReactNode {
 		directionalLight.position.set(-5, -5, -5.5)
 		scene.add(ambientLight, directionalLight)
 
+		const particleColors = [
+			new THREE.Color(0xf4f6ff),
+			new THREE.Color(0x77cdff),
+			new THREE.Color(0xf3c623),
+		]
+
 		// particles set up
 		const generateParticles = (): {
 			particles: THREE.Points<
@@ -47,29 +53,37 @@ export default function ParticlesAnimation(): React.ReactNode {
 				THREE.Object3DEventMap
 			>
 		} => {
-			const bufferGeometry = new THREE.BufferGeometry()
 			const counts = 3000
 			const positions = new Float32Array(counts * 3)
+			const colors = new Float32Array(counts * 3)
 
-			for (let i = 0; i < counts * 3; i++) {
-				positions[i] = (Math.random() - 0.5) * 10 // x position
-				positions[i + 1] = (Math.random() - 0.5) * 10 // y position
-				positions[i + 2] = (Math.random() - 0.5) * 10 // z position
+			for (let i = 0; i < counts; i++) {
+				const x = (Math.random() - 0.5) * 10 // x position
+				const y = (Math.random() - 0.5) * 10 // y position
+				const z = (Math.random() - 0.5) * 10 // z position
+
+				positions.set([x, y, z], i * 3)
+
+				const color = particleColors[Math.floor(Math.random() * particleColors.length)]
+				colors.set([color.r, color.g, color.b], i * 3)
 			}
 
+			const bufferGeometry = new THREE.BufferGeometry()
 			bufferGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+			bufferGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
-			const textureLoader = new THREE.TextureLoader()
 			const particlesMaterial = new THREE.PointsMaterial({
 				size: 0.02,
 				sizeAttenuation: true,
-				color: new THREE.Color('#ffffff'),
-				transparent: false,
+				vertexColors: true,
+				transparent: true,
 				depthTest: true,
 				depthWrite: false,
+				opacity: 1,
 			})
 
-			// Rounded shape using built-in `circle` texture
+			// Texture loader
+			const textureLoader = new THREE.TextureLoader()
 			particlesMaterial.map = textureLoader.load(
 				'https://threejs.org/examples/textures/sprites/circle.png'
 			)
