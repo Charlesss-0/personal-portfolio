@@ -36,7 +36,7 @@ export default function ParticlesAnimation(): React.ReactNode {
 		// lighting
 		const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
-		directionalLight.position.set(-5, -5, -4)
+		directionalLight.position.set(-5, -5, -5.5)
 		scene.add(ambientLight, directionalLight)
 
 		// particles set up
@@ -104,7 +104,7 @@ export default function ParticlesAnimation(): React.ReactNode {
 		})
 		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
 		sphere.renderOrder = 1 // render sphere after particles
-		sphere.position.z = 3
+		sphere.position.z = 3.3
 		scene.add(sphere)
 
 		// window resize
@@ -135,7 +135,7 @@ export default function ParticlesAnimation(): React.ReactNode {
 			const scrollAmount = scrollY.get()
 
 			// position boundaries
-			const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.4))
+			const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.6))
 			sphere.position.set(-positionLimit, -positionLimit, sphere.position.z)
 
 			sphere.rotation.x += 0.01
