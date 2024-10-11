@@ -1,8 +1,8 @@
 <h1 align="center">Personal Portfolio<h1>
 
-[![Site Preview](/public/images/site-preview.png)](https://carlosaragondev.vercel.app)
+[![Site Preview](/public/images/portfolio-preview.png)](https://carlosaragondev.vercel.app)
 
-#### My design portfolio to showcase a few projects. Built with [React.js](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/)
+#### Personal portfolio to showcase a few projects. Built with [React.js](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [Three.js](https://threejs.org/), [Styled-Components](https://styled-components.com/), [Shadcn](https://ui.shadcn.com/) and [Framer Motion](https://www.framer.com/motion/)
 
 #### View the [live site](https://carlosaragondev.vercel.app) or install it locally
 
