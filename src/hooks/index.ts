@@ -1,3 +1,3 @@
-import useContactAction from './useContactAction'
+import useContactAction from './use-contact-action'
 
 export { useContactAction }

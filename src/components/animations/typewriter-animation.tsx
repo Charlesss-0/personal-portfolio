@@ -37,10 +37,10 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 	}, [text, index, direction])
 
 	return (
-		<div className="flex items-center h-32 gap-2 w-max md:h-12">
+		<div className="flex items-center gap-2 w-max h-24">
 			<span {...props}>{currentText}</span>
 
-			<div className="w-4 h-2/3 animate-blink bg-neutral-200" />
+			<div className="w-5 h-[90%] animate-blink bg-neutral-200" />
 		</div>
 	)
 }
