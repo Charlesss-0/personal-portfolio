@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 			>
 				<SmoothScroll>
 					<body className="text-gray-50">
-						<main>{children}</main>
+						<main className={telegrafRegular.className}>{children}</main>
 					</body>
 				</SmoothScroll>
 			</html>

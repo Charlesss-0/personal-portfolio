@@ -3,14 +3,12 @@
 import { Contact, Hero, ProjectSummary, Section } from '@/components/layout'
 
 import { ParticlesBackground } from '@/components/animations'
-import { SphereModel } from '@/components/models'
 import { projects } from '@/data/projects-data'
 
 export default function Home(): React.ReactNode {
 	return (
 		<div>
 			<ParticlesBackground />
-			<SphereModel />
 
 			<Hero />
 

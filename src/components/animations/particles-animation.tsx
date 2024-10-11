@@ -2,8 +2,11 @@ import * as THREE from 'three'
 
 import { useEffect, useRef } from 'react'
 
-export default function ParticlesBackground(): React.ReactNode {
+import { useScroll } from 'framer-motion'
+
+export default function ParticlesAnimation(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
+	const { scrollY } = useScroll()
 
 	useEffect(() => {
 		if (!containerRef.current) return (): null => null
@@ -13,7 +16,6 @@ export default function ParticlesBackground(): React.ReactNode {
 
 		// scene
 		const scene = new THREE.Scene()
-		scene.background = null
 
 		// camera
 		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
@@ -30,6 +32,12 @@ export default function ParticlesBackground(): React.ReactNode {
 		renderer.setPixelRatio(window.devicePixelRatio)
 		renderer.setSize(clientWidth, clientHeight)
 		container.appendChild(renderer.domElement)
+
+		// lighting
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
+		directionalLight.position.set(-5, -5, -4)
+		scene.add(ambientLight, directionalLight)
 
 		// particles set up
 		const generateParticles = (): {
@@ -56,7 +64,9 @@ export default function ParticlesBackground(): React.ReactNode {
 				size: 0.02,
 				sizeAttenuation: true,
 				color: new THREE.Color('#ffffff'),
-				transparent: true,
+				transparent: false,
+				depthTest: true,
+				depthWrite: false,
 			})
 
 			// Rounded shape using built-in `circle` texture
@@ -65,13 +75,37 @@ export default function ParticlesBackground(): React.ReactNode {
 			)
 			particlesMaterial.map.minFilter = THREE.LinearFilter
 			particlesMaterial.map.magFilter = THREE.LinearFilter
-			particlesMaterial.depthWrite = false
 
 			const particles = new THREE.Points(bufferGeometry, particlesMaterial)
+			particles.position.z = -1
+			particles.renderOrder = 0 // render particles before sphere
+
 			return { particles }
 		}
 		const { particles } = generateParticles()
 		scene.add(particles)
+
+		// texture loader
+		const textureLoader = new THREE.TextureLoader()
+		const texture = textureLoader.load('/images/moon-texture.jpg', texture => {
+			texture.wrapS = THREE.RepeatWrapping
+			texture.wrapT = THREE.RepeatWrapping
+			texture.minFilter = THREE.LinearFilter
+			texture.magFilter = THREE.LinearFilter
+		})
+
+		const sphereGeometry = new THREE.SphereGeometry(1, 64, 32, 3)
+		const sphereMaterial = new THREE.MeshStandardMaterial({
+			map: texture,
+			color: 0xefefef,
+			transparent: false,
+			depthTest: true,
+			depthWrite: true,
+		})
+		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+		sphere.renderOrder = 1 // render sphere after particles
+		sphere.position.z = 3
+		scene.add(sphere)
 
 		// window resize
 		const handleWindowResize = (): void => {
@@ -98,6 +132,14 @@ export default function ParticlesBackground(): React.ReactNode {
 
 			particles.geometry.attributes.position.needsUpdate = true
 
+			const scrollAmount = scrollY.get()
+
+			// position boundaries
+			const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.4))
+			sphere.position.set(-positionLimit, -positionLimit, sphere.position.z)
+
+			sphere.rotation.x += 0.01
+
 			renderer.render(scene, camera)
 		}
 		renderScene()
@@ -106,7 +148,7 @@ export default function ParticlesBackground(): React.ReactNode {
 			window.removeEventListener('resize', handleWindowResize)
 			container.removeChild(renderer.domElement)
 		}
-	}, [])
+	}, [scrollY])
 
 	return (
 		<div
