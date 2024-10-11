@@ -12,7 +12,7 @@ export default function Section({ children }: { children: React.ReactNode }): Re
 	const scale = useTransform(scrollYProgress, [0, 1], [0.5, 1])
 
 	return (
-		<motion.div ref={container} className="z-10 w-full h-screen text-base-100" style={{ scale }}>
+		<motion.div ref={container} className="z-10 w-full h-screen" style={{ scale }}>
 			{children}
 		</motion.div>
 	)

@@ -8,7 +8,7 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
-	const delay = 10000
+	const delay = 5000
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -40,7 +40,7 @@ export default function Typewriter({ text, ...props }: TypewriterProps): React.R
 		<div className="flex items-center h-32 gap-2 w-max md:h-12">
 			<span {...props}>{currentText}</span>
 
-			<div className="w-4 h-2/5 animate-blink bg-gray-50" />
+			<div className="w-4 h-2/3 animate-blink bg-neutral-200" />
 		</div>
 	)
 }
