@@ -47,7 +47,7 @@ export default function Contact(): React.ReactNode {
 		<div className="flex items-center justify-center w-full h-full text-gray-50">
 			<div className="w-2/4">
 				<div className="pb-5 mb-10 border-b-2">
-					<h1 className="text-3xl font-telegraf-regular">Say Hello</h1>
+					<h1 className="text-3xl font-semibold">Say Hello</h1>
 				</div>
 
 				<form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-16 md:gap-10">
@@ -80,7 +80,7 @@ export default function Contact(): React.ReactNode {
 							)}
 							<label
 								htmlFor={input.id}
-								className="absolute transition-all duration-300 translate-y-[-100%] pointer-events-none font-telegraf-regular left-2 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-lg peer-focus:-translate-y-full peer-focus:text-base"
+								className="absolute transition-all duration-300 translate-y-[-100%] pointer-events-none left-2 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-lg peer-focus:-translate-y-full peer-focus:text-base"
 							>
 								{input.label}
 							</label>

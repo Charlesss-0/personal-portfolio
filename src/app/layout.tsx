@@ -33,8 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 				className={`${poppins.variable} ${telegrafRegular.variable} ${montserrat.variable} ${chakraPetch.variable} antialiased no-scrollbar`}
 			>
 				<SmoothScroll>
-					<body className="text-gray-50">
-						<main className={telegrafRegular.className}>{children}</main>
+					<body className="text-gray-50 font-telegraf-regular">
+						<main>{children}</main>
 					</body>
 				</SmoothScroll>
 			</html>

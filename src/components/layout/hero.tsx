@@ -7,7 +7,7 @@ export default function Hero(): React.ReactNode {
 		<>
 			<div className="relative flex flex-col justify-end w-full h-screen select-none text-base-100">
 				<div className="left-0 px-5">
-					<h1 className="font-semibold text-gray-600 text-9xl text-neutral lg:text-6xl font-telegraf-regular">
+					<h1 className="font-semibold text-gray-600 text-9xl text-neutral lg:text-6xl">
 						Carlos
 						<br />
 						Aragon
@@ -17,7 +17,7 @@ export default function Hero(): React.ReactNode {
 				<div className="flex w-full px-5 start">
 					<Typewriter
 						text={config.role}
-						className="text-5xl font-semibold text-right text-gray-200 md:text-xl font-telegraf-regular"
+						className="text-5xl font-semibold text-right text-gray-200 md:text-xl"
 					/>
 				</div>
 
