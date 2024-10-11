@@ -76,10 +76,9 @@ export default function ParticlesAnimation(): React.ReactNode {
 				size: 0.02,
 				sizeAttenuation: true,
 				vertexColors: true,
-				transparent: true,
+				transparent: false,
 				depthTest: true,
 				depthWrite: false,
-				opacity: 1,
 			})
 
 			// Texture loader
