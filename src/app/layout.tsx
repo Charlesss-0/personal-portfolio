@@ -3,7 +3,7 @@ import './globals.css'
 import { chakraPetch, montserrat, poppins, telegrafRegular } from './fonts'
 
 import type { Metadata } from 'next'
-import SmoothScroll from './smoothScroll'
+import SmoothScroll from './smooth-scroll'
 import StyledComponentsRegistry from './registry'
 import config from '@/data/config.json'
 
@@ -25,11 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 				lang="en"
 				className={`${poppins.variable} ${telegrafRegular.variable} ${montserrat.variable} ${chakraPetch.variable} antialiased no-scrollbar`}
 			>
-				<body className="text-gray-50">
-					<SmoothScroll>
+				<SmoothScroll>
+					<body className="text-gray-50">
 						<main>{children}</main>
-					</SmoothScroll>
-				</body>
+					</body>
+				</SmoothScroll>
 			</html>
 		</StyledComponentsRegistry>
 	)
