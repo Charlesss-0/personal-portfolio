@@ -2,13 +2,13 @@
 
 import { Contact, Hero, ProjectSummary, Section } from '@/components/layout'
 
-import { ParticlesBackground } from '@/components/animations'
+import { ParticlesAnimation } from '@/components/animations'
 import { projects } from '@/data/projects-data'
 
 export default function Home(): React.ReactNode {
 	return (
 		<div>
-			<ParticlesBackground />
+			<ParticlesAnimation />
 
 			<Hero />
 

@@ -1,6 +1,6 @@
 import { Button } from '../ui'
-import { Icon } from '@iconify/react'
-import { Typewriter } from '@/components/animations'
+import { TypewriterAnimation } from '@/components/animations'
+import { VscGithub } from 'react-icons/vsc'
 import config from '@/data/config.json'
 
 export default function Hero(): React.ReactNode {
@@ -13,7 +13,7 @@ export default function Hero(): React.ReactNode {
 					</div>
 
 					<div className="flex px-5">
-						<Typewriter
+						<TypewriterAnimation
 							text={config.role}
 							className="font-semibold text-8xl text-neutral-500 md:text-xl"
 						/>
@@ -27,10 +27,7 @@ export default function Hero(): React.ReactNode {
 					asChild
 				>
 					<a href={config.github} rel="noreferrer" target="_blank">
-						<Icon
-							icon="codicon:github"
-							className="text-5xl transition-all duration-300 ease-in-out text-neutral-200 hover:text-neutral-400"
-						/>
+						<VscGithub className="text-5xl transition-all duration-300 ease-in-out fill-neutral-200 hover:fill-neutral-400" />
 					</a>
 				</Button>
 			</div>
