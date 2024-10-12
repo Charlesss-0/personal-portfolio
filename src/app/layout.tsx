@@ -3,7 +3,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { chakraPetch, montserrat, poppins, telegrafRegular } from './fonts'
 
-import SmoothScroll from './smooth-scroll'
+import LenisScroll from './lenis-scroll'
 import StyledComponentsRegistry from './registry'
 import config from '@/data/config.json'
 
@@ -32,11 +32,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 				lang="en"
 				className={`${poppins.variable} ${telegrafRegular.variable} ${montserrat.variable} ${chakraPetch.variable} antialiased no-scrollbar`}
 			>
-				<SmoothScroll>
+				<LenisScroll>
 					<body className="text-gray-50 font-telegraf-regular">
 						<main>{children}</main>
 					</body>
-				</SmoothScroll>
+				</LenisScroll>
 			</html>
 		</StyledComponentsRegistry>
 	)

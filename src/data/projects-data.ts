@@ -3,6 +3,7 @@ const mobile = '/models/iphone-11.glb'
 
 const projects = [
 	{
+		id: 'places-finder',
 		name: 'Places Finder app',
 		description:
 			"A user-friendly mobile application designed to help users discover and explore points of interest in any location worldwide. Whether you're searching for restaurants, parks, museums, or any other type of establishment, this app provides real-time results with detailed information and interactive maps",
@@ -12,6 +13,7 @@ const projects = [
 		btnText: 'Download App',
 	},
 	{
+		id: 'readify',
 		name: 'Readify (ePub reader app)',
 		description:
 			'Developed an ePub reader app with user authentication, allowing users to upload, store, and read their favorite eBooks in the ePub format on any device',
@@ -21,6 +23,7 @@ const projects = [
 		btnText: 'View Project',
 	},
 	{
+		id: 'pixelssketch',
 		name: 'Pixels Sketch',
 		description: 'Designed and developed a pixel art creation app for a pixel drawing experience',
 		img: '/images/pixelssketch.webp',
@@ -29,6 +32,7 @@ const projects = [
 		btnText: 'View Project',
 	},
 	{
+		id: 'weather-app',
 		name: 'Weather App',
 		description:
 			'Created a weather application enabling users to check real-time weather updates in their current location or search for real-time weather in other areas',

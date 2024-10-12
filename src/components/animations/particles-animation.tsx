@@ -83,9 +83,7 @@ export default function ParticlesAnimation(): React.ReactNode {
 
 			// Texture loader
 			const textureLoader = new THREE.TextureLoader()
-			particlesMaterial.map = textureLoader.load(
-				'https://threejs.org/examples/textures/sprites/circle.png'
-			)
+			particlesMaterial.map = textureLoader.load('/images/circle.png')
 			particlesMaterial.map.minFilter = THREE.LinearFilter
 			particlesMaterial.map.magFilter = THREE.LinearFilter
 

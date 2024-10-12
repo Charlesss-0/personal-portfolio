@@ -13,6 +13,7 @@ type ProjectSummaryProps = React.HTMLProps<HTMLDivElement> &
 		url: string
 		model: string
 		btnText: string
+		id: string
 	}
 
 export default function ProjectSummary({
@@ -22,10 +23,11 @@ export default function ProjectSummary({
 	url,
 	model,
 	btnText,
+	id,
 	className,
 }: ProjectSummaryProps): React.ReactNode {
 	return (
-		<div className={cn('flex z-10 w-full h-full md:flex-col', className)}>
+		<div id={id} className={cn('flex z-10 w-full h-full md:flex-col', className)}>
 			<div className="z-10 flex flex-col items-center justify-center flex-1 gap-10 text-center">
 				<h1 className="text-5xl md:text-2xl font-semibold">{name}</h1>
 

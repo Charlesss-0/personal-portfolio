@@ -1,7 +1,13 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
-export default function Section({ children }: { children: React.ReactNode }): React.ReactNode {
+export default function Section({
+	id,
+	children,
+}: {
+	id?: string
+	children: React.ReactNode
+}): React.ReactNode {
 	const container = useRef<HTMLDivElement | null>(null)
 
 	const { scrollYProgress } = useScroll({
@@ -12,7 +18,7 @@ export default function Section({ children }: { children: React.ReactNode }): Re
 	const scale = useTransform(scrollYProgress, [0, 1], [0.5, 1])
 
 	return (
-		<motion.div ref={container} className="z-10 w-full h-screen" style={{ scale }}>
+		<motion.div id={id} ref={container} className="z-10 w-full h-screen" style={{ scale }}>
 			{children}
 		</motion.div>
 	)
