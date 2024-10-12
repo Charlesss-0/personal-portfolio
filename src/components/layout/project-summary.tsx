@@ -1,20 +1,18 @@
-import { Suspense } from 'react'
-
 import { Button } from '@/components/ui'
 import { ProjectModel } from '@/components/models'
-import { type MotionProps } from 'framer-motion'
+import { Suspense } from 'react'
 import { cn } from '@/lib/utils'
 
-type ProjectSummaryProps = React.HTMLProps<HTMLDivElement> &
-	MotionProps & {
-		name: string
-		description: string
-		img: string
-		url: string
-		model: string
-		btnText: string
-		id: string
-	}
+interface ProjectSummaryProps {
+	name: string
+	description: string
+	img: string
+	url: string
+	model: string
+	btnText: string
+	id: string
+	className?: string
+}
 
 export default function ProjectSummary({
 	name,

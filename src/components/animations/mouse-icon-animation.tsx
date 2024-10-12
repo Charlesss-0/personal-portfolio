@@ -15,7 +15,7 @@ const moveDown = keyframes`
 `
 
 const Mouse = styled.div`
-	border: 2px solid #efefef;
+	border: 3px solid #efefef;
 	border-radius: 20px;
 	width: 26px;
 	height: 38px;
@@ -34,7 +34,7 @@ const Mouse = styled.div`
 		position: absolute;
 		top: 6px;
 		left: 50%;
-		transform: translateX(-1px);
+		transform: translateX(-50%);
 
 		animation: ${moveDown} 2s infinite;
 	}
