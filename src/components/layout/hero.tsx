@@ -13,7 +13,7 @@ export default function Hero(): React.ReactNode {
 
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
-		offset: ['end end', 'center start'],
+		offset: ['end', 'center start'],
 	})
 
 	const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])

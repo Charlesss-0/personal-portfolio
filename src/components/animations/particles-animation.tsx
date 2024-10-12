@@ -1,178 +1,123 @@
 import * as THREE from 'three'
 
-import { useEffect, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useMemo, useRef } from 'react'
+import { type MotionValue, useScroll } from 'framer-motion'
 
-import { useScroll } from 'framer-motion'
+function Particles(): React.ReactNode {
+	const particlesRef = useRef<THREE.Points>(null)
+	const texture = useMemo(() => new THREE.TextureLoader().load('/images/circle.png'), [])
+	const particleColors = useMemo(
+		() => [new THREE.Color(0xf4f6ff), new THREE.Color(0x77cdff), new THREE.Color(0xf3c623)],
+		[]
+	)
 
-export default function ParticlesAnimation(): React.ReactNode {
-	const containerRef = useRef<HTMLDivElement | null>(null)
-	const { scrollY } = useScroll()
+	const particleGeometry = useMemo(() => {
+		const counts = 3000
+		const positions = new Float32Array(counts * 3)
+		const colors = new Float32Array(counts * 3)
 
-	useEffect(() => {
-		if (!containerRef.current) return (): null => null
+		for (let i = 0; i < counts; i++) {
+			const x = (Math.random() - 0.5) * 10 // x position
+			const y = (Math.random() - 0.5) * 10 // y position
+			const z = (Math.random() - 0.5) * 10 // z position
 
-		const container = containerRef.current
-		const { clientWidth, clientHeight } = container
+			positions.set([x, y, z], i * 3)
 
-		// scene
-		const scene = new THREE.Scene()
+			const color = particleColors[Math.floor(Math.random() * particleColors.length)]
+			colors.set([color.r, color.g, color.b], i * 3)
+		}
 
-		// camera
-		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
-		camera.position.y = -0.5
-		camera.position.x = -1
-		camera.position.z = 5
+		const geometry = new THREE.BufferGeometry()
+		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+		geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
-		// renderer
-		const renderer = new THREE.WebGLRenderer({
-			antialias: true,
-			powerPreference: 'high-performance',
-			alpha: true,
-		})
-		renderer.setPixelRatio(window.devicePixelRatio)
-		renderer.setSize(clientWidth, clientHeight)
-		container.appendChild(renderer.domElement)
+		return geometry
+	}, [particleColors])
 
-		// lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
-		directionalLight.position.set(-5, -5, -5.5)
-		scene.add(ambientLight, directionalLight)
+	useFrame(() => {
+		const positions = particlesRef.current?.geometry.attributes.position.array as Float32Array
+		for (let i = 0; i < positions.length; i += 3) {
+			positions[i + 1] -= 0.01 // Move particles down
 
-		const particleColors = [
-			new THREE.Color(0xf4f6ff),
-			new THREE.Color(0x77cdff),
-			new THREE.Color(0xf3c623),
-		]
-
-		// particles set up
-		const generateParticles = (): {
-			particles: THREE.Points<
-				THREE.BufferGeometry<THREE.NormalBufferAttributes>,
-				THREE.PointsMaterial,
-				THREE.Object3DEventMap
-			>
-		} => {
-			const counts = 3000
-			const positions = new Float32Array(counts * 3)
-			const colors = new Float32Array(counts * 3)
-
-			for (let i = 0; i < counts; i++) {
-				const x = (Math.random() - 0.5) * 10 // x position
-				const y = (Math.random() - 0.5) * 10 // y position
-				const z = (Math.random() - 0.5) * 10 // z position
-
-				positions.set([x, y, z], i * 3)
-
-				const color = particleColors[Math.floor(Math.random() * particleColors.length)]
-				colors.set([color.r, color.g, color.b], i * 3)
+			if (positions[i + 1] < -5) {
+				// Reset position if out of screen
+				positions[i + 1] = 5
 			}
-
-			const bufferGeometry = new THREE.BufferGeometry()
-			bufferGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-			bufferGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-
-			const particlesMaterial = new THREE.PointsMaterial({
-				size: 0.02,
-				sizeAttenuation: true,
-				vertexColors: true,
-				transparent: false,
-				depthTest: true,
-				depthWrite: false,
-			})
-
-			// Texture loader
-			const textureLoader = new THREE.TextureLoader()
-			particlesMaterial.map = textureLoader.load('/images/circle.png')
-			particlesMaterial.map.minFilter = THREE.LinearFilter
-			particlesMaterial.map.magFilter = THREE.LinearFilter
-
-			const particles = new THREE.Points(bufferGeometry, particlesMaterial)
-			particles.position.z = -1
-			particles.renderOrder = 0 // render particles before sphere
-
-			return { particles }
 		}
-		const { particles } = generateParticles()
-		scene.add(particles)
 
-		// texture loader
-		const textureLoader = new THREE.TextureLoader()
-		const texture = textureLoader.load('/images/moon-texture.jpg', texture => {
-			texture.wrapS = THREE.RepeatWrapping
-			texture.wrapT = THREE.RepeatWrapping
-			texture.minFilter = THREE.LinearFilter
-			texture.magFilter = THREE.LinearFilter
-		})
-
-		const sphereGeometry = new THREE.SphereGeometry(1, 64, 32, 3)
-		const sphereMaterial = new THREE.MeshStandardMaterial({
-			map: texture,
-			color: 0xefefef,
-			transparent: false,
-			depthTest: true,
-			depthWrite: true,
-		})
-		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-		sphere.renderOrder = 1 // render sphere after particles
-		sphere.position.z = 3.3
-		scene.add(sphere)
-
-		// window resize
-		const handleWindowResize = (): void => {
-			camera.aspect = window.innerWidth / window.innerHeight
-			camera.updateProjectionMatrix()
-			renderer.setSize(window.innerWidth, window.innerHeight)
-		}
-		window.addEventListener('resize', handleWindowResize)
-
-		// request animation
-		const renderScene = (): void => {
-			requestAnimationFrame(renderScene)
-
-			const positions = particles.geometry.attributes.position.array
-
-			for (let i = 0; i < positions.length; i += 3) {
-				positions[i + 1] -= 0.01 // Move particles down
-
-				if (positions[i + 1] < -5) {
-					// Reset position if out of screen
-					positions[i + 1] = 5
-				}
-			}
-
-			particles.geometry.attributes.position.needsUpdate = true
-
-			const scrollAmount = scrollY.get()
-
-			// position boundaries
-			const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.6))
-			sphere.position.set(-positionLimit, -positionLimit, sphere.position.z)
-
-			sphere.rotation.x += 0.01
-
-			renderer.render(scene, camera)
-		}
-		renderScene()
-
-		return (): void => {
-			window.removeEventListener('resize', handleWindowResize)
-			container.removeChild(renderer.domElement)
-		}
-	}, [scrollY])
+		particlesRef.current!.geometry.attributes.position.needsUpdate = true
+	})
 
 	return (
-		<div
-			ref={containerRef}
+		<points ref={particlesRef} geometry={particleGeometry} renderOrder={0} position={[0, 0, -2]}>
+			<pointsMaterial
+				size={0.02}
+				sizeAttenuation={true}
+				vertexColors={true}
+				transparent={false}
+				depthTest={true}
+				depthWrite={false}
+				map={texture}
+			/>
+		</points>
+	)
+}
+
+function Sphere({ scrollY }: { scrollY: MotionValue<number> }): React.ReactNode {
+	const sphereRef = useRef<THREE.Mesh>(null)
+	const texture = useMemo(() => new THREE.TextureLoader().load('/images/moon-texture.jpg'), [])
+
+	useFrame(() => {
+		const scrollAmount = scrollY.get()
+		const positionLimit = Math.max(0, Math.min(((scrollAmount * 0.02) / 2) * 0.1, 1.5))
+
+		if (sphereRef.current) {
+			sphereRef.current.position.set(
+				0.3 - positionLimit,
+				0.1 - positionLimit,
+				sphereRef.current.position.z
+			)
+			sphereRef.current.rotation.x += 0.01
+		}
+	})
+
+	return (
+		<mesh ref={sphereRef} position={[0, 0, 3.3]} renderOrder={1}>
+			<sphereGeometry args={[1, 64, 32, 3]} />
+			<meshStandardMaterial map={texture} transparent={false} depthTest={true} depthWrite={true} />
+		</mesh>
+	)
+}
+
+function Scene(): React.ReactNode {
+	const { scrollY } = useScroll()
+
+	return (
+		<>
+			<ambientLight intensity={0.3} />
+			<directionalLight position={[-3, -5, -5]} intensity={2} />
+			<Particles />
+			<Sphere scrollY={scrollY} />
+		</>
+	)
+}
+
+export default function ParticlesAnimation(): React.ReactNode {
+	return (
+		<Canvas
 			style={{
 				position: 'fixed',
 				top: 0,
 				left: 0,
 				bottom: 0,
 				right: 0,
-				width: '100vw',
-				height: '100vh',
+				width: '100%',
+				height: '100%',
 			}}
-		/>
+			camera={{ position: [-1, -0.5, 5], fov: 40 }}
+		>
+			<Scene />
+		</Canvas>
 	)
 }
