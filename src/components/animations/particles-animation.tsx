@@ -94,12 +94,12 @@ function Scene(): React.ReactNode {
 	const { scrollY } = useScroll()
 
 	return (
-		<>
+		<scene>
 			<ambientLight intensity={0.3} />
 			<directionalLight position={[-3, -5, -5]} intensity={2} />
 			<Particles />
 			<Sphere scrollY={scrollY} />
-		</>
+		</scene>
 	)
 }
 
