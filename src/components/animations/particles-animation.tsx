@@ -8,7 +8,14 @@ function Particles(): React.ReactNode {
 	const particlesRef = useRef<THREE.Points>(null)
 	const texture = useMemo(() => new THREE.TextureLoader().load('/images/circle.png'), [])
 	const particleColors = useMemo(
-		() => [new THREE.Color(0xf4f6ff), new THREE.Color(0x77cdff), new THREE.Color(0xf3c623)],
+		() => [
+			new THREE.Color(0xf4f6ff),
+			new THREE.Color(0xf4f6ff),
+			new THREE.Color(0xfef9f2),
+			new THREE.Color(0xe4e0e1),
+			new THREE.Color(0x77cdff),
+			new THREE.Color(0xf3c623),
+		],
 		[]
 	)
 
