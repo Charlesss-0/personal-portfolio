@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { cn } from '@/lib/utils'
+import { twMerge } from '@/utils'
 
 interface TypewriterProps extends React.HTMLAttributes<HTMLSpanElement> {
 	children: string
@@ -40,7 +40,7 @@ export default function Typewriter({ children, className }: TypewriterProps): Re
 
 	return (
 		<div className="flex items-center gap-2 w-max h-24">
-			<p className={cn('font-semibold text-8xl text-neutral-500', className)}>{currentText}</p>
+			<p className={twMerge('font-semibold text-8xl text-neutral-500', className)}>{currentText}</p>
 
 			<div className="w-5 h-[90%] animate-blink bg-neutral-200" />
 		</div>

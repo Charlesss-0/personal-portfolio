@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 
 import { Button } from '../ui'
-import { cn } from '@/lib/utils'
+import { twMerge } from '@/utils'
 import { motion, type MotionProps } from 'framer-motion'
 
 type MouseAnimationProps = MotionProps & {
@@ -48,7 +48,10 @@ export default function MouseAnimation({
 	...props
 }: MouseAnimationProps): React.ReactNode {
 	return (
-		<motion.div className={cn('fixed left-1/2 translate-x-[-50%] bottom-10', className)} {...props}>
+		<motion.div
+			className={twMerge('fixed left-1/2 translate-x-[-50%] bottom-10', className)}
+			{...props}
+		>
 			<Button size="icon" variant="ghost" onClick={onclick}>
 				<Mouse />
 			</Button>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '@/lib/utils'
+import { twMerge } from '@/utils'
 
 const buttonVariants = cva(
 	'flex items-center justify-center transition-colors duration-300 ease-in-out disabled:pointer-events-none disabled:opacity-50 z-10 font-semibold',
@@ -43,7 +43,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, variant, size, asChild = false, ...props }, ref) => {
 		const Comp = asChild ? Slot : 'button'
 		return (
-			<Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+			<Comp
+				className={twMerge(buttonVariants({ variant, size, className }))}
+				ref={ref}
+				{...props}
+			/>
 		)
 	}
 )

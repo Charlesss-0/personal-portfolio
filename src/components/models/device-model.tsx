@@ -1,17 +1,31 @@
 import * as THREE from 'three'
 
 import React, { useEffect, useRef } from 'react'
+import { useReducedMotion, useSpring } from 'framer-motion'
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { throttle } from '@/utils'
+import { useInViewport } from '@/hooks'
 
 interface ModelProps {
 	modelPath: string
 	modelTexture: string
 }
 
+const rotationSpringConfig = {
+	stiffness: 40,
+	damping: 20,
+	mass: 1.4,
+	restSpeed: 0.001,
+}
+
 export default function Model({ modelPath, modelTexture }: ModelProps): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement>(null)
+	const rotationY = useSpring(0, rotationSpringConfig)
+	const rotationX = useSpring(0, rotationSpringConfig)
+	const reduceMotion = useReducedMotion()
+	const isInViewport = useInViewport(containerRef, false, { threshold: 0.2 })
 
 	useEffect(() => {
 		if (!containerRef.current) return (): null => null
@@ -21,9 +35,6 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 
 		let model: THREE.Object3D<THREE.Object3DEventMap>
 		let lights = []
-		let isMouseInWindow = false
-		let mouseX = 0
-		let mouseY = 0
 
 		// scene set up
 		const scene = new THREE.Scene()
@@ -51,7 +62,7 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 
 		// lighting
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1)
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 4)
 		const pointLight = new THREE.PointLight(0xffffff, 10, 50)
 
 		directionalLight.position.set(5, 5, 5)
@@ -103,29 +114,6 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 			}
 		)
 
-		// mouse move
-		const handleMouseMove = (event: MouseEvent): void => {
-			const { innerWidth, innerHeight } = window
-			const { clientX, clientY } = event
-
-			mouseX = (clientX - innerWidth / 2) / innerWidth
-			mouseY = (clientY - innerHeight / 2) / innerHeight
-
-			if (model) {
-				model.rotation.y = mouseX * 0.1
-				model.rotation.x = mouseY * 0.1
-			}
-
-			isMouseInWindow = true
-		}
-		window.addEventListener('mousemove', handleMouseMove)
-
-		// mouse leave
-		const handleMouseLeave = (): void => {
-			isMouseInWindow = false
-		}
-		container.addEventListener('mouseleave', handleMouseLeave)
-
 		// window resize
 		const handleWindowResize = (): void => {
 			renderer.setSize(clientWidth, clientHeight)
@@ -139,11 +127,8 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 			requestAnimationFrame(renderScene)
 
 			if (model) {
-				const targetRotationX = isMouseInWindow ? mouseY * 0.1 : 0
-				const targetRotationY = isMouseInWindow ? mouseX * 0.1 : 0
-
-				model.rotation.x = THREE.MathUtils.lerp(model.rotation.x, targetRotationX, 0.1)
-				model.rotation.y = THREE.MathUtils.lerp(model.rotation.y, targetRotationY, 0.1)
+				model.rotation.x = rotationX.get()
+				model.rotation.y = rotationY.get()
 			}
 
 			renderer.render(scene, camera)
@@ -152,12 +137,31 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 
 		// cleanup
 		return (): void => {
-			window.removeEventListener('resize', handleWindowResize)
-			window.removeEventListener('mousemove', handleMouseMove)
-			container.removeEventListener('mouseleave', handleMouseLeave)
 			container.removeChild(renderer.domElement)
 		}
-	}, [modelPath, modelTexture])
+	}, [modelPath, modelTexture, rotationX, rotationY])
+
+	useEffect(() => {
+		const onMouseMove = throttle((event: MouseEvent) => {
+			const { innerWidth, innerHeight } = window
+
+			const position = {
+				x: (event.clientX - innerWidth / 2) / innerWidth,
+				y: (event.clientY - innerHeight / 2) / innerHeight,
+			}
+
+			rotationY.set(position.x / 2)
+			rotationX.set(position.y / 2)
+		}, 100)
+
+		if (isInViewport && !reduceMotion) {
+			window.addEventListener('mousemove', onMouseMove)
+		}
+
+		return (): void => {
+			window.removeEventListener('mousemove', onMouseMove)
+		}
+	}, [isInViewport, reduceMotion, rotationX, rotationY])
 
 	return <div ref={containerRef} style={{ height: '100%', width: '100%' }} />
 }

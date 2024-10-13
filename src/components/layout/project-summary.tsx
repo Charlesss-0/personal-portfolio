@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui'
 import { DeviceModel } from '@/components/models'
 import { Suspense } from 'react'
-import { cn } from '@/lib/utils'
+import { twMerge } from '@/utils'
 
 interface ProjectSummaryProps {
 	name: string
@@ -25,7 +25,7 @@ export default function ProjectSummary({
 	className,
 }: ProjectSummaryProps): React.ReactNode {
 	return (
-		<div id={id} className={cn('flex z-10 w-full h-full md:flex-col', className)}>
+		<div id={id} className={twMerge('flex z-10 w-full h-full md:flex-col', className)}>
 			<div className="z-10 flex flex-col items-center justify-center flex-1 gap-10 text-center">
 				<h1 className="text-5xl font-semibold md:text-2xl">{name}</h1>
 
