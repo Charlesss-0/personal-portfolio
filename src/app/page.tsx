@@ -9,9 +9,7 @@ export default function Home(): React.ReactNode {
 	return (
 		<div>
 			<ParticlesAnimation />
-
 			<Hero />
-
 			{projects.map((project, index) => (
 				<Section key={index}>
 					<ProjectSummary
@@ -20,7 +18,6 @@ export default function Home(): React.ReactNode {
 					/>
 				</Section>
 			))}
-
 			<Section>
 				<Contact />
 			</Section>

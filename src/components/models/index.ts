@@ -1,1 +1,1 @@
-export { default as ProjectModel } from './project-model'
+export { default as DeviceModel } from './device-model'

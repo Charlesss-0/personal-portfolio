@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { type MotionValue, useScroll } from 'framer-motion'
 
 function Particles(): React.ReactNode {
@@ -78,7 +78,7 @@ function Sphere({ scrollY }: { scrollY: MotionValue<number> }): React.ReactNode 
 				0.1 - positionLimit,
 				sphereRef.current.position.z
 			)
-			sphereRef.current.rotation.x += 0.01
+			sphereRef.current.rotation.x += 0.005
 		}
 	})
 
@@ -96,7 +96,7 @@ function Scene(): React.ReactNode {
 	return (
 		<scene>
 			<ambientLight intensity={0.3} />
-			<directionalLight position={[-3, -5, -5]} intensity={2} />
+			<directionalLight position={[-3, -5, -5]} intensity={1.5} />
 			<Particles />
 			<Sphere scrollY={scrollY} />
 		</scene>
@@ -108,16 +108,15 @@ export default function ParticlesAnimation(): React.ReactNode {
 		<Canvas
 			style={{
 				position: 'fixed',
-				top: 0,
-				left: 0,
-				bottom: 0,
-				right: 0,
 				width: '100%',
 				height: '100%',
+				zIndex: -1,
 			}}
 			camera={{ position: [-1, -0.5, 5], fov: 40 }}
 		>
-			<Scene />
+			<Suspense fallback={null}>
+				<Scene />
+			</Suspense>
 		</Canvas>
 	)
 }

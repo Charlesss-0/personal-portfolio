@@ -75,8 +75,9 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 				const texture = new THREE.TextureLoader().load(modelTexture)
 				texture.colorSpace = THREE.SRGBColorSpace
 				texture.flipY = false
-				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
-				texture.generateMipmaps = true
+				texture.wrapS = THREE.RepeatWrapping
+				texture.wrapT = THREE.RepeatWrapping
+				texture.anisotropy = 16
 				texture.minFilter = THREE.LinearMipMapLinearFilter
 				texture.magFilter = THREE.LinearFilter
 
