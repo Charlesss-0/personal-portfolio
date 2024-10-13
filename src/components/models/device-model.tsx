@@ -28,7 +28,7 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 	const isInViewport = useInViewport(containerRef, false, { threshold: 0.2 })
 
 	useEffect(() => {
-		if (!containerRef.current) return (): null => null
+		if (!containerRef.current) return
 
 		const container = containerRef.current!
 		const { clientWidth, clientHeight } = container
@@ -52,22 +52,22 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 			powerPreference: 'high-performance',
 			failIfMajorPerformanceCaveat: true,
 		})
-		renderer.setPixelRatio(window.devicePixelRatio)
+
+		renderer.setPixelRatio(2)
 		renderer.setSize(clientWidth, clientHeight)
+		renderer.outputColorSpace = THREE.SRGBColorSpace
+
 		container.appendChild(renderer.domElement)
 
-		// renderer tone mapping
-		renderer.toneMapping = THREE.ACESFilmicToneMapping
-		renderer.toneMappingExposure = 1.0
-
 		// lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1)
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 4)
-		const pointLight = new THREE.PointLight(0xffffff, 10, 50)
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1.2)
+		const keyLight = new THREE.DirectionalLight(0xffffff, 1.3)
+		const fillLight = new THREE.DirectionalLight(0xffffff, 0.9)
 
-		directionalLight.position.set(5, 5, 5)
-		pointLight.position.set(5, 8, 5)
-		lights = [ambientLight, directionalLight, pointLight]
+		fillLight.position.set(-6, 2, 2)
+		keyLight.position.set(0.5, 0, 0.866)
+
+		lights = [ambientLight, keyLight, fillLight]
 		lights.forEach(light => scene.add(light))
 
 		// loader set up
@@ -86,11 +86,12 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 				const texture = new THREE.TextureLoader().load(modelTexture)
 				texture.colorSpace = THREE.SRGBColorSpace
 				texture.flipY = false
-				texture.wrapS = THREE.RepeatWrapping
-				texture.wrapT = THREE.RepeatWrapping
-				texture.anisotropy = 16
+				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+				texture.generateMipmaps = false
 				texture.minFilter = THREE.LinearMipMapLinearFilter
 				texture.magFilter = THREE.LinearFilter
+				texture.wrapT = THREE.RepeatWrapping
+				texture.wrapS = THREE.RepeatWrapping
 
 				renderer.initTexture(texture)
 
