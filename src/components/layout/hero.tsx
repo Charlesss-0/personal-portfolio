@@ -1,5 +1,5 @@
-import { MouseIconAnimation, TypewriterAnimation } from '@/components/animations'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { MouseAnimation, TypewriterAnimation } from '@/components/animations'
+import { useScroll, useTransform } from 'framer-motion'
 
 import { Button } from '../ui'
 import { VscGithub } from 'react-icons/vsc'
@@ -17,6 +17,8 @@ export default function Hero(): React.ReactNode {
 	})
 
 	const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+	const display = useTransform(scrollYProgress, [0, 0.5], ['block', 'none'])
+	const translateY = useTransform(scrollYProgress, [0, 0.5], [0, 50])
 
 	return (
 		<div
@@ -44,13 +46,10 @@ export default function Hero(): React.ReactNode {
 				</a>
 			</Button>
 
-			<motion.div
-				style={{
-					opacity: opacity,
-				}}
-			>
-				<MouseIconAnimation onclick={() => scrollTo('#places-finder')} />
-			</motion.div>
+			<MouseAnimation
+				onclick={() => scrollTo('#places-finder')}
+				style={{ opacity, display, translateY }}
+			/>
 		</div>
 	)
 }
