@@ -6,7 +6,7 @@ import { type MotionValue, useScroll } from 'framer-motion'
 
 function Particles(): React.ReactNode {
 	const particlesRef = useRef<THREE.Points>(null)
-	const texture = useMemo(() => new THREE.TextureLoader().load('/images/circle.png'), [])
+
 	const particleColors = useMemo(
 		() => [
 			new THREE.Color(0xf4f6ff),
@@ -19,12 +19,14 @@ function Particles(): React.ReactNode {
 		[]
 	)
 
-	const particleGeometry = useMemo(() => {
-		const counts = 3000
-		const positions = new Float32Array(counts * 3)
-		const colors = new Float32Array(counts * 3)
+	const texture = useMemo(() => new THREE.TextureLoader().load('/images/circle.png'), [])
 
-		for (let i = 0; i < counts; i++) {
+	const particleGeometry = useMemo(() => {
+		const count = 2500
+		const positions = new Float32Array(count * 3)
+		const colors = new Float32Array(count * 3)
+
+		for (let i = 0; i < count; i++) {
 			const x = (Math.random() - 0.5) * 10 // x position
 			const y = (Math.random() - 0.5) * 10 // y position
 			const z = (Math.random() - 0.5) * 10 // z position

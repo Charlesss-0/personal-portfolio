@@ -12,7 +12,7 @@ const StyledWrapper = styled.div`
 		display: grid;
 		border: 3px solid transparent;
 		border-radius: 50%;
-		border-right-color: #efefef;
+		border-right-color: #00eeff;
 		animation: spinner-a4dj62 1s infinite linear;
 	}
 

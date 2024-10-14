@@ -1,7 +1,9 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+'use client'
+
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui'
-import { DeviceModel } from '@/components/models'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { twMerge } from '@/utils'
 import { useInViewport } from '@/hooks'
@@ -17,6 +19,10 @@ interface ProjectSummaryProps {
 	index: number
 	className?: string
 }
+
+const DeviceModel = dynamic(() => import('@/components/models/device-model'), {
+	ssr: false,
+})
 
 export default function ProjectSummary({
 	name,
@@ -122,9 +128,7 @@ export default function ProjectSummary({
 
 			<div className="z-10 flex-1">
 				<div className="w-full h-full">
-					<Suspense fallback={null}>
-						<DeviceModel modelPath={model} modelTexture={img} />
-					</Suspense>
+					<DeviceModel modelPath={model} modelTexture={img} />
 				</div>
 			</div>
 		</div>
