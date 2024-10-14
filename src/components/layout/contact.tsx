@@ -37,14 +37,14 @@ export default function Contact(): React.ReactNode {
 
 	if (success) {
 		return (
-			<div className="z-10 flex items-center justify-center w-full h-full">
+			<div className="z-10 flex items-center justify-center w-full h-screen">
 				<h1 className="z-10 text-2xl">Thanks for reaching out!</h1>
 			</div>
 		)
 	}
 
 	return (
-		<div className="flex items-center justify-center w-full h-full text-gray-50">
+		<div className="flex items-center justify-center w-full h-screen text-gray-50">
 			<div className="w-2/4">
 				<div className="pb-5 mb-10 border-b-2">
 					<h1 className="text-3xl font-semibold">Say Hello</h1>

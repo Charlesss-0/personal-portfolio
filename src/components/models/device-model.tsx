@@ -24,8 +24,11 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 	const containerRef = useRef<HTMLDivElement>(null)
 	const rotationY = useSpring(0, rotationSpringConfig)
 	const rotationX = useSpring(0, rotationSpringConfig)
+	const positionY = useSpring(0, { stiffness: 100, damping: 20 })
+	const opacity = useSpring(0, { stiffness: 60, damping: 15 })
+	const laptopLidAngle = useSpring(Math.PI / 2, { stiffness: 60, damping: 20 })
 	const reduceMotion = useReducedMotion()
-	const isInViewport = useInViewport(containerRef, false, { threshold: 0.2 })
+	const isInViewport = useInViewport(containerRef, false, { threshold: 0.7 })
 
 	useEffect(() => {
 		if (!containerRef.current) return
@@ -42,7 +45,7 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 		scene.fog = new THREE.Fog(0xffffff, 15, 15)
 
 		// camera set up
-		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
+		const camera = new THREE.PerspectiveCamera(38, clientWidth / clientHeight, 0.1, 1000)
 		camera.position.set(0, 1, 8)
 
 		// renderer set up
@@ -130,6 +133,22 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 			if (model) {
 				model.rotation.x = rotationX.get()
 				model.rotation.y = rotationY.get()
+
+				if (modelPath.includes('iphone')) {
+					model.position.y = positionY.get()
+					model.traverse(child => {
+						if (child instanceof THREE.Mesh) {
+							child.material.opacity = opacity.get()
+							child.material.transparent = true
+						}
+					})
+				} else if (modelPath.includes('macbook')) {
+					model.traverse(child => {
+						if (child.name.toLocaleLowerCase().includes('frame')) {
+							child.rotation.x = laptopLidAngle.get()
+						}
+					})
+				}
 			}
 
 			renderer.render(scene, camera)
@@ -140,7 +159,18 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 		return (): void => {
 			container.removeChild(renderer.domElement)
 		}
-	}, [modelPath, modelTexture, rotationX, rotationY])
+	}, [modelPath, modelTexture, rotationX, rotationY, positionY, opacity, laptopLidAngle])
+
+	useEffect(() => {
+		if (isInViewport && !reduceMotion) {
+			if (modelPath.includes('iphone')) {
+				positionY.set(0.8)
+				opacity.set(1)
+			} else if (modelPath.includes('macbook')) {
+				laptopLidAngle.set(0)
+			}
+		}
+	}, [isInViewport, modelPath, reduceMotion, positionY, opacity, laptopLidAngle])
 
 	useEffect(() => {
 		const onMouseMove = throttle((event: MouseEvent) => {

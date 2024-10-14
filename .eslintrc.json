@@ -32,7 +32,7 @@
 		"@typescript-eslint/no-empty-function": "warn", // Disallows empty functions
 		"@typescript-eslint/no-unused-expressions": "error", // Disallows unused expressions
 		"@typescript-eslint/no-unused-vars": "error", // Disallows unused variables
-		"@typescript-eslint/no-explicit-any": "warn", // Disallows any type
+		"@typescript-eslint/no-explicit-any": "off", // Disallows any type
 		"@typescript-eslint/consistent-type-imports": "error", // Enforces consistent type imports
 		"@typescript-eslint/no-use-before-define": "error", // Disallows use before define
 		"@typescript-eslint/no-inferrable-types": "error", // Disallows inferrable types

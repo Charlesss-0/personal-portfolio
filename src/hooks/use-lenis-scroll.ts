@@ -12,7 +12,7 @@ export default function UseLenisScroll(): { scrollTo: (target: string) => void }
 			easing: (x: number): number => {
 				return -(Math.cos(Math.PI * x) - 1) / 2
 			},
-			offset: -150,
+			offset: 0,
 		})
 	}
 

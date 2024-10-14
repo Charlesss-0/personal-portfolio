@@ -25,9 +25,6 @@ const config: Config = {
 			},
 			fontFamily: {
 				'telegraf-regular': ['var(--font-telegraf-regular)', 'sans-serif'],
-				poppins: ['var(--font-poppins)', 'sans-serif'],
-				montserrat: ['var(--font-montserrat)', 'sans-serif'],
-				chakraPetch: ['var(--font-chakra-petch)', 'sans-serif'],
 			},
 			keyframes: {
 				blink: {
