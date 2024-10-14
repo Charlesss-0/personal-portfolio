@@ -45,7 +45,7 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 		scene.fog = new THREE.Fog(0xffffff, 15, 15)
 
 		// camera set up
-		const camera = new THREE.PerspectiveCamera(38, clientWidth / clientHeight, 0.1, 1000)
+		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
 		camera.position.set(0, 1, 8)
 
 		// renderer set up
