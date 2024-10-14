@@ -13,7 +13,7 @@ const buttonVariants = cva(
 				destructive:
 					'bg-red-500 text-neutral-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90',
 				outline:
-					'text-gray-50 relative overflow-hidden outline outline-1 outline-gray-50 transition-all duration-300 ease-in-out before:content-[""] before:absolute before:z-[-1] before:left-[-20%] before:right-[-20%] before:top-0 before:bottom-0 before:bg-gray-50 before:skew-x-[-45deg] before:scale-x-[0] before:transition-transform before:duration-300 before:ease-in-out hover:text-neutral-900 hover:outline-none hover:before:scale-x-[0.75] active:scale-[0.9]',
+					'text-gray-50 relative overflow-hidden outline outline-1 outline-gray-50 transition-all duration-300 ease-in-out before:content-[""] before:absolute before:z-[-1] before:left-[-20%] before:right-[-20%] before:top-0 before:bottom-0 before:bg-light-blue before:skew-x-[-45deg] before:scale-x-[0] before:transition-transform before:duration-300 before:ease-in-out hover:text-neutral-900 hover:outline-none hover:before:scale-x-[0.75] active:scale-[0.9]',
 				secondary:
 					'bg-neutral-100 text-neutral-900 shadow-sm hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-800/80',
 				ghost: 'cursor-pointer',

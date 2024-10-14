@@ -1,15 +1,17 @@
 import { MouseAnimation, TypewriterAnimation } from '@/components/animations'
+import { useInViewport, useLenisScroll } from '@/hooks'
+import { useMemo, useRef } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 
 import { Button } from '../ui'
 import { VscGithub } from 'react-icons/vsc'
 import config from '@/data/config.json'
-import { useLenisScroll } from '@/hooks'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 
 export default function Hero(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const { scrollTo } = useLenisScroll()
+	const isInViewport = useInViewport(containerRef, false, { threshold: 0.8 })
 
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
@@ -20,14 +22,31 @@ export default function Hero(): React.ReactNode {
 	const display = useTransform(scrollYProgress, [0, 0.5], ['block', 'none'])
 	const translateY = useTransform(scrollYProgress, [0, 0.5], [0, 50])
 
+	const slideVariants = useMemo(
+		() => ({
+			initial: { x: '-101%' },
+			animate: { x: '101%', transition: { duration: 1, ease: 'easeInOut', type: 'tween' } },
+		}),
+		[]
+	)
+
 	return (
 		<div
 			ref={containerRef}
 			className="relative flex flex-col justify-end w-full h-screen select-none text-base-100"
 		>
-			<div className="w-full absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
-				<div className="px-5">
-					<h1 className="text-5xl text-neutral-200 text-neutral mb-5">Carlos Aragon</h1>
+			<div className="w-full absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+				<div className="flex justify-start px-5">
+					<h1 className="relative self-start mb-5 overflow-hidden text-5xl text-neutral-400">
+						Carlos Aragon
+						<motion.div
+							className="absolute top-0 left-0 z-10 w-full h-full bg-light-blue"
+							variants={slideVariants}
+							initial="initial"
+							animate="animate"
+							custom={1}
+						/>
+					</h1>
 				</div>
 
 				<div className="flex px-5">
@@ -46,10 +65,12 @@ export default function Hero(): React.ReactNode {
 				</a>
 			</Button>
 
-			<MouseAnimation
-				onclick={() => scrollTo('#places-finder')}
-				style={{ opacity, display, translateY }}
-			/>
+			{isInViewport && (
+				<MouseAnimation
+					onclick={() => scrollTo('#places-finder')}
+					style={{ opacity, display, translateY }}
+				/>
+			)}
 		</div>
 	)
 }

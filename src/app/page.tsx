@@ -13,6 +13,7 @@ export default function Home(): React.ReactNode {
 			{projects.map((project, index) => (
 				<ProjectSummary
 					key={index}
+					index={index + 1}
 					{...project}
 					className={index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}
 				/>
