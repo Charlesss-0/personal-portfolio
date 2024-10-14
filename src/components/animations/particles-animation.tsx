@@ -121,6 +121,12 @@ export default function ParticlesAnimation(): React.ReactNode {
 				height: '100%',
 				zIndex: -1,
 			}}
+			gl={{
+				alpha: true,
+				antialias: true,
+				powerPreference: 'high-performance',
+				failIfMajorPerformanceCaveat: true,
+			}}
 			camera={{ position: [-1, -0.5, 5], fov: 40 }}
 		>
 			<Suspense fallback={null}>

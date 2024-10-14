@@ -24,8 +24,8 @@ export default function Hero(): React.ReactNode {
 
 	const slideVariants = useMemo(
 		() => ({
-			initial: { x: '-101%' },
-			animate: { x: '101%', transition: { duration: 1, ease: 'easeInOut', type: 'tween' } },
+			initial: { y: '101%' },
+			animate: { y: '-101%', transition: { duration: 1, ease: 'easeInOut', type: 'tween' } },
 		}),
 		[]
 	)

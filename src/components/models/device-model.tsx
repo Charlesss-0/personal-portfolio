@@ -52,11 +52,9 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 		const renderer = new THREE.WebGLRenderer({
 			alpha: true,
 			antialias: true,
-			powerPreference: 'high-performance',
-			failIfMajorPerformanceCaveat: true,
 		})
 
-		renderer.setPixelRatio(2)
+		renderer.setPixelRatio(window.devicePixelRatio)
 		renderer.setSize(clientWidth, clientHeight)
 		renderer.outputColorSpace = THREE.SRGBColorSpace
 
@@ -87,14 +85,12 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 				model.position.set(0, 0.8, 0)
 
 				const texture = new THREE.TextureLoader().load(modelTexture)
-				texture.colorSpace = THREE.SRGBColorSpace
 				texture.flipY = false
+				texture.generateMipmaps = true
+				texture.colorSpace = THREE.SRGBColorSpace
 				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
-				texture.generateMipmaps = false
 				texture.minFilter = THREE.LinearMipMapLinearFilter
 				texture.magFilter = THREE.LinearFilter
-				texture.wrapT = THREE.RepeatWrapping
-				texture.wrapS = THREE.RepeatWrapping
 
 				renderer.initTexture(texture)
 
