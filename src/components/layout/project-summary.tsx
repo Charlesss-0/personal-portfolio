@@ -22,7 +22,7 @@ interface ProjectSummaryProps {
 }
 
 const DeviceModel = dynamic(() => import('@/components/models/device-model'), {
-	ssr: true,
+	ssr: false,
 })
 
 export default function ProjectSummary({

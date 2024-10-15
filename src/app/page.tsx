@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
 const Particles = dynamic(() => import('@/components/animations/particles-animation'), {
-	ssr: true,
+	ssr: false,
 	loading: () => (
 		<div className="flex items-center justify-center w-full h-screen">
 			<LoaderAnimation />
@@ -18,6 +18,7 @@ const Particles = dynamic(() => import('@/components/animations/particles-animat
 
 export default function Home(): React.ReactNode {
 	const [isParticlesLoaded, setIsParticlesLoaded] = useState<boolean>(false)
+	const [isHeroRendered, setIsHeroRendered] = useState<boolean>(false)
 
 	useEffect(() => {
 		if ('requestIdleCallback' in window) {
@@ -31,20 +32,33 @@ export default function Home(): React.ReactNode {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (isParticlesLoaded) {
+			const timeout = setTimeout(() => {
+				setIsHeroRendered(true)
+			}, 1000)
+
+			return (): void => clearTimeout(timeout)
+		}
+	}, [isParticlesLoaded])
+
 	return (
 		<>
 			<Particles />
-			{isParticlesLoaded && (
+			{isParticlesLoaded && <Hero />}
+
+			{isHeroRendered && isParticlesLoaded && (
 				<>
-					<Hero />
-					{projects.map((project, index) => (
-						<ProjectSummary
-							key={index}
-							index={index + 1}
-							{...project}
-							className={index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}
-						/>
-					))}
+					<div className="projects">
+						{projects.map((project, index) => (
+							<ProjectSummary
+								key={index}
+								index={index + 1}
+								{...project}
+								className={index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}
+							/>
+						))}
+					</div>
 					<Contact />
 				</>
 			)}
