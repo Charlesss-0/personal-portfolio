@@ -57,7 +57,7 @@ export default function Hero(): React.ReactNode {
 			>
 				<div className="w-full absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
 					<div className="flex justify-start px-5">
-						<h1 className="relative self-start mb-5 overflow-hidden text-5xl text-neutral-400">
+						<h1 className="relative self-start mb-5 overflow-hidden text-5xl tracking-wider text-neutral-400">
 							Carlos Aragon
 							<motion.div
 								className="absolute top-0 left-0 z-10 w-full h-full bg-light-blue"
