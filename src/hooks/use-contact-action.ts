@@ -19,28 +19,27 @@ export default function useContactAction(
 
 		if (formRef.current) {
 			const data = new FormData(formRef.current)
-			const action = process.env.NEXT_PUBLIC_FORM_ACTION_URL as string
+			const actionURL = process.env.NEXT_PUBLIC_FORM_ACTION_URL as string
 
-			if (!action) {
+			if (!actionURL) {
 				throw new Error('Form action URL is not defined')
 			}
 
 			try {
 				setIsSending(true)
 
-				const response = await fetch(action, {
+				await fetch(actionURL, {
 					method: 'POST',
 					body: data,
+					mode: 'no-cors',
 				})
-
-				if (!response.ok) {
-					throw new Error('Unable to send message')
-				}
 
 				setSuccess(true)
 			} catch (error) {
 				setIsSending(false)
 				throw new Error(`Unable to send message ${error}`)
+			} finally {
+				setIsSending(false)
 			}
 		}
 	}
