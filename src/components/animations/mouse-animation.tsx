@@ -1,7 +1,4 @@
-import { type MotionProps, motion } from 'framer-motion'
 import styled, { keyframes } from 'styled-components'
-
-import { Button } from '../ui'
 
 const moveDown = keyframes`
     25% {
@@ -36,33 +33,6 @@ const Mouse = styled.div`
 	}
 `
 
-type MouseAnimationProps = MotionProps & {
-	onClick: () => void
-}
-
-export default function MouseAnimation({
-	onClick,
-	style,
-	...props
-}: MouseAnimationProps): React.ReactNode {
-	return (
-		<Button
-			size="icon"
-			variant="ghost"
-			className="fixed left-1/2 translate-x-[-50%] bottom-10"
-			onClick={onClick}
-			asChild
-		>
-			<motion.div
-				style={{
-					opacity: style?.opacity,
-					display: style?.display,
-					transform: `translateY(-${style?.translateY}px)`,
-				}}
-				{...props}
-			>
-				<Mouse />
-			</motion.div>
-		</Button>
-	)
+export default function MouseAnimation(): React.ReactNode {
+	return <Mouse />
 }

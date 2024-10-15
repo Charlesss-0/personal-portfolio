@@ -28,7 +28,8 @@ export default function useInViewport(
 		}
 
 		return (): void => observer.disconnect()
-	}, [elementRef, unobserveOnIntersect, options, isUnobserved, shouldObserve])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [unobserveOnIntersect, isUnobserved, shouldObserve])
 
 	return intersect
 }

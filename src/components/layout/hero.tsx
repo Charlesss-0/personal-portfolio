@@ -1,5 +1,4 @@
 import { MouseAnimation, TypewriterAnimation } from '@/components/animations'
-import { useInViewport, useLenisScroll } from '@/hooks'
 import { useMemo, useRef } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 
@@ -7,11 +6,11 @@ import { Button } from '../ui'
 import { VscGithub } from 'react-icons/vsc'
 import config from '@/data/config.json'
 import { motion } from 'framer-motion'
+import { useLenisScroll } from '@/hooks'
 
 export default function Hero(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const { scrollTo } = useLenisScroll()
-	const isInViewport = useInViewport(containerRef, false, { threshold: 0.8 })
 
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
@@ -73,25 +72,48 @@ export default function Hero(): React.ReactNode {
 						<TypewriterAnimation>{config.role}</TypewriterAnimation>
 					</div>
 				</div>
-
-				<Button
-					variant="ghost"
-					className="absolute rounded-full cursor-pointer bottom-10 left-10 hover:bg-transparent"
-					size="icon"
-					asChild
-				>
-					<a href={config.github} rel="noreferrer" target="_blank">
-						<VscGithub className="text-5xl transition-all duration-300 ease-in-out fill-neutral-200 hover:fill-neutral-400" />
-					</a>
-				</Button>
 			</motion.div>
 
-			{isInViewport && (
-				<MouseAnimation
-					onClick={() => scrollTo('#places-finder')}
-					style={{ opacity, display, translateY }}
-				/>
-			)}
+			<Button variant="ghost" size="icon" className="fixed rounded-full bottom-10 left-10" asChild>
+				<motion.div
+					style={{
+						opacity,
+						display,
+						translateY,
+					}}
+					variants={heroVariants}
+					initial="hidden"
+					animate="visible"
+				>
+					<a href={config.github} rel="noreferrer" target="_blank">
+						<VscGithub
+							className="transition-all duration-300 ease-in-out fill-neutral-200 hover:fill-neutral-400"
+							size={40}
+						/>
+					</a>
+				</motion.div>
+			</Button>
+
+			<Button
+				size="icon"
+				variant="ghost"
+				className="fixed left-1/2 translate-x-[-50%] bottom-10"
+				onClick={() => scrollTo('#places-finder')}
+				asChild
+			>
+				<motion.div
+					style={{
+						opacity,
+						display,
+						translateY,
+					}}
+					variants={heroVariants}
+					initial="hidden"
+					animate="visible"
+				>
+					<MouseAnimation />
+				</motion.div>
+			</Button>
 		</>
 	)
 }

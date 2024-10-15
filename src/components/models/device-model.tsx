@@ -30,69 +30,68 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 	const reduceMotion = useReducedMotion()
 	const isInViewport = useInViewport(containerRef, false, { threshold: 0.7 })
 
+	const textureLoader = new THREE.TextureLoader()
+
+	const initScene = (
+		container: HTMLDivElement,
+		renderer: THREE.WebGLRenderer,
+		camera: THREE.PerspectiveCamera,
+		scene: THREE.Scene
+	): void => {
+		const { clientWidth, clientHeight } = container
+		camera.aspect = clientWidth / clientHeight
+		camera.updateProjectionMatrix()
+		renderer.setSize(clientWidth, clientHeight)
+		renderer.setPixelRatio(window.devicePixelRatio)
+
+		container.appendChild(renderer.domElement)
+
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1.2)
+		const keyLight = new THREE.DirectionalLight(0xffffff, 1.3)
+		const fillLight = new THREE.DirectionalLight(0xffffff, 0.9)
+		keyLight.position.set(0.5, 0, 0.866)
+		fillLight.position.set(-6, 2, 2)
+		scene.add(ambientLight, keyLight, fillLight)
+	}
+
 	useEffect(() => {
 		if (!containerRef.current) return
 
 		const container = containerRef.current!
 		const { clientWidth, clientHeight } = container
 
-		let model: THREE.Object3D<THREE.Object3DEventMap>
-		let lights = []
-
-		// scene set up
+		// scene and camera setup
 		const scene = new THREE.Scene()
-		scene.background = null
-		scene.fog = new THREE.Fog(0xffffff, 15, 15)
-
-		// camera set up
 		const camera = new THREE.PerspectiveCamera(40, clientWidth / clientHeight, 0.1, 1000)
 		camera.position.set(0, 1, 8)
 
-		// renderer set up
+		// renderer setup
 		const renderer = new THREE.WebGLRenderer({
 			alpha: true,
 			antialias: true,
 		})
+		initScene(container, renderer, camera, scene)
 
-		renderer.setPixelRatio(window.devicePixelRatio)
-		renderer.setSize(clientWidth, clientHeight)
-		renderer.outputColorSpace = THREE.SRGBColorSpace
-
-		container.appendChild(renderer.domElement)
-
-		// lighting
-		const ambientLight = new THREE.AmbientLight(0xffffff, 1.2)
-		const keyLight = new THREE.DirectionalLight(0xffffff, 1.3)
-		const fillLight = new THREE.DirectionalLight(0xffffff, 0.9)
-
-		fillLight.position.set(-6, 2, 2)
-		keyLight.position.set(0.5, 0, 0.866)
-
-		lights = [ambientLight, keyLight, fillLight]
-		lights.forEach(light => scene.add(light))
-
-		// loader set up
+		// draco and GLTF loader setup
 		const loader = new GLTFLoader()
 		const dracoLoader = new DRACOLoader()
 		dracoLoader.setDecoderPath('/draco/')
 		loader.setDRACOLoader(dracoLoader)
 
+		let model: THREE.Object3D<THREE.Object3DEventMap>
+
 		// model loader
 		loader.load(
 			modelPath,
-			gltf => {
+			async gltf => {
 				model = gltf.scene
 				model.position.set(0, 0.8, 0)
 
-				const texture = new THREE.TextureLoader().load(modelTexture)
+				const texture = await textureLoader.loadAsync(modelTexture)
 				texture.flipY = false
 				texture.generateMipmaps = true
 				texture.colorSpace = THREE.SRGBColorSpace
 				texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
-				texture.minFilter = THREE.LinearMipMapLinearFilter
-				texture.magFilter = THREE.LinearFilter
-
-				renderer.initTexture(texture)
 
 				model.traverse(child => {
 					if (child instanceof THREE.Mesh) {
@@ -114,18 +113,8 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 			}
 		)
 
-		// window resize
-		const handleWindowResize = (): void => {
-			renderer.setSize(clientWidth, clientHeight)
-			camera.aspect = clientWidth / clientHeight
-			camera.updateProjectionMatrix()
-		}
-		window.addEventListener('resize', handleWindowResize)
-
 		// request animation
 		const renderScene = (): void => {
-			requestAnimationFrame(renderScene)
-
 			if (model) {
 				model.rotation.x = rotationX.get()
 				model.rotation.y = rotationY.get()
@@ -146,16 +135,26 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 					})
 				}
 			}
-
 			renderer.render(scene, camera)
+			requestAnimationFrame(renderScene)
 		}
 		renderScene()
 
+		// window resize
+		const handleWindowResize = (): void => {
+			renderer.setSize(clientWidth, clientHeight)
+			camera.aspect = clientWidth / clientHeight
+			camera.updateProjectionMatrix()
+		}
+		window.addEventListener('resize', handleWindowResize)
+
 		// cleanup
 		return (): void => {
+			window.removeEventListener('resize', handleWindowResize)
 			container.removeChild(renderer.domElement)
 		}
-	}, [modelPath, modelTexture, rotationX, rotationY, positionY, opacity, laptopLidAngle])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [rotationX, rotationY])
 
 	useEffect(() => {
 		if (isInViewport && !reduceMotion) {
@@ -166,7 +165,8 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 				laptopLidAngle.set(0)
 			}
 		}
-	}, [isInViewport, modelPath, reduceMotion, positionY, opacity, laptopLidAngle])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isInViewport])
 
 	useEffect(() => {
 		const onMouseMove = throttle((event: MouseEvent) => {
@@ -188,7 +188,8 @@ export default function Model({ modelPath, modelTexture }: ModelProps): React.Re
 		return (): void => {
 			window.removeEventListener('mousemove', onMouseMove)
 		}
-	}, [isInViewport, reduceMotion, rotationX, rotationY])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isInViewport, rotationX, rotationY])
 
 	return <div ref={containerRef} style={{ height: '100%', width: '100%' }} />
 }

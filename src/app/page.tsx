@@ -1,14 +1,14 @@
 'use client'
 
 import { Contact, Hero, ProjectSummary } from '@/components/layout'
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { LoaderAnimation } from '@/components/animations'
 import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
 const Particles = dynamic(() => import('@/components/animations/particles-animation'), {
-	ssr: false,
+	ssr: true,
 	loading: () => (
 		<div className="flex items-center justify-center w-full h-screen">
 			<LoaderAnimation />
@@ -20,18 +20,22 @@ export default function Home(): React.ReactNode {
 	const [isParticlesLoaded, setIsParticlesLoaded] = useState<boolean>(false)
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setIsParticlesLoaded(true)
-		}, 1000)
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(() => setIsParticlesLoaded(true))
+		} else {
+			const timeout = setTimeout(() => {
+				setIsParticlesLoaded(true)
+			}, 1000)
 
-		return (): void => clearTimeout(timeout)
+			return (): void => clearTimeout(timeout)
+		}
 	}, [])
 
 	return (
 		<>
 			<Particles />
 			{isParticlesLoaded && (
-				<Suspense fallback={null}>
+				<>
 					<Hero />
 					{projects.map((project, index) => (
 						<ProjectSummary
@@ -42,7 +46,7 @@ export default function Home(): React.ReactNode {
 						/>
 					))}
 					<Contact />
-				</Suspense>
+				</>
 			)}
 		</>
 	)
