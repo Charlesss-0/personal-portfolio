@@ -12,11 +12,6 @@ export const metadata: Metadata = {
 	description:
 		'Personal portfolio to showcase a few projects. Built with React.js, TypeScript, Next.js, TailwindCSS, Three.js, Styled-Components, Shadcn and Framer Motion',
 	generator: 'Next.js',
-	manifest: '/site.webmanifest',
-	icons: {
-		icon: '/favicon.ico',
-		apple: '/apple-touch-icon.png',
-	},
 }
 
 export const viewport: Viewport = {
