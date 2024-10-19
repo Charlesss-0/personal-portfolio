@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://carlosaragondev.vercel.app
+
+# Sitemaps
+Sitemap: https://carlosaragondev.vercel.app/sitemap.xml
