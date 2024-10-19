@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui'
 import { LoaderAnimation } from '../animations'
@@ -21,8 +21,9 @@ interface ProjectSummaryProps {
 	className?: string
 }
 
-const DeviceModel = dynamic(() => import('@/components/models/device-model'), {
-	ssr: false,
+const DeviceModel = dynamic(() => import('@/components/model/device-model-component'), {
+	ssr: true,
+	loading: () => <LoaderAnimation />,
 })
 
 export default function ProjectSummary({
@@ -129,9 +130,7 @@ export default function ProjectSummary({
 
 			<div className="z-10 flex-1">
 				<div className="w-full h-full">
-					<Suspense fallback={<LoaderAnimation />}>
-						<DeviceModel modelPath={model} modelTexture={img} />
-					</Suspense>
+					<DeviceModel modelPath={model} modelTexture={img} />
 				</div>
 			</div>
 		</div>

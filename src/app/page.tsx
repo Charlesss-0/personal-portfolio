@@ -7,7 +7,7 @@ import { LoaderAnimation } from '@/components/animations'
 import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
-const Particles = dynamic(() => import('@/components/animations/particles-animation'), {
+const Background = dynamic(() => import('@/components/animations/background-animation'), {
 	ssr: false,
 	loading: () => (
 		<div className="flex items-center justify-center w-full h-screen">
@@ -17,15 +17,15 @@ const Particles = dynamic(() => import('@/components/animations/particles-animat
 })
 
 export default function Home(): React.ReactNode {
-	const [isParticlesLoaded, setIsParticlesLoaded] = useState<boolean>(false)
+	const [isBackgroundLoaded, setIsBackgroundLoaded] = useState<boolean>(false)
 	const [isHeroRendered, setIsHeroRendered] = useState<boolean>(false)
 
 	useEffect(() => {
 		if ('requestIdleCallback' in window) {
-			requestIdleCallback(() => setIsParticlesLoaded(true))
+			requestIdleCallback(() => setIsBackgroundLoaded(true))
 		} else {
 			const timeout = setTimeout(() => {
-				setIsParticlesLoaded(true)
+				setIsBackgroundLoaded(true)
 			}, 1000)
 
 			return (): void => clearTimeout(timeout)
@@ -33,21 +33,21 @@ export default function Home(): React.ReactNode {
 	}, [])
 
 	useEffect(() => {
-		if (isParticlesLoaded) {
+		if (isBackgroundLoaded) {
 			const timeout = setTimeout(() => {
 				setIsHeroRendered(true)
 			}, 1000)
 
 			return (): void => clearTimeout(timeout)
 		}
-	}, [isParticlesLoaded])
+	}, [isBackgroundLoaded])
 
 	return (
 		<>
-			<Particles />
-			{isParticlesLoaded && <Hero />}
+			<Background />
+			{isBackgroundLoaded && <Hero />}
 
-			{isHeroRendered && isParticlesLoaded && (
+			{isHeroRendered && isBackgroundLoaded && (
 				<>
 					<div className="projects">
 						{projects.map((project, index) => (

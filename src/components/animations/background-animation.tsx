@@ -112,7 +112,7 @@ function Scene(): React.ReactNode {
 	)
 }
 
-export default function ParticlesAnimation(): React.ReactNode {
+export default function BackgroundAnimation(): React.ReactNode {
 	return (
 		<Canvas
 			style={{
