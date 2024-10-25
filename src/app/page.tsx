@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
 const Background = dynamic(() => import('@/components/animations/background-animation'), {
-	ssr: false,
+	ssr: true,
 	loading: () => (
 		<div className="flex items-center justify-center w-full h-screen">
 			<LoaderAnimation />

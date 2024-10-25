@@ -122,7 +122,9 @@ export default function ProjectSummary({
 						custom={3}
 					>
 						<Button variant="outline" className="text-xl" asChild>
-							<a href={url}>{btnText}</a>
+							<a href={url} target="_blank" rel="noopener noreferrer">
+								{btnText}
+							</a>
 						</Button>
 					</motion.div>
 				</div>

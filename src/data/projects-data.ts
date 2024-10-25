@@ -3,6 +3,16 @@ const mobile = '/models/iphone-11.glb'
 
 const projects = [
 	{
+		id: 'pixelsketch',
+		name: 'Pixel Sketch',
+		description:
+			'Created an interactive pixel art drawing app with customizable grid sizes from 8 to 100, enabling users to design pixel-like artwork. The app supports exporting drawings in multiple formats, such as PNG, JPEG, and SVG, for versatile sharing and use.',
+		img: '/images/pixelsketch.webp',
+		url: 'https://pixelsketch-blue.vercel.app',
+		model: laptop,
+		btnText: 'View Project',
+	},
+	{
 		id: 'places-finder',
 		name: 'Places Finder app',
 		description:
@@ -19,15 +29,6 @@ const projects = [
 			'Developed an ePub reader app with user authentication, allowing users to upload, store, and read their favorite eBooks in the ePub format on any device',
 		img: '/images/readify.webp',
 		url: 'https://readify-one.vercel.app',
-		model: laptop,
-		btnText: 'View Project',
-	},
-	{
-		id: 'pixelssketch',
-		name: 'Pixels Sketch',
-		description: 'Designed and developed a pixel art creation app for a pixel drawing experience',
-		img: '/images/pixelssketch.webp',
-		url: 'https://pixelssketch.netlify.app/',
 		model: laptop,
 		btnText: 'View Project',
 	},
