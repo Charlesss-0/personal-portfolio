@@ -98,7 +98,7 @@ export default function Hero(): React.ReactNode {
 				size="icon"
 				variant="ghost"
 				className="fixed left-1/2 translate-x-[-50%] bottom-10"
-				onClick={() => scrollTo('#places-finder')}
+				onClick={() => scrollTo('#pixelsketch')}
 				asChild
 			>
 				<motion.div

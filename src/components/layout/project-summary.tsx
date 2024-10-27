@@ -22,7 +22,7 @@ interface ProjectSummaryProps {
 }
 
 const DeviceModel = dynamic(() => import('@/components/model/device-model-component'), {
-	ssr: true,
+	ssr: false,
 	loading: () => <LoaderAnimation />,
 })
 
