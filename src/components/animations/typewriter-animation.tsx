@@ -42,7 +42,7 @@ export default function Typewriter({ children, className }: TypewriterProps): Re
 		<div className="flex items-center h-24 gap-2 w-max">
 			<p
 				className={twMerge(
-					'font-semibold text-8xl bg-gradient-to-b from-neutral-200 from-20% to-light-blue/60 bg-clip-text text-transparent',
+					'font-semibold text-8xl bg-gradient-to-b from-neutral-200 from-20% to-light-blue/60 bg-clip-text text-transparent tracking-wide',
 					className
 				)}
 			>
