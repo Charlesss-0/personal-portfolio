@@ -1,12 +1,14 @@
-import { MouseAnimation, TypewriterAnimation } from '@/components/animations'
-import { useMemo, useRef } from 'react'
+import { container, name } from './hero-variants'
 import { useScroll, useTransform } from 'framer-motion'
 
-import { Button } from '../ui'
+import { Button } from '@/components/ui'
 import { Icon } from '@iconify-icon/react'
+import MouseIndicator from './MouseIndicator'
+import Typewriter from './Typewriter'
 import config from '@/data/config.json'
 import { motion } from 'framer-motion'
 import { useLenisScroll } from '@/hooks'
+import { useRef } from 'react'
 
 export default function Hero(): React.ReactNode {
 	const containerRef = useRef<HTMLDivElement | null>(null)
@@ -21,37 +23,12 @@ export default function Hero(): React.ReactNode {
 	const display = useTransform(scrollYProgress, [0, 0.5], ['block', 'none'])
 	const translateY = useTransform(scrollYProgress, [0, 0.5], [0, 50])
 
-	const slideVariants = useMemo(
-		() => ({
-			initial: { y: '101%' },
-			animate: { y: '-101%', transition: { duration: 1, ease: 'easeInOut', type: 'tween' } },
-		}),
-		[]
-	)
-
-	const heroVariants = useMemo(
-		() => ({
-			hidden: { opacity: 0, y: 50 },
-			visible: (i: number): Record<string, any> => ({
-				opacity: 1,
-				y: 0,
-				transition: {
-					type: 'spring',
-					stiffness: 40,
-					damping: 10,
-					delay: i * 0.2,
-				},
-			}),
-		}),
-		[]
-	)
-
 	return (
 		<>
 			<motion.div
 				ref={containerRef}
 				className="relative flex flex-col justify-end w-full h-screen select-none text-base-100"
-				variants={heroVariants}
+				variants={container}
 				initial="hidden"
 				animate="visible"
 			>
@@ -61,7 +38,7 @@ export default function Hero(): React.ReactNode {
 							Carlos Aragon
 							<motion.div
 								className="absolute top-0 left-0 z-10 w-full h-full bg-light-blue"
-								variants={slideVariants}
+								variants={name}
 								initial="initial"
 								animate="animate"
 							/>
@@ -69,7 +46,7 @@ export default function Hero(): React.ReactNode {
 					</div>
 
 					<div className="flex px-5">
-						<TypewriterAnimation>{config.role}</TypewriterAnimation>
+						<Typewriter>{config.role}</Typewriter>
 					</div>
 				</div>
 			</motion.div>
@@ -81,7 +58,7 @@ export default function Hero(): React.ReactNode {
 						display,
 						translateY,
 					}}
-					variants={heroVariants}
+					variants={container}
 					initial="hidden"
 					animate="visible"
 				>
@@ -110,11 +87,11 @@ export default function Hero(): React.ReactNode {
 						display,
 						translateY,
 					}}
-					variants={heroVariants}
+					variants={container}
 					initial="hidden"
 					animate="visible"
 				>
-					<MouseAnimation />
+					<MouseIndicator />
 				</motion.div>
 			</Button>
 		</>

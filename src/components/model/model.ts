@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-export default class ModelObject {
+export default class Model {
 	private canvas: HTMLCanvasElement
 	private scene: THREE.Scene
 	private camera: THREE.PerspectiveCamera

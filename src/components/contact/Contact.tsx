@@ -1,8 +1,7 @@
+import { Button, Loader } from '@/components/ui'
 import { useContactAction, useInViewport } from '@/hooks'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { LoaderAnimation } from '@/components/animations'
 import { motion } from 'framer-motion'
 
 export default function Contact(): React.ReactNode {
@@ -179,7 +178,7 @@ export default function Contact(): React.ReactNode {
 							{isSending ? 'Sending...' : 'Send Message'}
 						</Button>
 
-						{isSending && <LoaderAnimation />}
+						{isSending && <Loader />}
 					</form>
 				</div>
 			)}

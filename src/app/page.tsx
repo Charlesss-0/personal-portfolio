@@ -1,17 +1,19 @@
 'use client'
 
-import { Contact, Hero, ProjectSummary } from '@/components/layout'
 import { useEffect, useState } from 'react'
 
-import { LoaderAnimation } from '@/components/animations'
+import Contact from '@/components/contact/Contact'
+import Hero from '@/components/hero/Hero'
+import { Loader } from '@/components/ui'
+import ProjectSummary from '@/components/project/ProjectSummary'
 import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
-const Background = dynamic(() => import('@/components/animations/background-animation'), {
+const Background = dynamic(() => import('@/components/layout/Background'), {
 	ssr: false,
 	loading: () => (
 		<div className="flex items-center justify-center w-full h-screen">
-			<LoaderAnimation />
+			<Loader />
 		</div>
 	),
 })

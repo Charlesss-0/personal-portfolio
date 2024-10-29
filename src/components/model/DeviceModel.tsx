@@ -1,8 +1,8 @@
 import { Suspense, useEffect, useRef } from 'react'
 import { useReducedMotion, useSpring } from 'framer-motion'
 
-import { LoaderAnimation } from '../animations'
-import ModelObject from './model-object'
+import { Loader } from '@/components/ui'
+import Model from './model'
 import { throttle } from '@/utils'
 import { useInViewport } from '@/hooks'
 
@@ -35,7 +35,7 @@ export default function DeviceModel({
 	useEffect(() => {
 		if (!canvasRef.current) return
 
-		const model = new ModelObject(
+		const model = new Model(
 			canvasRef.current,
 			modelPath,
 			modelTexture,
@@ -84,7 +84,7 @@ export default function DeviceModel({
 
 	return (
 		<div ref={containerRef} className="w-full h-full">
-			<Suspense fallback={<LoaderAnimation />}>
+			<Suspense fallback={<Loader />}>
 				<canvas ref={canvasRef} className="w-full h-full border-light-blue" />
 			</Suspense>
 		</div>

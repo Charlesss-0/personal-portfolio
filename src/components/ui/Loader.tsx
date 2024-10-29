@@ -38,7 +38,7 @@ const StyledWrapper = styled.div`
 	}
 `
 
-export default function LoaderAnimation(): React.ReactNode {
+export default function Loader(): React.ReactNode {
 	return (
 		<StyledWrapper>
 			<div className="spinner" />

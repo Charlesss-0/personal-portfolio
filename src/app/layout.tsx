@@ -9,8 +9,7 @@ import { telegrafRegular } from './fonts'
 
 export const metadata: Metadata = {
 	title: config.name,
-	description:
-		'Personal portfolio to showcase a few projects. Built with React.js, TypeScript, Next.js, TailwindCSS, Three.js, Styled-Components, Shadcn and Framer Motion',
+	description: config.description,
 	generator: 'Next.js',
 }
 

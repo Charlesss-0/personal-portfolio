@@ -103,16 +103,16 @@ function Scene(): React.ReactNode {
 	const { scrollY } = useScroll()
 
 	return (
-		<scene>
+		<>
 			<ambientLight intensity={0.3} />
 			<directionalLight position={[-3, -5, -5]} intensity={1.5} />
 			<Particles />
 			<Sphere scrollY={scrollY} />
-		</scene>
+		</>
 	)
 }
 
-export default function BackgroundAnimation(): React.ReactNode {
+export default function Background(): React.ReactNode {
 	return (
 		<Canvas
 			style={{
