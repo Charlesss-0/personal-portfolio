@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui'
+import { Icon } from '@iconify-icon/react'
 import { LoaderAnimation } from '../animations'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
@@ -12,6 +13,7 @@ import { useInViewport } from '@/hooks'
 interface ProjectSummaryProps {
 	name: string
 	description: string
+	stack: string[]
 	img: string
 	url: string
 	model: string
@@ -29,6 +31,7 @@ const DeviceModel = dynamic(() => import('@/components/model/device-model-compon
 export default function ProjectSummary({
 	name,
 	description,
+	stack,
 	img,
 	url,
 	model,
@@ -113,13 +116,31 @@ export default function ProjectSummary({
 						>
 							{description}
 						</motion.p>
+
+						<motion.div
+							className="flex flex-row items-center gap-2 text-neutral-400"
+							variants={itemVariants}
+							initial="hidden"
+							animate={animationTriggered ? 'visible' : 'hidden'}
+							custom={3}
+						>
+							{stack.map((icon, index) => (
+								<Icon
+									key={index}
+									icon={icon}
+									className="p-2 border rounded-md bg-neutral-800 border-neutral-700 text-neutral-200"
+									width={24}
+									height={24}
+								/>
+							))}
+						</motion.div>
 					</div>
 
 					<motion.div
 						variants={itemVariants}
 						initial="hidden"
 						animate={animationTriggered ? 'visible' : 'hidden'}
-						custom={3}
+						custom={4}
 					>
 						<Button variant="outline" className="text-xl" asChild>
 							<a href={url} target="_blank" rel="noopener noreferrer">

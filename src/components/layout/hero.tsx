@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 
 import { Button } from '../ui'
-import { VscGithub } from 'react-icons/vsc'
+import { Icon } from '@iconify-icon/react'
 import config from '@/data/config.json'
 import { motion } from 'framer-motion'
 import { useLenisScroll } from '@/hooks'
@@ -86,8 +86,11 @@ export default function Hero(): React.ReactNode {
 					animate="visible"
 				>
 					<a href={config.github} rel="noreferrer" target="_blank">
-						<VscGithub
-							className="transition-all duration-300 ease-in-out fill-neutral-200 hover:fill-neutral-400"
+						<Icon
+							icon="codicon:github"
+							className="flex items-center justify-center transition-all duration-300 ease-in-out text-neutral-200 hover:text-neutral-400"
+							width={40}
+							height={40}
 							size={40}
 						/>
 					</a>
