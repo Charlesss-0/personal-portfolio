@@ -8,7 +8,13 @@ const projects = [
 		description:
 			'Created an interactive pixel art drawing app with customizable grid sizes from 8 to 100, enabling users to design pixel-like artwork. The app supports exporting drawings in multiple formats, such as PNG, JPEG, and SVG, for versatile sharing and use.',
 		img: '/images/pixelsketch.webp',
-		stack: ['logos:react', 'logos:typescript-icon', 'devicon:nextjs', 'devicon:tailwindcss'],
+		stack: [
+			'logos:react',
+			'logos:typescript-icon',
+			'devicon:nextjs',
+			'devicon:tailwindcss',
+			'logos:figma',
+		],
 		url: 'https://pixelsketch-blue.vercel.app',
 		model: laptop,
 		btnText: 'View Project',
