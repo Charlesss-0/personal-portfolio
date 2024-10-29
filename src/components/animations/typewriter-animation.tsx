@@ -10,7 +10,7 @@ export default function Typewriter({ children, className }: TypewriterProps): Re
 	const [currentText, setCurrentText] = useState<string>('')
 	const [direction, setDirection] = useState<number>(1) // 1 for forward, -1 for backward
 	const [index, setIndex] = useState<number>(0)
-	const delay = 5000
+	const DELAY = 5000 as const
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -18,7 +18,7 @@ export default function Typewriter({ children, className }: TypewriterProps): Re
 				if (index === children.length) {
 					setTimeout(() => {
 						setDirection(-1) // Change direction to go backward after delay
-					}, delay)
+					}, DELAY)
 				} else {
 					setCurrentText(children.slice(0, index + 1))
 					setIndex(index + 1)
@@ -27,13 +27,13 @@ export default function Typewriter({ children, className }: TypewriterProps): Re
 				if (index === 0) {
 					setTimeout(() => {
 						setDirection(1) // Change direction to go forward after delay
-					}, delay)
+					}, DELAY)
 				} else {
 					setCurrentText(children.slice(0, index - 1))
 					setIndex(index - 1)
 				}
 			}
-		}, 50)
+		}, 80)
 
 		return (): void => clearInterval(interval)
 	}, [children, index, direction])
