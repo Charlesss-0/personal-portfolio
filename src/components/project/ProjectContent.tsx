@@ -1,3 +1,4 @@
+import ProjectHeader from './ProjectHeader'
 import StackIcons from './StackIcons'
 import { motion } from 'framer-motion'
 import { stagger } from './project-constants'
@@ -6,24 +7,27 @@ export default function ProjectContent({
 	name,
 	description,
 	stack,
+	index,
 	animationTriggered,
 }: {
 	name: string
 	description: string
 	stack: string[]
+	index: number
 	animationTriggered: boolean
 }): React.ReactNode {
 	return (
 		<div className="flex flex-col items-start mb-20">
 			<motion.h2
-				className="my-10 text-4xl font-bold md:text-2xl text-start"
+				className="text-4xl font-bold md:text-2xl text-start"
 				variants={stagger}
 				initial="hidden"
 				animate={animationTriggered ? 'visible' : 'hidden'}
-				custom={1}
+				custom={0}
 			>
 				{name}
 			</motion.h2>
+			<ProjectHeader index={index} animationTriggered={animationTriggered} />
 
 			<motion.p
 				className="mb-5 text-xl font-semibold md:w-full md:text-sm text-start text-neutral-400"

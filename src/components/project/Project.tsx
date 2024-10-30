@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import ProjectButton from './ProjectButton'
 import ProjectContent from './ProjectContent'
-import ProjectHeader from './ProjectHeader'
 import ProjectModel from './ProjectModel'
 import { twMerge } from '@/utils'
 import { useInViewport } from '@/hooks'
@@ -51,9 +50,9 @@ export default function Project({
 		>
 			<div className="z-10 flex items-center justify-center flex-1">
 				<div className="flex flex-col items-start justify-center w-4/5">
-					<ProjectHeader index={index} animationTriggered={animationTriggered} />
 					<ProjectContent
 						name={name}
+						index={index}
 						description={description}
 						stack={stack}
 						animationTriggered={animationTriggered}

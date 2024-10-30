@@ -10,11 +10,11 @@ export default function ProjectHeader({
 }): React.ReactNode {
 	return (
 		<motion.div
-			className="flex items-center justify-between w-full"
+			className="flex items-center justify-between w-full mb-10"
 			variants={stagger}
 			initial="hidden"
 			animate={animationTriggered ? 'visible' : 'hidden'}
-			custom={0}
+			custom={1}
 		>
 			<div className="flex-1">
 				<div className="w-full border-b-2 border-light-blue" />
