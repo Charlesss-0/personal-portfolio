@@ -21,7 +21,7 @@ interface ProjectSummaryProps extends React.HTMLAttributes<HTMLDivElement> {
 	index: number
 }
 
-export default function ProjectSummary({
+export default function Project({
 	id,
 	name,
 	description,

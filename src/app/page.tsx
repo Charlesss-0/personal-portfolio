@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Contact from '@/components/contact/Contact'
 import Hero from '@/components/hero/Hero'
 import { Loader } from '@/components/ui'
-import ProjectSummary from '@/components/project/ProjectSummary'
+import Project from '@/components/project/Project'
 import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
@@ -49,7 +49,7 @@ export default function Home(): React.ReactNode {
 				<>
 					<div className="projects">
 						{projects.map((project, index) => (
-							<ProjectSummary
+							<Project
 								key={index}
 								index={index + 1}
 								{...project}
