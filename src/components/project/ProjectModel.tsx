@@ -2,7 +2,7 @@ import Loader from '@/components/ui/Loader'
 import dynamic from 'next/dynamic'
 
 const DeviceModel = dynamic(() => import('@/components/model/DeviceModel'), {
-	ssr: false,
+	ssr: true,
 	loading: () => <Loader />,
 })
 

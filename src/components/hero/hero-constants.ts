@@ -1,4 +1,4 @@
-export const container = {
+export const containerVariants = {
 	hidden: { opacity: 0, y: 50 },
 	visible: (i: number): Record<string, any> => ({
 		opacity: 1,
@@ -12,7 +12,7 @@ export const container = {
 	}),
 }
 
-export const name = {
+export const overlayVariants = {
 	initial: { y: '101%' },
 	animate: { y: '-101%', transition: { duration: 1, ease: 'easeInOut', type: 'tween' } },
 }

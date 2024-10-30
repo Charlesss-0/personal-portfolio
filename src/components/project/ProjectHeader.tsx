@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { stagger } from './project-variants'
+import { stagger } from './project-constants'
 
 export default function ProjectHeader({
 	index,

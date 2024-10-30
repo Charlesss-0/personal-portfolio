@@ -10,9 +10,9 @@ import dynamic from 'next/dynamic'
 import { projects } from '@/data/projects-data'
 
 const Background = dynamic(() => import('@/components/layout/Background'), {
-	ssr: false,
+	ssr: true,
 	loading: () => (
-		<div className="flex items-center justify-center w-full h-screen">
+		<div className="z-10 flex items-center justify-center w-full h-screen">
 			<Loader />
 		</div>
 	),
@@ -23,22 +23,18 @@ export default function Home(): React.ReactNode {
 	const [isHeroRendered, setIsHeroRendered] = useState<boolean>(false)
 
 	useEffect(() => {
-		if ('requestIdleCallback' in window) {
-			requestIdleCallback(() => setIsBackgroundLoaded(true))
-		} else {
-			const timeout = setTimeout(() => {
-				setIsBackgroundLoaded(true)
-			}, 1000)
+		const timeout = setTimeout(() => {
+			setIsBackgroundLoaded(true)
+		}, 1000)
 
-			return (): void => clearTimeout(timeout)
-		}
+		return (): void => clearTimeout(timeout)
 	}, [])
 
 	useEffect(() => {
 		if (isBackgroundLoaded) {
 			const timeout = setTimeout(() => {
 				setIsHeroRendered(true)
-			}, 1000)
+			}, 1500)
 
 			return (): void => clearTimeout(timeout)
 		}
