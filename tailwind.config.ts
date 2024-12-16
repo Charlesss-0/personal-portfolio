@@ -25,6 +25,7 @@ const config: Config = {
 			},
 			fontFamily: {
 				'telegraf-regular': ['var(--font-telegraf-regular)', 'sans-serif'],
+				'bebas-neue': ['var(--font-bebas-neue)', 'sans-serif'],
 			},
 			keyframes: {
 				blink: {

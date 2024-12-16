@@ -1,11 +1,11 @@
 import './globals.css'
 
 import type { Metadata, Viewport } from 'next'
+import { bebasNeue, telegrafRegular } from './fonts'
 
 import LenisScroll from './lenis-scroll'
 import StyledComponentsRegistry from './registry'
 import config from '@/data/config.json'
-import { telegrafRegular } from './fonts'
 
 export const metadata: Metadata = {
 	title: config.name,
@@ -23,9 +23,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
 	return (
 		<StyledComponentsRegistry>
-			<html lang="en" className={`${telegrafRegular.variable} antialiased no-scrollbar`}>
+			<html
+				lang="en"
+				className={`${telegrafRegular.variable} ${bebasNeue.variable} antialiased no-scrollbar`}
+			>
 				<LenisScroll>
-					<body className="text-gray-50 font-telegraf-regular">
+					<body className="text-gray-50 font-bebas-neue">
 						<main>{children}</main>
 					</body>
 				</LenisScroll>

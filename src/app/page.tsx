@@ -1,65 +1,32 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-import Contact from '@/components/contact/Contact'
 import Hero from '@/components/hero/Hero'
-import { Loader } from '@/components/ui'
-import Project from '@/components/project/Project'
-import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { projects } from '@/data/projects-data'
 
-const Background = dynamic(() => import('@/components/layout/Background'), {
-	ssr: true,
-	loading: () => (
-		<div className="z-10 flex items-center justify-center w-full h-screen">
-			<Loader />
-		</div>
-	),
-})
-
 export default function Home(): React.ReactNode {
-	const [isBackgroundLoaded, setIsBackgroundLoaded] = useState<boolean>(false)
-	const [isHeroRendered, setIsHeroRendered] = useState<boolean>(false)
-
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setIsBackgroundLoaded(true)
-		}, 1000)
-
-		return (): void => clearTimeout(timeout)
-	}, [])
-
-	useEffect(() => {
-		if (isBackgroundLoaded) {
-			const timeout = setTimeout(() => {
-				setIsHeroRendered(true)
-			}, 1500)
-
-			return (): void => clearTimeout(timeout)
-		}
-	}, [isBackgroundLoaded])
-
 	return (
-		<>
-			<Background />
-			{isBackgroundLoaded && <Hero />}
+		<div className="flex flex-col gap-32">
+			<Hero />
 
-			{isHeroRendered && isBackgroundLoaded && (
-				<>
-					<div className="projects">
-						{projects.map((project, index) => (
-							<Project
-								key={index}
-								index={index + 1}
-								{...project}
-								className={index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}
-							/>
-						))}
+			<div className="flex h-screen overflow-x-scroll w-max snap-x snap-mandatory">
+				{projects.map(({ name, img, url, btnText, id }, index) => (
+					<div
+						key={id}
+						className="flex items-center justify-center flex-1 w-screen h-full snap-start"
+					>
+						<div className="flex flex-col items-center justify-center h-full">
+							<Image src={img} alt={name} width={1000} height={1000} className="rounded-lg" />
+
+							<div className="flex items-center justify-between w-full px-8 py-4 text-4xl">
+								<h2>{name}</h2>
+
+								<p className="text-neutral-400">/ 0{index + 1}</p>
+							</div>
+						</div>
 					</div>
-					<Contact />
-				</>
-			)}
-		</>
+				))}
+			</div>
+		</div>
 	)
 }
