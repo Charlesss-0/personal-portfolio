@@ -51,7 +51,6 @@ const config: Config = {
 		},
 	},
 	plugins: [
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		({ addUtilities }: { addUtilities: any }): void => {
 			const newUtilities = {
 				'.no-scrollbar::-webkit-scrollbar': {
