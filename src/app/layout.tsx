@@ -2,6 +2,7 @@ import './globals.css'
 
 import type { Metadata, Viewport } from 'next'
 
+import { GoogleTagManager } from '@next/third-parties/google'
 import LenisScroll from './lenis-scroll'
 import StyledComponentsRegistry from './registry'
 import config from '@/data/config.json'
@@ -11,6 +12,9 @@ export const metadata: Metadata = {
 	title: config.name,
 	description: config.description,
 	generator: 'Next.js',
+	verification: {
+		google: config.googleSiteVerification,
+	},
 }
 
 export const viewport: Viewport = {
@@ -29,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 						<main>{children}</main>
 					</body>
 				</LenisScroll>
+
+				<GoogleTagManager gtmId="GTM-PVPT4FJ5" />
 			</html>
 		</StyledComponentsRegistry>
 	)
