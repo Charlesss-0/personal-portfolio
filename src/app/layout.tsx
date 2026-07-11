@@ -1,41 +1,31 @@
-import './globals.css'
+import "./globals.css";
 
-import type { Metadata, Viewport } from 'next'
+import { GoogleTagManager } from "@next/third-parties/google";
 
-import { GoogleTagManager } from '@next/third-parties/google'
-import LenisScroll from './lenis-scroll'
-import StyledComponentsRegistry from './registry'
-import config from '@/data/config.json'
-import { telegrafRegular } from './fonts'
+import type { Metadata } from "next";
+import config from "@/data/config.json";
 
 export const metadata: Metadata = {
 	title: config.name,
 	description: config.description,
-	generator: 'Next.js',
+	generator: "Next.js",
 	verification: {
 		google: config.googleSiteVerification,
 	},
-}
+};
 
-export const viewport: Viewport = {
-	width: 'device-width',
-	initialScale: 1,
-	maximumScale: 1,
-	userScalable: false,
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }): React.ReactNode {
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.ReactNode {
 	return (
-		<StyledComponentsRegistry>
-			<html lang="en" className={`${telegrafRegular.variable} antialiased no-scrollbar`}>
-				<LenisScroll>
-					<body className="text-gray-50 font-telegraf-regular">
-						<main>{children}</main>
-					</body>
-				</LenisScroll>
+		<html lang="en" className={`antialiased no-scrollbar`}>
+			<body>
+				<main>{children}</main>
+			</body>
 
-				<GoogleTagManager gtmId="GTM-PVPT4FJ5" />
-			</html>
-		</StyledComponentsRegistry>
-	)
+			<GoogleTagManager gtmId="GTM-PVPT4FJ5" />
+		</html>
+	);
 }

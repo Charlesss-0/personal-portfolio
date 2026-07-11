@@ -1,15 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-	--core-text-color: #2f2f2f;
-	--core-select: #00eeff55;
-}
-
-@layer base {
+@layer utilities {
 	:root {
-		--radius: 0.5rem;
+		--core-text-color: #2f2f2f;
+		--core-select: #00eeff55;
 	}
 }
 
@@ -36,11 +30,6 @@ html.lenis body {
 
 .lenis.lenis-smooth iframe {
 	pointer-events: none;
-}
-
-body {
-	color: var(--core-text-color);
-	background-color: #000;
 }
 
 ::selection {
