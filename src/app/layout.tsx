@@ -2,12 +2,30 @@ import "./globals.css";
 
 import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import {
+	Instrument_Serif,
+	JetBrains_Mono,
+	Space_Grotesk,
+} from "next/font/google";
 import config from "@/data/config.json";
 
 const spaceGrotesk = Space_Grotesk({
 	subsets: ["latin"],
-	variable: "--font-sans",
+	variable: "--font-space-grotesk",
+});
+
+const instrumentSerif = Instrument_Serif({
+	subsets: ["latin"],
+	weight: ["400"],
+	style: ["normal", "italic"],
+	variable: "--font-instrument-serif",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
+	style: ["normal", "italic"],
+	variable: "--font-mono-jetbrains",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +45,8 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${spaceGrotesk.variable} antialiased no-scrollbar`}
+			data-theme="lofi"
+			className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased no-scrollbar`}
 		>
 			<body>
 				<main>{children}</main>

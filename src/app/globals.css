@@ -1,5 +1,98 @@
 @import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+	name: "lofi";
+	prefersdark: false;
+	color-scheme: "light";
 
-::selection {
-	background-color: var(--core-select);
+	--color-base-100: oklch(0.965 0.018 85);
+	--color-base-200: oklch(0.98 0.012 85);
+	--color-base-300: oklch(0.85 0.025 70);
+	--color-base-content: oklch(0% 0 0);
+
+	--color-primary: oklch(0.19 0.02 60);
+	--color-primary-content: oklch(100% 0 0);
+
+	--color-secondary: oklch(0.42 0.03 60);
+	--color-secondary-content: oklch(0.92 0.02 85);
+
+	--color-accent: oklch(0.64 0.21 32);
+	--color-accent-content: oklch(100% 0 0);
+
+	--color-neutral: oklch(0% 0 0);
+	--color-neutral-content: oklch(100% 0 0);
+
+	--color-info: oklch(79.54% 0.103 205.9);
+	--color-info-content: oklch(15.908% 0.02 205.9);
+
+	--color-success: oklch(90.13% 0.153 164.14);
+	--color-success-content: oklch(18.026% 0.03 164.14);
+
+	--color-warning: oklch(88.37% 0.135 79.94);
+	--color-warning-content: oklch(17.674% 0.027 79.94);
+
+	--color-error: oklch(78.66% 0.15 28.47);
+	--color-error-content: oklch(15.732% 0.03 28.47);
+
+	--radius-selector: 2rem;
+	--radius-field: 2rem;
+	--radius-box: 1rem;
+
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+
+	--border: 1px;
+	--depth: 1;
+	--noise: 0;
+}
+
+@theme inline {
+	--font-sans: var(--font-space-grotesk);
+	--font-serif: var(--font-instrument-serif);
+	--font-mono: var(--font-mono-jetbrains);
+}
+
+@layer base {
+	body {
+		background-image: radial-gradient(
+			oklch(0.19 0.02 60 / 0.04) 1px,
+			transparent 1px
+		);
+		background-size: 22px 22px;
+	}
+
+	::selection {
+		background-color: var(--color-accent);
+		color: var(--color-base-100);
+	}
+}
+
+@utility marquee-track {
+	animation: marquee 40s linear infinite;
+}
+
+@utility card {
+	@apply bg-base-200 overflow-hidden border-base-300;
+}
+
+@utility card-title {
+	@apply font-serif font-normal;
+}
+
+@utility card-body {
+	@apply p-0;
+}
+
+@utility badge-outline {
+	@apply border-base-300;
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-50%);
+	}
 }
