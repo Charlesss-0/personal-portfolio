@@ -1,6 +1,10 @@
 "use client";
 
-import { Header, Hero, Marquee, Projects } from "@/components/layout";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
+import Hero from "@/components/layout/hero";
+import Marquee from "@/components/layout/marquee";
+import Projects from "@/components/layout/projects";
 
 export default function Home(): React.ReactNode {
 	return (
@@ -9,6 +13,7 @@ export default function Home(): React.ReactNode {
 			<Hero />
 			<Marquee />
 			<Projects />
+			<Footer />
 		</div>
 	);
 }

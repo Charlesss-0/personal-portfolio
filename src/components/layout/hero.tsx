@@ -12,10 +12,10 @@ export default function Hero(): React.ReactNode {
 				</h1>
 
 				<p className="font-mono text-xl text-secondary">
-					I'm Carlos Aragon, a web developer from Nicaragua who loves building
-					products with{" "}
-					<span className="text-primary">Next.js, React, Typescript,</span> and{" "}
-					<span className="text-primary">Tailwind CSS</span>.
+					I'm Carlos Aragon, a web developer who enjoys building modern,
+					performant web applications with Next.js, React, TypeScript, and
+					Tailwind CSS. I also specialize in conversion tracking, making it
+					easier for businesses to measure what matters.
 				</p>
 			</div>
 		</div>

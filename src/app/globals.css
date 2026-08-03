@@ -50,9 +50,23 @@
 	--font-sans: var(--font-space-grotesk);
 	--font-serif: var(--font-instrument-serif);
 	--font-mono: var(--font-mono-jetbrains);
+
+	@keyframes marquee {
+		from {
+			transform: translateX(0);
+		}
+
+		to {
+			transform: translateX(-50%);
+		}
+	}
 }
 
 @layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
 	body {
 		background-image: radial-gradient(
 			oklch(0.19 0.02 60 / 0.04) 1px,
@@ -84,15 +98,9 @@
 }
 
 @utility badge-outline {
-	@apply border-base-300;
+	@apply border-base-300 h-auto p-2;
 }
 
-@keyframes marquee {
-	from {
-		transform: translateX(0);
-	}
-
-	to {
-		transform: translateX(-50%);
-	}
+@utility btn-primary {
+	@apply hover:bg-primary/90;
 }

@@ -7,7 +7,7 @@ import {
 	JetBrains_Mono,
 	Space_Grotesk,
 } from "next/font/google";
-import config from "@/data/config.json";
+import { configData } from "@/data/config-data";
 
 const spaceGrotesk = Space_Grotesk({
 	subsets: ["latin"],
@@ -29,11 +29,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: config.name,
-	description: config.description,
+	title: configData.name,
+	description: configData.description,
 	generator: "Next.js",
 	verification: {
-		google: config.googleSiteVerification,
+		google: configData.googleSiteVerification,
 	},
 };
 
@@ -52,7 +52,7 @@ export default function RootLayout({
 				<main>{children}</main>
 			</body>
 
-			<GoogleTagManager gtmId="GTM-PVPT4FJ5" />
+			<GoogleTagManager gtmId={configData.gtmId} />
 		</html>
 	);
 }
