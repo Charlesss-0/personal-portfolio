@@ -33,7 +33,9 @@ export default function ProjectCard({
 				<div className="p-6 space-y-4">
 					<h3 className="text-4xl tracking-tight card-title">{project.name}</h3>
 
-					<p className="text-secondary">{project.description}</p>
+					<p className="text-sm text-secondary md:text-md">
+						{project.description}
+					</p>
 
 					<div className="flex items-center gap-2">
 						{project.stack.map((stack) => (

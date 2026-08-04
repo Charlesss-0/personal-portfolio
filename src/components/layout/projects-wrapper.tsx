@@ -3,11 +3,13 @@
 import ProjectCard from "@/components/ui/project-card";
 import { projects } from "@/data/projects-data";
 
-export default function Projects(): React.ReactNode {
+export default function ProjectsWrapper(): React.ReactNode {
 	return (
-		<div id="projects" className="flex justify-center">
-			<div className="max-w-6xl space-y-16 lg:py-24">
-				<h2 className="font-serif font-medium md:text-6xl">Recent projects.</h2>
+		<div id="projects" className="flex justify-center mb-12 md:mb-0">
+			<div className="w-full max-w-6xl px-4 md:space-y-16 md:py-24">
+				<h2 className="mt-6 mb-12 font-serif text-2xl font-medium text-center md:text-6xl md:p-0 md:text-start">
+					Recent projects.
+				</h2>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 					{projects.map((project, index) => (
