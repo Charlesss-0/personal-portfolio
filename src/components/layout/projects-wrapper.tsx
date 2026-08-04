@@ -7,7 +7,7 @@ export default function ProjectsWrapper(): React.ReactNode {
 	return (
 		<div id="projects" className="flex justify-center mb-12 md:mb-0">
 			<div className="w-full max-w-6xl px-4 md:space-y-16 md:py-24">
-				<h2 className="mt-6 mb-12 font-serif text-2xl font-medium text-center md:text-6xl md:p-0 md:text-start">
+				<h2 className="mt-8 mb-12 font-serif text-3xl font-medium md:text-6xl md:p-0 md:mt-6">
 					Recent projects.
 				</h2>
 

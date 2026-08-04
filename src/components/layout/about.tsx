@@ -3,12 +3,12 @@ import Image from "next/image";
 export default function About(): React.ReactNode {
 	return (
 		<div className="w-full max-w-6xl px-6 mx-auto my-12 md:mt-24 md:mb-36">
-			<h2 className="mb-12 font-serif text-2xl font-medium md:text-4xl">
+			<h2 className="mb-12 font-serif text-3xl font-medium md:text-4xl">
 				About me
 			</h2>
 
 			<div className="flex items-center justify-between gap-8 md:gap-16">
-				<p className="font-mono text-sm md:text-xl text-secondary">
+				<p className="text-sm md:text-xl text-secondary">
 					I'm Carlos Aragon, a web developer who enjoys building modern,
 					performant web applications with Next.js, React, TypeScript, and
 					Tailwind CSS. I also specialize in conversion tracking, making it
