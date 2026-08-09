@@ -1,0 +1,104 @@
+---
+title: "Installing Google Tag Manager in Next.js"
+description: "How to add Google Tag Manager to a Next.js App Router project using the official @next/third-parties library, without hurting performance."
+tags: ["nextjs", "google-tag-manager", "analytics", "tutorial"]
+published: true
+---
+
+# Installing Google Tag Manager in Next.js with @next/third-parties library
+
+Dropping a raw Google Tag Manager `<script>` snippet into a Next.js app works, but it comes with a cost: an inline, render-blocking script that Next.js can't optimize for you. `@next/third-parties` solves this by wrapping GTM in a component built on top of `next/script`, so it loads after hydration instead of competing with your page for the main thread.
+
+This post covers installing it, wiring it into the App Router, and a few things worth knowing before you ship it.
+
+## Step 1: Install the package
+
+```bash
+pnpm add @next/third-parties@latest next@latest
+```
+
+`@next/third-parties` is still evolving, so it's worth pinning it alongside the latest `next` version rather than letting them drift apart.
+
+## Step 2: Get your GTM container ID
+
+In Google Tag Manager, your container ID looks like `GTM-XXXXXXX`. You'll find it in the top-right corner of your workspace once you've created (or been given access to) a container.
+
+It's good practice to keep this out of hardcoded strings:
+
+```bash
+# .env.local
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+```
+
+Since GTM's ID is exposed to the browser regardless, prefixing it with `NEXT_PUBLIC_` is fine here, there's no secret being leaked.
+
+## Step 3: Add the component to your root layout
+
+For site-wide tracking, drop `GoogleTagManager` directly in `app/layout.tsx`:
+
+```tsx
+// app/layout.tsx
+import { GoogleTagManager } from '@next/third-parties/google';
+ 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+That's the entire setup. The component handles three things for your automatically:
+
+- Injecting the GTM script tag with a sensible loading strategy (after hydration, not blocking initial render).
+- Adding the `<noscript>` fallback `<iframe>` GTM expects for users with JavaScript disabled.
+- Wiring up the `dataLayer` so events can start flowing immediately.
+
+## Step 4: (optional): Load GTM only on specific routes
+
+If you don't want tracking site-wide, say you want to exclude an internal admin section, place the component in that route's page file instead of the root layout:
+
+```tsx
+// app/(marketing)/page.tsx
+import { GoogleTagManager } from "@next/third-parties";
+
+export default function Page() {
+  return <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />;
+}
+```
+
+## Sending custom events
+
+Once GTM is loaded, you can push events to the `dataLayer` from client components using the `sendGTMEvent` helper exported from the same package:
+
+```tsx
+"use client"
+
+import { sendGTMEvent } from "@next/third-parties";
+
+export default function NewsletterForm() {
+  function handleSubmit() {
+    sendGTMEvent({ event: "newsletter_signup", method: "footer_form" });
+  }
+
+  return <button onClick={handleSubmit}>Subscribe</button>;
+}
+```
+
+This pushes directly to `window.dataLayer`, so it plays nicely with whatever triggers and tags you've already configured inside your GTM workspace.
+
+## Things worth knowing before you ship
+
+- **Content matters.** GTM doesn't enforce GDPR or cookie-consent rules on its own, that's on you to configure via Consent Mode or a CMP, especially if you're targeting EU users. Don't assume the component handles compliance.
+- **You likely don't need `@next/script` manually anymore.** If you're migrating from a hand-rolled `<script>` tag setup, the `GoogleTagManager` component replaces that boilerplate entirely, there's no need to keep both.
+- **GTM plus GA4:** if you're also using Google Analytics, the recommended pattern is to configure GA4 *inside* GTM (as a tag) rather than adding the separate `GoogleAnalytics` component from the same package. Running both independently means double-tracking pageviews.
+
+## Wrapping up
+
+The core pattern is small on purpose: one component in your root layout, one environment variable, and Next.js takes care of lading it efficiently. Everything past that, consent management, custom events, GA4 wiring, is layered on top of that same `dataLayer` GTM already gives you.

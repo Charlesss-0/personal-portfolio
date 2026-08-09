@@ -7,7 +7,6 @@ import {
 	JetBrains_Mono,
 	Space_Grotesk,
 } from "next/font/google";
-import { configData } from "@/data/config-data";
 
 const spaceGrotesk = Space_Grotesk({
 	subsets: ["latin"],
@@ -29,11 +28,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: configData.name,
-	description: configData.description,
+	title: "Carlos Aragon",
+	description:
+		"Carlos Aragon is a web developer specializing in modern frontend development, conversion optimization, and analytics. Building fast, scalable websites and web applications with Next.js, React, TypeScript, and Tailwind CSS.",
 	generator: "Next.js",
 	verification: {
-		google: configData.googleSiteVerification,
+		google: process.env.NEXT_PUBLIC_SITE_VERIFICATION,
 	},
 };
 
@@ -47,12 +47,13 @@ export default function RootLayout({
 			lang="en"
 			data-theme="lofi"
 			className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased no-scrollbar`}
+			data-scroll-behavior="smooth"
 		>
 			<body>
 				<main>{children}</main>
 			</body>
 
-			<GoogleTagManager gtmId={configData.gtmId} />
+			<GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
 		</html>
 	);
 }

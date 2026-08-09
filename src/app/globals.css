@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
 	name: "lofi";
@@ -103,4 +104,10 @@
 
 @utility btn-primary {
 	@apply hover:bg-primary/90;
+}
+
+@utility mdx-inline-code {
+	&:not(pre code)&:not(pre code) {
+		@apply bg-base-300 border-none rounded-md font-mono;
+	}
 }

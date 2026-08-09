@@ -7,13 +7,13 @@ export default function Header(): React.ReactNode {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const navItems = [
 		{ name: "Work", href: "#projects" },
-		{ name: "Blogs", href: "#" },
+		{ name: "Blog", href: "/blog" },
 	];
 
 	return (
 		<>
 			<header className="sticky top-0 z-10 flex items-center justify-between p-4 text-sm border-b md:justify-around border-base-300 backdrop-blur-md bg-base-100/80">
-				<Link className="flex items-center gap-2 font-mono" href="/">
+				<Link className="flex items-center font-mono gap-2" href="/">
 					<span className="w-2 h-2 rounded-full bg-accent" />
 					Carlos.Aragon
 				</Link>
@@ -62,7 +62,7 @@ export default function Header(): React.ReactNode {
 					isMenuOpen && "translate-0 opacity-100",
 				)}
 			>
-				<nav className="flex flex-col h-full gap-6 p-6 w-62 bg-base-100">
+				<nav className="flex flex-col h-full p-6 gap-6 w-62 bg-base-100">
 					{navItems.map((navItem, index) => (
 						<Link
 							key={index}

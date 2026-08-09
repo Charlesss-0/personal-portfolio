@@ -21,10 +21,10 @@ export default function Footer(): React.ReactNode {
 					</h2>
 				</div>
 
-				<div className="mt-4 space-y-2 text-xl md:text-2xl md:mt-6 md:space-y-4">
+				<div className="mt-4 text-xl space-y-2 md:text-2xl md:mt-6 md:space-y-4">
 					<Link
 						href="mailto:aragonaugusto24@gmail.com"
-						className="flex items-center gap-2 transition-colors cursor-pointer decoration-2 decoration-accent-content hover:text-accent"
+						className="flex items-center cursor-pointer gap-2 transition-colors decoration-2 decoration-accent-content hover:text-accent"
 					>
 						<IoIosMail />
 						<span>aragonaugusto24@gmail.com</span>
@@ -32,7 +32,7 @@ export default function Footer(): React.ReactNode {
 
 					<Link
 						href="https://github.com/Charlesss-0"
-						className="flex items-center gap-2 transition-colors cursor-pointer decoration-2 decoration-accent-content hover:text-accent"
+						className="flex items-center cursor-pointer gap-2 transition-colors decoration-2 decoration-accent-content hover:text-accent"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -42,7 +42,7 @@ export default function Footer(): React.ReactNode {
 
 					<Link
 						href="https://www.linkedin.com/in/carlosaragondev"
-						className="flex items-center gap-2 transition-colors cursor-pointer decoration-2 decoration-accent-content hover:text-accent"
+						className="flex items-center cursor-pointer gap-2 transition-colors decoration-2 decoration-accent-content hover:text-accent"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
