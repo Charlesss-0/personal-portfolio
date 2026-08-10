@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { BsArrowLeft } from "react-icons/bs";
 import rehypePrettyCode from "rehype-pretty-code";
+import { useMDXcomponents } from "@/mdx-components";
 import { getAllPosts, getPostBySlug } from "@/utils/posts";
-import { useMDXcomponents } from "../../../../mdx-components";
 
 export function generateStaticParams() {
 	return getAllPosts().map((post) => ({ slug: post.slug }));
