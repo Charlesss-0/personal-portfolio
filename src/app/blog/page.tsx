@@ -18,7 +18,7 @@ export default async function BlogPage(): Promise<React.ReactNode> {
 				{posts.map((post) => (
 					<article
 						key={post.slug}
-						className="p-4 space-y-10 transition-colors border rounded-4xl border-base-300 hover:border-accent bg-base-200"
+						className="p-4 border space-y-10 transition-colors rounded-4xl border-base-300 hover:border-accent bg-base-200"
 					>
 						<Link href={`/blog/${post.slug}`} className="group">
 							<div>
@@ -28,18 +28,20 @@ export default async function BlogPage(): Promise<React.ReactNode> {
 									{post.readingTime}
 								</span>
 
-								<h2 className="mt-1 text-xl font-semibold transition-colors group-hover:text-accent">
+								<h2 className="mt-1 text-lg font-semibold md:text-xl transition-colors group-hover:text-accent">
 									{post.title}
 								</h2>
 
-								<p className="mt-2 text-secondary">{post.description}</p>
+								<p className="my-2 text-sm md:text-base text-secondary">
+									{post.description}
+								</p>
 							</div>
 
-							<div className="flex gap-2 py-2">
+							<div className="flex flex-wrap py-2 gap-2">
 								{post.tags.map((tag) => (
 									<span
 										key={tag}
-										className="px-4 text-xs badge badge-outline text-primary"
+										className="h-full px-4 text-xs truncate badge badge-outline text-primary"
 									>
 										{tag}
 									</span>

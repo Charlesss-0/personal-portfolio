@@ -31,7 +31,7 @@ export default function CopyButton({
 				type="button"
 				onClick={handleCopy}
 				aria-label={copied ? "Copied!" : "Copy"}
-				className="absolute border-none rounded-md right-2 top-2 btn btn-ghost hover:bg-secondary"
+				className="absolute hidden border-none rounded-md right-2 top-2 btn btn-ghost hover:bg-secondary md:block"
 			>
 				{copied ? (
 					<>

@@ -58,7 +58,7 @@ export default async function PostPage({
 				</div>
 			</header>
 
-			<div className="prose md:prose-md prose-headings:font-semibold max-w-none">
+			<div className="prose md:prose-md prose-headings:font-semibold max-w-none prose-h1:text-2xl md:prose-h1:text-4xl prose-p:text-sm md:prose-p:text-base prose-p:leading-relaxed prose-h2:text-xl md:prose-h2:text-2xl prose-code:text-xs md:prose-code:text-sm">
 				<MDXRemote
 					source={post.content}
 					components={MDXComponents}
