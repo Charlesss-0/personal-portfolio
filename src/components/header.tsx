@@ -12,7 +12,7 @@ export default function Header(): React.ReactNode {
 
 	return (
 		<>
-			<header className="sticky top-0 z-10 flex items-center justify-between p-4 text-sm border-b md:justify-around border-base-300 backdrop-blur-md bg-base-100/80">
+			<header className="sticky top-0 z-10 flex items-center justify-between p-4 text-sm border-b md:justify-around border-secondary-content backdrop-blur-md bg-base-100/80">
 				<Link className="flex items-center font-mono gap-2" href="/">
 					<span className="w-2 h-2 rounded-full bg-accent" />
 					Carlos.Aragon
@@ -38,7 +38,7 @@ export default function Header(): React.ReactNode {
 
 				<button
 					type="button"
-					className="btn btn-ghost md:hidden"
+					className="btn btn-ghost p-2 h-auto md:hidden"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 					aria-expanded={isMenuOpen}
 					aria-label="Toggle menu"

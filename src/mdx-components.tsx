@@ -1,5 +1,5 @@
 import type { MDXComponents } from "mdx/types";
-import CopyButton from "@/components/ui/copy-button";
+import CopyButton from "@/components/copy-button";
 
 const components: MDXComponents = {
 	code: (props) => <code className="mdx-inline-code" {...props} />,

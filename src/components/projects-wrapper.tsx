@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectCard from "@/components/ui/project-card";
+import ProjectCard from "@/components/project-card";
 import { projects } from "@/data/projects-data";
 
 export default function ProjectsWrapper(): React.ReactNode {

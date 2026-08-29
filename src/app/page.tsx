@@ -1,11 +1,11 @@
 "use client";
 
-import About from "@/components/layout/about";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
-import Hero from "@/components/layout/hero";
-import Marquee from "@/components/layout/marquee";
-import Projects from "@/components/layout/projects-wrapper";
+import About from "@/components/about";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import Hero from "@/components/hero";
+import Marquee from "@/components/marquee";
+import Projects from "@/components/projects-wrapper";
 
 export default function Home(): React.ReactNode {
 	return (
