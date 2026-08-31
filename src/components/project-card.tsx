@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { GoArrowUpRight } from "react-icons/go";
 import TechIcon from "@/components/tech-icon";
 import type { projects } from "@/data/projects-data";
@@ -13,8 +14,12 @@ export default function ProjectCard({
 	project,
 	index,
 }: ProjectCardProps): React.ReactNode {
+	const router = useRouter();
+
 	return (
-		<div
+		<button
+			type="button"
+			onClick={() => router.push(`/project/${project.id}`)}
 			className={twMerge(
 				"border w-full card border-secondary-content md:col-span-1 hover:border-accent transition-all duration-200 ease-in-out cursor-pointer group",
 				index === 0 && "md:col-span-2",
@@ -39,11 +44,11 @@ export default function ProjectCard({
 				</div>
 
 				<div className="p-6 space-y-4 border-t border-secondary-content">
-					<h3 className="text-4xl tracking-tight transition-all duration-200 ease-in-out card-title group-hover:text-accent">
+					<h3 className="text-4xl transition-all duration-200 ease-in-out card-title group-hover:text-accent">
 						{project.name}
 					</h3>
 
-					<p className="text-sm text-secondary md:text-md">
+					<p className="text-sm text-secondary md:text-md text-start">
 						{project.description}
 					</p>
 
@@ -59,6 +64,6 @@ export default function ProjectCard({
 					</div>
 				</div>
 			</div>
-		</div>
+		</button>
 	);
 }
