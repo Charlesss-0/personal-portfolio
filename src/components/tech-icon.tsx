@@ -7,14 +7,19 @@ import {
 	SiExpress,
 	SiFigma,
 	SiFirebase,
+	SiFramer,
 	SiMongodb,
 	SiNextdotjs,
 	SiNodedotjs,
 	SiReact,
 	SiRedux,
+	SiShadcnui,
 	SiStyledcomponents,
+	SiSupabase,
 	SiTailwindcss,
+	SiTanstack,
 	SiTypescript,
+	SiVite,
 } from "react-icons/si";
 
 const brandIcons: Record<string, IconType> = {
@@ -31,6 +36,11 @@ const brandIcons: Record<string, IconType> = {
 	firebase: SiFirebase,
 	mongodb: SiMongodb,
 	axios: SiAxios,
+	"tanstack-query": SiTanstack,
+	supabase: SiSupabase,
+	vite: SiVite,
+	"shadcn-ui": SiShadcnui,
+	"framer-motion": SiFramer,
 };
 
 type TechName = keyof typeof brandIcons;

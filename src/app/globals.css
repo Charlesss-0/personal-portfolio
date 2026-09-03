@@ -7,12 +7,12 @@
 	color-scheme: "light";
 
 	--color-base-100: oklch(0.965 0.018 85);
-	--color-base-200: oklch(0.98 0.012 85);
+	--color-base-200: oklch(0.9281 0.018 85);
 	--color-base-300: oklch(0.85 0.025 70);
 	--color-base-content: oklch(0% 0 0);
 
 	--color-primary: oklch(0.19 0.02 60);
-	--color-primary-content: oklch(100% 0 0);
+	--color-primary-content: oklch(0.9756 0.003 71.32);
 
 	--color-secondary: oklch(0.42 0.03 60);
 	--color-secondary-content: oklch(0.92 0.02 85);
@@ -87,7 +87,7 @@
 }
 
 @utility card {
-	@apply bg-base-200 overflow-hidden border-base-300;
+	@apply bg-primary-content overflow-hidden border-base-300;
 }
 
 @utility card-title {
@@ -104,6 +104,10 @@
 
 @utility btn-primary {
 	@apply hover:bg-primary/90;
+}
+
+@utility btn-ghost {
+	@apply hover:text-accent border-none shadow-none hover:bg-transparent;
 }
 
 @utility mdx-inline-code {

@@ -38,7 +38,7 @@ export default function Header(): React.ReactNode {
 
 				<button
 					type="button"
-					className="btn btn-ghost p-2 h-auto md:hidden"
+					className="h-auto p-2 btn btn-ghost md:hidden"
 					onClick={() => setIsMenuOpen(!isMenuOpen)}
 					aria-expanded={isMenuOpen}
 					aria-label="Toggle menu"
