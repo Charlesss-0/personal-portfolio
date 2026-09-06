@@ -29,9 +29,10 @@ export default function ProjectCard({
 					<Image
 						src={project.img}
 						alt={project.name}
-						width={400}
-						height={400}
+						width={1000}
+						height={1000}
 						className="object-cover w-full h-64"
+						loading="lazy"
 					/>
 
 					<div className="absolute p-2 transition-all duration-200 ease-in-out border rounded-full bottom-4 right-4 bg-base-100 group-hover:bg-accent border-base-300">

@@ -29,9 +29,10 @@ export default async function ProjectPage({
 				<Image
 					src={project.img}
 					alt={project.name}
-					width={400}
-					height={400}
+					width={1920}
+					height={1080}
 					className="object-cover w-full border rounded-lg aspect-video border-secondary-content md:rounded-xl"
+					loading="eager"
 				/>
 
 				<p className="text-md text-secondary md:text-xl">

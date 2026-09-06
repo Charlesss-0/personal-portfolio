@@ -29,7 +29,7 @@ const projects = [
 		],
 		description:
 			"A full-featured personal finance tracker built to manage day-to-day money across multiple accounts and currencies. Users can log debit, credit, cash, and savings accounts, categorize income and expenses with custom color-coded tags, and track recurring bills on weekly, biweekly, monthly, or yearly schedules. Debts are tracked individually, creditor, balance, monthly payment, due date,with visual progress toward payoff. Because USD and NIO transactions coexist in the same household, the app auto-fetches exchange rates (with manual override) so the net worth dashboard reflects true totals in one currency, not an assortment of unconverted balances.",
-		img: "/images/trackwise.webp",
+		img: "/images/trackwise.png",
 		stack: [
 			"nextjs",
 			"react",
@@ -67,7 +67,7 @@ const projects = [
 		],
 		description:
 			"A Chrome extension (Manifest V3) that automatically detects JSON responses and replaces the browser's default view with a feature-rich inspector — tree, raw, and table views, search, ten themes, and smart value detection.",
-		img: "/images/payload.webp",
+		img: "/images/payload.png",
 		stack: ["react", "typescript", "vite", "tailwindcss"],
 		githubUrl: "https://github.com/Charlesss-0/payload",
 		btnText: "View Project",
@@ -98,7 +98,7 @@ const projects = [
 		],
 		description:
 			"A real-time multiplayer party game about deception and deduction: each round one player is secretly the Impostor and must blend in without knowing the word. Mobile-optimized, installable as a PWA, with a fully Spanish UI.",
-		img: "/images/impostor-game.webp",
+		img: "/images/word-impostor.png",
 		stack: ["nextjs", "react", "typescript", "supabase", "tailwindcss"],
 		githubUrl: "https://github.com/Charlesss-0/impostor-game",
 		btnText: "View Project",
@@ -129,7 +129,7 @@ const projects = [
 		],
 		description:
 			"A modern marketing website for a dental clinic in Managua, Nicaragua, with a services grid, dynamic service detail pages, WhatsApp booking CTAs with GTM tracking, and full Spanish-language SEO.",
-		img: "/images/blossom-dental.webp",
+		img: "/images/blossom-dental.png",
 		stack: [
 			"nextjs",
 			"react",
