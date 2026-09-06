@@ -29,8 +29,8 @@ export default function ProjectCard({
 					<Image
 						src={project.img}
 						alt={project.name}
-						width={1000}
-						height={1000}
+						height={720}
+						width={1280}
 						className="object-cover w-full h-64"
 						loading="lazy"
 					/>

@@ -42,68 +42,6 @@ const projects = [
 		btnText: "View Project",
 	},
 	{
-		id: "payload",
-		name: "Payload",
-		tagline: "Turn raw JSON into something readable.",
-		overview:
-			"Payload is a Chrome extension that replaces the browser's default plain-text JSON view with a proper inspector, tree, raw, and table views, smart value detection, and ten themes. It came out of the daily annoyance of squinting at unformatted API responses while debugging, and the goal was something that felt native to DevTools rather than bolted on.",
-		approach: [
-			{
-				step: "01",
-				text: "Built as a Manifest V3 Chrome extension with React 19 and TypeScript, using Vite and CRXjs for a fast dev/build loop.",
-			},
-			{
-				step: "02",
-				text: "Detected JSON responses in the page body and mounted the inspector inside a Shadow DOM, so its styles never leak into or clash with the host page.",
-			},
-			{
-				step: "03",
-				text: "Built three view modes — an expandable tree, a syntax-highlighted raw view, and a sortable table view with smart suggestion for uniform arrays.",
-			},
-			{
-				step: "04",
-				text: "Added smart value detection (dates with relative-time tooltips, clickable URLs, hex color swatches) and persisted theme and view preferences to chrome.storage.local.",
-			},
-		],
-		description:
-			"A Chrome extension (Manifest V3) that automatically detects JSON responses and replaces the browser's default view with a feature-rich inspector — tree, raw, and table views, search, ten themes, and smart value detection.",
-		img: "/images/payload.png",
-		stack: ["react", "typescript", "vite", "tailwindcss"],
-		githubUrl: "https://github.com/Charlesss-0/payload",
-		btnText: "View Project",
-	},
-	{
-		id: "impostor-game",
-		name: "Word Impostor",
-		tagline: "One player doesn't know the word. Find them.",
-		overview:
-			"Word Impostor is a real-time multiplayer party game where one player secretly doesn't know the round's word and has to bluff their way through description and voting. Built mobile-first as an installable PWA with a Spanish-language UI, it needed low-latency state sync across every player's phone in the same room, with zero accounts, since party games die the moment you ask people to sign up.",
-		approach: [
-			{
-				step: "01",
-				text: "Built on Next.js 16 App Router with Supabase Realtime subscriptions to sync distribution, discussion, voting, and reveal phases live across all connected players.",
-			},
-			{
-				step: "02",
-				text: "Skipped authentication entirely — player identity is tracked via a UUID in localStorage, and host duties auto-reassign if the original host leaves.",
-			},
-			{
-				step: "03",
-				text: "Implemented a timed round structure (distribution, discussion, voting, reveal) with configurable durations and scoring, driven by shared game-state hooks.",
-			},
-			{
-				step: "04",
-				text: "Shipped it as a PWA with a service worker and offline cache strategy, plus a dark, glassmorphism mobile UI, so it installs and feels like a native app at the table.",
-			},
-		],
-		description:
-			"A real-time multiplayer party game about deception and deduction: each round one player is secretly the Impostor and must blend in without knowing the word. Mobile-optimized, installable as a PWA, with a fully Spanish UI.",
-		img: "/images/word-impostor.png",
-		stack: ["nextjs", "react", "typescript", "supabase", "tailwindcss"],
-		githubUrl: "https://github.com/Charlesss-0/impostor-game",
-		btnText: "View Project",
-	},
-	{
 		id: "blossom-dental",
 		name: "Blossom Dental",
 		tagline: "A clinic website built to convert visits into appointments.",
@@ -139,6 +77,68 @@ const projects = [
 			"shadcn-ui",
 		],
 		githubUrl: "https://github.com/Charlesss-0/blossom-dental",
+		btnText: "View Project",
+	},
+	{
+		id: "impostor-game",
+		name: "Word Impostor",
+		tagline: "One player doesn't know the word. Find them.",
+		overview:
+			"Word Impostor is a real-time multiplayer party game where one player secretly doesn't know the round's word and has to bluff their way through description and voting. Built mobile-first as an installable PWA with a Spanish-language UI, it needed low-latency state sync across every player's phone in the same room, with zero accounts, since party games die the moment you ask people to sign up.",
+		approach: [
+			{
+				step: "01",
+				text: "Built on Next.js 16 App Router with Supabase Realtime subscriptions to sync distribution, discussion, voting, and reveal phases live across all connected players.",
+			},
+			{
+				step: "02",
+				text: "Skipped authentication entirely — player identity is tracked via a UUID in localStorage, and host duties auto-reassign if the original host leaves.",
+			},
+			{
+				step: "03",
+				text: "Implemented a timed round structure (distribution, discussion, voting, reveal) with configurable durations and scoring, driven by shared game-state hooks.",
+			},
+			{
+				step: "04",
+				text: "Shipped it as a PWA with a service worker and offline cache strategy, plus a dark, glassmorphism mobile UI, so it installs and feels like a native app at the table.",
+			},
+		],
+		description:
+			"A real-time multiplayer party game about deception and deduction: each round one player is secretly the Impostor and must blend in without knowing the word. Mobile-optimized, installable as a PWA, with a fully Spanish UI.",
+		img: "/images/word-impostor.png",
+		stack: ["nextjs", "react", "typescript", "supabase", "tailwindcss"],
+		githubUrl: "https://github.com/Charlesss-0/impostor-game",
+		btnText: "View Project",
+	},
+	{
+		id: "payload",
+		name: "Payload",
+		tagline: "Turn raw JSON into something readable.",
+		overview:
+			"Payload is a Chrome extension that replaces the browser's default plain-text JSON view with a proper inspector, tree, raw, and table views, smart value detection, and ten themes. It came out of the daily annoyance of squinting at unformatted API responses while debugging, and the goal was something that felt native to DevTools rather than bolted on.",
+		approach: [
+			{
+				step: "01",
+				text: "Built as a Manifest V3 Chrome extension with React 19 and TypeScript, using Vite and CRXjs for a fast dev/build loop.",
+			},
+			{
+				step: "02",
+				text: "Detected JSON responses in the page body and mounted the inspector inside a Shadow DOM, so its styles never leak into or clash with the host page.",
+			},
+			{
+				step: "03",
+				text: "Built three view modes — an expandable tree, a syntax-highlighted raw view, and a sortable table view with smart suggestion for uniform arrays.",
+			},
+			{
+				step: "04",
+				text: "Added smart value detection (dates with relative-time tooltips, clickable URLs, hex color swatches) and persisted theme and view preferences to chrome.storage.local.",
+			},
+		],
+		description:
+			"A Chrome extension (Manifest V3) that automatically detects JSON responses and replaces the browser's default view with a feature-rich inspector — tree, raw, and table views, search, ten themes, and smart value detection.",
+		img: "/images/payload.png",
+		stack: ["react", "typescript", "vite", "tailwindcss"],
+		githubUrl: "https://github.com/Charlesss-0/payload",
 		btnText: "View Project",
 	},
 	{
