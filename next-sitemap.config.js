@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-	siteUrl: process.env.SITE_URL || "https://carlosaragondev.vercel.app",
+	siteUrl: process.env.SITE_URL || "https://carlosaragon.dev",
 	generateRobotsTxt: true,
 	generateIndexSitemap: false,
 	transform: async (_, loc) => {
