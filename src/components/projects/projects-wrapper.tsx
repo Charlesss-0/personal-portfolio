@@ -1,9 +1,9 @@
-"use client";
+import ProjectCard from "@/components/projects/project-card";
+import { getFeaturedProjects } from "@/lib/projects";
 
-import ProjectCard from "@/components/project-card";
-import { projects } from "@/data/projects-data";
+export default async function ProjectsWrapper(): Promise<React.ReactNode> {
+	const featuredProjects = await getFeaturedProjects();
 
-export default function ProjectsWrapper(): React.ReactNode {
 	return (
 		<div id="projects" className="flex justify-center mb-12 md:mb-0">
 			<div className="w-full max-w-6xl px-4 md:space-y-16 md:py-24">
@@ -12,8 +12,8 @@ export default function ProjectsWrapper(): React.ReactNode {
 				</h2>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-					{projects.map((project, index) => (
-						<ProjectCard key={project.id} project={project} index={index} />
+					{featuredProjects.map((project, index) => (
+						<ProjectCard key={project.slug} project={project} index={index} />
 					))}
 				</div>
 			</div>

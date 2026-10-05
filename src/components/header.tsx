@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import twMerge from "@/utils/tw-merge";
+import twMerge from "@/lib/tw-merge";
 
 export default function Header(): React.ReactNode {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);

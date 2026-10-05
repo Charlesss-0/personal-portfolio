@@ -38,3 +38,6 @@ next-env.d.ts
 
 # temp local
 TODO.md
+
+#generated
+gql
