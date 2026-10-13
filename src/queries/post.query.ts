@@ -10,6 +10,7 @@ export const PostBySlugQuery = graphql(`
             content
             date
             modified
+            readingTime
             featuredImage {
                 node {
                     sourceUrl

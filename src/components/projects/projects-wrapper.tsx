@@ -1,8 +1,8 @@
 import ProjectCard from "@/components/projects/project-card";
-import { getFeaturedProjects } from "@/lib/projects";
+import { getFeaturedProjects } from "@/lib/project";
 
 export default async function ProjectsWrapper(): Promise<React.ReactNode> {
-	const featuredProjects = await getFeaturedProjects();
+	const featuredProjects = await getFeaturedProjects(Infinity);
 
 	return (
 		<div id="projects" className="flex justify-center mb-12 md:mb-0">
@@ -13,7 +13,7 @@ export default async function ProjectsWrapper(): Promise<React.ReactNode> {
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 					{featuredProjects.map((project, index) => (
-						<ProjectCard key={project.slug} project={project} index={index} />
+						<ProjectCard key={project.id} project={project} index={index} />
 					))}
 				</div>
 			</div>

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
-import type { Project } from "@/lib/projects";
+import type { Project } from "@/lib/project";
 import twMerge from "@/lib/tw-merge";
 
 export default function ProjectCard({
@@ -13,14 +13,9 @@ export default function ProjectCard({
 	project: Project;
 	index: number;
 }): React.ReactNode {
-	const router = useRouter();
-	const image = project.featuredImage?.node;
-	const details = project.projectDetails;
-
 	return (
-		<button
-			type="button"
-			onClick={() => router.push(`/projects/${project.slug}`)}
+		<Link
+			href={`/projects/${project.slug}`}
 			className={twMerge(
 				"border w-full card border-secondary-content md:col-span-1 hover:border-accent transition-all duration-200 ease-in-out cursor-pointer group",
 				(index === 0 || index === 1) && "md:col-span-2",
@@ -28,11 +23,13 @@ export default function ProjectCard({
 		>
 			<div className="gap-0 card-body">
 				<div className="relative w-full">
-					{image?.sourceUrl && (
+					{project.img && (
 						<Image
-							src={image?.sourceUrl ?? ""}
-							alt={image?.altText ?? ""}
-							fill
+							src={project.img}
+							alt={project.imgAlt}
+							width={1920}
+							height={1080}
+							draggable={false}
 							className="object-cover w-full h-64"
 							loading="lazy"
 						/>
@@ -48,14 +45,14 @@ export default function ProjectCard({
 
 				<div className="p-6 space-y-4 border-t border-secondary-content">
 					<h3 className="text-4xl transition-all duration-200 ease-in-out card-title group-hover:text-accent">
-						{project.title}
+						{project.name}
 					</h3>
 
 					<p className="text-sm text-secondary md:text-md text-start">
-						{details?.summary}
+						{project.overview}
 					</p>
 				</div>
 			</div>
-		</button>
+		</Link>
 	);
 }

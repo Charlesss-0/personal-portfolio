@@ -7,7 +7,7 @@ export const ProjectsQuery = graphql(`
 			where: {
 				orderby: [
 					{ field: MENU_ORDER, order: ASC }
-					{ field: DATE, order: DESC }
+					{ field: DATE, order: ASC }
 				]
 			}
 		) {
@@ -18,24 +18,21 @@ export const ProjectsQuery = graphql(`
 					node {
 						sourceUrl
 						altText
-						mediaDetails {
-							width
-							height
-						}
 					}
 				}
 				technologies {
 					nodes {
-						name
 						slug
 					}
 				}
 				projectDetails {
-					summary
-					role
-					year
-					liveUrl
-					repoUrl
+					tagline
+					overview
+					description
+					approach
+					url
+					githubUrl
+					btnText
 					featured
 				}
 			}
@@ -58,29 +55,25 @@ export const ProjectBySlugQuery = graphql(`
 		project(id: $slug, idType: SLUG) {
 			title
 			slug
-			content
 			featuredImage {
 				node {
 					sourceUrl
 					altText
-					mediaDetails {
-						width
-						height
-					}
 				}
 			}
 			technologies {
 				nodes {
-					name
 					slug
 				}
 			}
 			projectDetails {
-				summary
-				role
-				year
-				liveUrl
-				repoUrl
+				tagline
+				overview
+				description
+				approach
+				url
+				githubUrl
+				btnText
 				featured
 			}
 		}

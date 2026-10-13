@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import TechIcon from "@/components/tech-icon";
-import { getProjectBySlug, getProjectSlugs } from "@/lib/projects";
+import { getProjectBySlug, getProjectSlugs } from "@/lib/project";
+import twMerge from "@/lib/tw-merge";
 
 const getProject = cache(getProjectBySlug);
 
@@ -24,11 +25,11 @@ export async function generateMetadata({
 	const project = await getProject(slug);
 	if (!project) return notFound();
 
-	const image = project.featuredImage?.node.sourceUrl;
+	const image = project.img;
 
 	return {
-		title: project.title,
-		description: project.projectDetails?.summary ?? undefined,
+		title: project.name,
+		description: project.overview ?? undefined,
 		openGraph: { images: image ? [image] : [] },
 	};
 }
@@ -42,11 +43,6 @@ export default async function ProjectPage({
 	const project = await getProject(slug);
 	if (!project) return notFound();
 
-	const details = project.projectDetails;
-	const image = project.featuredImage?.node;
-	const repoUrl = details?.repoUrl;
-	const technologies = project.technologies.nodes;
-
 	return (
 		<div className="space-y-12">
 			<div className="w-full max-w-6xl px-6 py-8 mx-auto space-y-12">
@@ -56,28 +52,31 @@ export default async function ProjectPage({
 						Go back
 					</Link>
 
-					<h1 className="font-serif text-3xl md:text-5xl">{project.title}</h1>
+					<h1 className="font-serif text-3xl md:text-5xl">{project.name}</h1>
 				</div>
 
-				{image?.sourceUrl && (
+				{project.img && (
 					<Image
-						src={image.sourceUrl}
-						alt={image.altText}
-						width={image?.mediaDetails?.width}
-						height={image?.mediaDetails?.height}
+						src={project.img}
+						alt={project.imgAlt}
+						width={1920}
+						height={1080}
+						draggable={false}
 						className="object-cover w-full border rounded-lg aspect-video border-secondary-content md:rounded-xl"
 						loading="eager"
 					/>
 				)}
 
-				<p className="text-md text-secondary md:text-xl">{details?.summary}</p>
+				<p className="text-md text-secondary md:text-xl">
+					{project.description}
+				</p>
 			</div>
 
 			<div className="w-full bg-base-200 border-y border-base-300">
 				<div className="flex flex-col items-center justify-between w-full max-w-6xl px-6 pt-12 pb-8 mx-auto md:flex-row md:py-0">
 					<h2 className="mb-10 font-serif text-4xl md:mb-0">Approach</h2>
 
-					{/* <div className="w-full max-w-4xl pr-8">
+					<div className="w-full max-w-4xl pr-8">
 						{project.approach.map((step, index) => (
 							<div key={step.step}>
 								<div className="flex items-start justify-start gap-4 px-4 py-8">
@@ -93,7 +92,7 @@ export default async function ProjectPage({
 								)}
 							</div>
 						))}
-					</div> */}
+					</div>
 				</div>
 			</div>
 
@@ -101,13 +100,13 @@ export default async function ProjectPage({
 				<div className="flex gap-14 md:gap-16 marquee-track whitespace-nowrap">
 					{Array.from({ length: 10 }).map((_, i) => (
 						<div key={i} className="flex gap-14 md:gap-16">
-							{technologies.map((stack, index) => (
+							{project.stack.map((stack, index) => (
 								<div key={index} className="flex items-center gap-14 md:gap-16">
 									<span className="flex items-center gap-4">
-										<TechIcon name={stack.name} className="size-6 md:size-10" />
+										<TechIcon name={stack} className="size-6 md:size-10" />
 
 										<span className="text-xl md:text-3xl">
-											{stack.name.split("-").join(" ")}
+											{stack.split("-").join(" ")}
 										</span>
 									</span>
 
@@ -119,9 +118,26 @@ export default async function ProjectPage({
 				</div>
 			</div>
 
-			<div className="flex justify-end w-full max-w-6xl px-6 mx-auto mt-10 mb-20">
+			<div
+				className={twMerge(
+					"flex justify-between w-full max-w-6xl px-6 mx-auto mt-10 mb-20",
+					!project.url?.includes(slug) && "justify-end",
+				)}
+			>
+				{project.url?.includes(slug) && (
+					<Link
+						href={project.url ?? ""}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="btn btn-soft btn-sm md:btn-md"
+					>
+						View Live
+						<GoArrowRight size={16} className="ml-2" />
+					</Link>
+				)}
+
 				<Link
-					href={repoUrl ?? ""}
+					href={project.githubUrl ?? ""}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="btn btn-soft btn-sm md:btn-md"

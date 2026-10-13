@@ -1,5 +1,5 @@
 import ProjectCard from "@/components/projects/project-card";
-import { getProjects } from "@/lib/projects";
+import { getProjects } from "@/lib/project";
 
 export default async function ProjectsPage() {
 	const projects = await getProjects();
@@ -15,7 +15,7 @@ export default async function ProjectsPage() {
 			) : (
 				<ul className="grid gap-10 mt-10 md:grid-cols-2">
 					{projects.map((project, index) => (
-						<li key={project.slug}>
+						<li key={project.url}>
 							<ProjectCard key={index} project={project} index={index} />
 						</li>
 					))}
