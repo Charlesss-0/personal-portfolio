@@ -11,6 +11,14 @@ export const PostBySlugQuery = graphql(`
             date
             modified
             readingTime
+            description {
+                description
+            }
+            tags {
+                nodes {
+                    slug
+                }
+            }            
             featuredImage {
                 node {
                     sourceUrl
@@ -21,6 +29,16 @@ export const PostBySlugQuery = graphql(`
     }    
 `);
 
+export const PostSlugsQuery = graphql(`
+    query PostSlugs {
+        posts(first: 100) {
+            nodes {
+                slug
+            }
+        }
+    }
+`);
+
 export const AllPostsQuery = graphql(`
     query AllPosts {
         posts {
@@ -28,12 +46,21 @@ export const AllPostsQuery = graphql(`
                 id
                 title
                 excerpt
+                content
                 date
                 slug
                 modified
+                readingTime
+                description {
+                    description
+                }
+                tags {
+                    nodes {
+                        slug
+                    }
+                }
                 featuredImage {
                     node {
-                        id
                         sourceUrl
                         altText
                     }

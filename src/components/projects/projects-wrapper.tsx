@@ -1,5 +1,5 @@
 import ProjectCard from "@/components/projects/project-card";
-import { getFeaturedProjects } from "@/lib/project";
+import { getFeaturedProjects } from "@/lib/projects";
 
 export default async function ProjectsWrapper(): Promise<React.ReactNode> {
 	const featuredProjects = await getFeaturedProjects(Infinity);

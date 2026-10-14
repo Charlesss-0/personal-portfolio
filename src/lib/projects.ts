@@ -4,7 +4,7 @@ import {
 	ProjectBySlugQuery,
 	ProjectSlugsQuery,
 	ProjectsQuery,
-} from "@/queries/project.query";
+} from "@/lib/queries/project.query";
 
 type RawProject = NonNullable<
 	NonNullable<ProjectsResult["projects"]>["nodes"][number]
@@ -70,6 +70,7 @@ export async function getFeaturedProjects(limit = 3): Promise<Project[]> {
 
 export async function getProjectSlugs(): Promise<string[]> {
 	const data = await graphqlFetch(ProjectSlugsQuery);
+
 	return (data.projects?.nodes ?? []).flatMap((node) =>
 		node.slug ? [node.slug] : [],
 	);

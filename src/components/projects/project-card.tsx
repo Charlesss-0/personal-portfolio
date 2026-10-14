@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
-import type { Project } from "@/lib/project";
-import twMerge from "@/lib/tw-merge";
+import type { Project } from "@/lib/projects";
+import twMerge from "@/utils/tw-merge";
 
 export default function ProjectCard({
 	project,

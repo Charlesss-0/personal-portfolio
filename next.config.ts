@@ -1,4 +1,3 @@
-import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const wp = new URL(process.env.WORDPRESS_GRAPHQL_URL as string);
@@ -20,6 +19,4 @@ const nextConfig: NextConfig = {
 	},
 };
 
-const withMDX = createMDX({});
-
-export default withMDX(nextConfig);
+export default nextConfig;

@@ -1,12 +1,42 @@
-/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: WPGraphQl */
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: WordPress managed content */
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import graphqlFetch from "@/lib/graphql-fetch";
-import { sanitizeContent } from "@/lib/sanitize-content";
-import { PostBySlugQuery } from "@/queries/post.query";
+import { getPostBySlug, getPostsSlugs } from "@/lib/posts";
 import { formatDate } from "@/utils/format-date";
+import { sanitizeContent } from "@/utils/sanitize-content";
+
+const getPost = cache(getPostBySlug);
+
+export async function generateStaticParams() {
+	const slugs = await getPostsSlugs();
+
+	return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+	const { slug } = await params;
+	const post = await getPost(slug);
+	if (!post) return notFound();
+
+	return {
+		title: post.title,
+		description: post.description,
+		openGraph: {
+			title: post.title,
+			description: post.description,
+			type: "article",
+			publishedTime: post.date,
+		},
+	};
+}
 
 export default async function PostPage({
 	params,
@@ -14,15 +44,14 @@ export default async function PostPage({
 	params: Promise<{ slug: string }>;
 }) {
 	const { slug } = await params;
-	const data = await graphqlFetch(PostBySlugQuery, { slug });
-	const post = data?.post;
+	const post = await getPost(slug);
 
 	if (!post) notFound();
 
 	return (
 		<article className="w-full max-w-6xl px-4 py-16 mx-auto">
 			<header className="flex items-center justify-between mb-12 md:mb-18">
-				<Link href="/blog" className="btn btn-ghost">
+				<Link href="/posts" className="btn btn-ghost">
 					<BsArrowLeft size={24} />
 					Back to blog
 				</Link>

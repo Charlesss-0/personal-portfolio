@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import twMerge from "@/lib/tw-merge";
+import twMerge from "@/utils/tw-merge";
 
 export default function Header(): React.ReactNode {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const navItems = [
 		{ name: "Work", href: "#projects" },
-		{ name: "Blog", href: "/blog" },
+		{ name: "Posts", href: "/posts" },
 	];
 
 	return (

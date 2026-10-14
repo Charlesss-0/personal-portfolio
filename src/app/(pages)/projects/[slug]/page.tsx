@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import TechIcon from "@/components/tech-icon";
-import { getProjectBySlug, getProjectSlugs } from "@/lib/project";
-import twMerge from "@/lib/tw-merge";
+import { getProjectBySlug, getProjectSlugs } from "@/lib/projects";
+import twMerge from "@/utils/tw-merge";
 
 const getProject = cache(getProjectBySlug);
 
