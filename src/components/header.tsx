@@ -9,7 +9,7 @@ export default function Header(): React.ReactNode {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const navItems = [
 		{ name: "Work", href: "#projects" },
-		{ name: "Posts", href: "/posts" },
+		{ name: "Blog", href: "/blog" },
 	];
 
 	return (

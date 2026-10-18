@@ -1,19 +1,22 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: WordPress managed content */
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { LuClipboard, LuClipboardCheck } from "react-icons/lu";
+import twMerge from "@/utils/tw-merge";
 
 export default function CopyButton({
-	children,
+	text,
+	html,
+	className,
 }: {
-	children: React.ReactNode;
+	text: string;
+	html: string;
+	className?: string;
 }): React.ReactNode {
 	const [copied, setCopied] = useState(false);
-	const preRef = useRef<HTMLPreElement>(null);
 
 	async function handleCopy() {
-		const text = preRef.current?.textContent ?? "";
-
 		try {
 			await navigator.clipboard.writeText(text);
 			setCopied(true);
@@ -23,15 +26,19 @@ export default function CopyButton({
 
 	return (
 		<div className="relative">
-			<pre ref={preRef} className="p-4">
-				{children}
-			</pre>
+			<div
+				className={twMerge(
+					className,
+					"[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:text-sm",
+				)}
+				dangerouslySetInnerHTML={{ __html: html }}
+			/>
 
 			<button
 				type="button"
 				onClick={handleCopy}
 				aria-label={copied ? "Copied!" : "Copy"}
-				className="absolute hidden border-none rounded-md right-2 top-2 btn btn-ghost hover:bg-secondary md:block"
+				className="hidden absolute border-none rounded-md right-2 top-2 btn btn-ghost hover:bg-white/10 md:inline-block"
 			>
 				{copied ? (
 					<>

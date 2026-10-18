@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import { formatDate } from "@/utils/format-date";
 
-export default async function PostsPage(): Promise<React.ReactNode> {
+export default async function BlogPage(): Promise<React.ReactNode> {
 	const posts = await getAllPosts();
 
 	return (
@@ -15,7 +15,7 @@ export default async function PostsPage(): Promise<React.ReactNode> {
 						key={post.slug}
 						className="p-4 border space-y-10 transition-colors rounded-4xl border-base-300 hover:border-accent bg-primary-content"
 					>
-						<Link href={`/posts/${post.slug}`} className="group">
+						<Link href={`/blog/${post.slug}`} className="group">
 							<div>
 								<time className="text-sm text-primary">
 									{formatDate(post.date)}
