@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import { formatDate } from "@/utils/format-date";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "Blog",
+		description: "Blog posts by Carlos Aragon",
+		openGraph: {
+			title: "Blog",
+			description: "Blog posts by Carlos Aragon",
+			type: "website",
+		},
+	};
+}
 
 export default async function BlogPage(): Promise<React.ReactNode> {
 	const posts = await getAllPosts();

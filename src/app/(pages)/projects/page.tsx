@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import ProjectCard from "@/components/projects/project-card";
 import { getProjects } from "@/lib/projects";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: "Projects",
+		description: "Recent projects by Carlos Aragon",
+		openGraph: {
+			title: "Projects",
+			description: "Recent projects by Carlos Aragon",
+			type: "website",
+		},
+	};
+}
 
 export default async function ProjectsPage() {
 	const projects = await getProjects();
