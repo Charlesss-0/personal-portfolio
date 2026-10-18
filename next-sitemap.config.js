@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-	siteUrl: process.env.SITE_URL || "https://carlosaragondev.vercel.app",
+	siteUrl: process.env.SITE_URL || "https://carlosaragon.dev",
 	generateRobotsTxt: true,
 	generateIndexSitemap: false,
 	transform: async (_, loc) => {
@@ -10,11 +10,11 @@ const config = {
 			return { loc, changefreq: "daily", priority: 1, lastmod };
 		}
 
-		if (loc === "/posts") {
+		if (loc === "/blog") {
 			return { loc, changefreq: "daily", priority: 0.9, lastmod };
 		}
 
-		if (loc.startsWith("/posts/")) {
+		if (loc.startsWith("/blog")) {
 			return { loc, changefreq: "weekly", priority: 0.8, lastmod };
 		}
 

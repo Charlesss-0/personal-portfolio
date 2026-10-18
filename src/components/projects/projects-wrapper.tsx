@@ -2,7 +2,7 @@ import ProjectCard from "@/components/projects/project-card";
 import { getFeaturedProjects } from "@/lib/projects";
 
 export default async function ProjectsWrapper(): Promise<React.ReactNode> {
-	const featuredProjects = await getFeaturedProjects(Infinity);
+	const featuredProjects = await getFeaturedProjects();
 
 	return (
 		<div id="projects" className="flex justify-center mb-12 md:mb-0">

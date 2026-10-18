@@ -62,7 +62,7 @@ export async function getProjects(): Promise<Project[]> {
 	return featuredFirst(projects);
 }
 
-export async function getFeaturedProjects(limit = 3): Promise<Project[]> {
+export async function getFeaturedProjects(limit = 4): Promise<Project[]> {
 	const projects = await getProjects();
 
 	return projects.filter((project) => project.featured).slice(0, limit);

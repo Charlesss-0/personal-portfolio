@@ -31,7 +31,7 @@ export default function ProjectCard({
 							height={1080}
 							draggable={false}
 							className="object-cover w-full h-64"
-							loading="lazy"
+							loading="eager"
 						/>
 					)}
 

@@ -6,7 +6,7 @@ export default async function ProjectsPage() {
 
 	return (
 		<section className="w-full max-w-6xl px-4 py-16 mx-auto">
-			<h1 className="text-2xl font-semibold md:text-4xl">Projects</h1>
+			<h1 className="text-2xl font-semibold md:text-4xl">Recent Projects</h1>
 
 			{projects.length === 0 ? (
 				<p className="mt-10 text-neutral-500">
@@ -15,8 +15,8 @@ export default async function ProjectsPage() {
 			) : (
 				<ul className="grid gap-10 mt-10 md:grid-cols-2">
 					{projects.map((project, index) => (
-						<li key={project.url}>
-							<ProjectCard key={index} project={project} index={index} />
+						<li key={project.id}>
+							<ProjectCard project={project} index={index} />
 						</li>
 					))}
 				</ul>

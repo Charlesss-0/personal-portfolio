@@ -8,7 +8,7 @@ import twMerge from "@/utils/tw-merge";
 export default function Header(): React.ReactNode {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const navItems = [
-		{ name: "Work", href: "#projects" },
+		{ name: "Work", href: "/projects" },
 		{ name: "Blog", href: "/blog" },
 	];
 

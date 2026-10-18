@@ -47,7 +47,7 @@ export default async function ProjectPage({
 		<div className="space-y-12">
 			<div className="w-full max-w-6xl px-6 py-8 mx-auto space-y-12">
 				<div className="flex items-center justify-between pb-4 border-b border-base-300">
-					<Link href="/" className="text-lg btn btn-ghost md:text-xl">
+					<Link href="/projects" className="text-lg btn btn-ghost md:text-xl">
 						<GoArrowLeft className="mr-4 size-6 md:size-7" />
 						Go back
 					</Link>

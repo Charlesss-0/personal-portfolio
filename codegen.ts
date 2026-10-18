@@ -13,7 +13,7 @@ const config: CodegenConfig = {
 			},
 		},
 	},
-	documents: ["src/**/*.{ts,tsx}"],
+	documents: ["src/**/*.{ts,tsx}", "!src/gql/**/*"],
 	ignoreNoDocuments: true,
 	generates: {
 		"src/gql/": {
